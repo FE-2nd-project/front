@@ -1,18 +1,42 @@
 /* ImageSlider.css */
 
 .image-slider-container {
-  width: 80%; /* 슬라이더의 너비를 조절합니다 */
-  margin: 0 auto; /* 슬라이더를 중앙에 배치합니다 */
-  align-items: center;
+  position: relative;
+  width: 60%;
 }
 
 .slide {
-  text-align: center; /* 슬라이드를 가운데 정렬합니다 */
+  position: relative;
 }
 
 .slide img {
-  max-width: 100%; /* 이미지를 슬라이더 너비에 맞춥니다 */
-  height: auto; /* 이미지 비율을 유지합니다 */
-  display: block; /* 이미지를 블록 요소로 설정하여 좌우 중앙 정렬을 쉽게 합니다 */
-  margin: 0 auto; /* 이미지를 수평으로 중앙 정렬합니다 */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.347);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
+
+.slider-button-icon {
+  width: 30px;
+  height: 30px;
+  color: white;
 }

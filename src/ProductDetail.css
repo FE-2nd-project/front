@@ -1,0 +1,30 @@
+.product-root {
+  display: flex;
+  flex-wrap: nowrap; /* 한 줄에 모든 요소를 표시 */
+  margin: 10px 50px;
+}
+
+.product-container {
+  flex: 1; /* 남은 공간을 차지하도록 설정합니다 */
+  padding: 20px;
+  background-color: rgb(255, 199, 199);
+  overflow: hidden;
+  position: relative;
+}
+
+.product-root .product-container {
+  max-width: calc(100% - 400px); /* 최대 너비를 설정합니다 */
+  margin-left: 20px;
+}
+
+.product-best {
+  position: absolute; /* 절대 위치 지정 */
+  top: 0; /* 상단으로 위치 지정 */
+  left: 0; /* 왼쪽으로 위치 지정 */
+}
+
+.product-best-text {
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: #f0f0f0;
+}
