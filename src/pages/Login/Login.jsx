@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 
 import "./Login.css";
@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <>
       <NavBar />
@@ -25,7 +27,14 @@ const Login = () => {
             <input
               className="password-input"
               placeholder="비밀번호를 입력해 주세요"
+              type={showPassword ? "text" : "password"}
               required
+            />
+            <img
+              src="show-password.png"
+              className="show-password-icon"
+              alt="show-password"
+              onClick={() => setShowPassword((prev) => !prev)}
             />
           </div>
           <button className="login-button">로그인</button>
