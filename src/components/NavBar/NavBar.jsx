@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./NavBar.css";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [isLoggedOutPopupOpen, setIsLoggedOutPopupOpen] = useState(false);
   const [isLoggedInPopupOpen, setIsLoggedInPopupOpen] = useState(false);
 
@@ -17,7 +19,12 @@ const NavBar = () => {
   return (
     <div className="navbar-container">
       <div className="nav-top">
-        <img className="mlb-icon" src="MLB-logo.png" alt="MLB-logo" />
+        <img
+          className="mlb-icon"
+          src="MLB-logo.png"
+          alt="MLB-logo"
+          onClick={() => navigate("/")}
+        />
         <div className="top-right-icons">
           <img
             className="right-search-icon"
@@ -33,7 +40,9 @@ const NavBar = () => {
           />
           {isLoggedOutPopupOpen && (
             <div className="loggedout-popup">
-              <div className="signup">회원가입</div>
+              <div className="signup" onClick={() => navigate("/signup")}>
+                회원가입
+              </div>
               <div className="login">LOG IN</div>
             </div>
           )}
