@@ -16,13 +16,23 @@ const Signup = () => {
         <form className="signup-form">
           <div className="email-container">
             <label className="email-label">이메일</label>
-            <input className="email" type="email" required></input>
+            <input
+              className="email"
+              type="email"
+              placeholder="이메일을 입력해주세요"
+              required
+            ></input>
           </div>
           <div className="password-container">
             <label className="password-label">
-              비밀번호 <span className="password-span">(6글자 이상)</span>
+              비밀번호 <span className="password-span">(6자리 이상)</span>
             </label>
-            <input className="password" type="password" required></input>
+            <input
+              className="password"
+              type="password"
+              placeholder="비밀번호 6자리 이상 입력해주세요"
+              required
+            ></input>
           </div>
           <div className="password-check-container">
             <label className="password-check-label">비밀번호 확인</label>
@@ -53,6 +63,7 @@ const Signup = () => {
               className="phone-number"
               type="tel"
               pattern="[0-9]{10}"
+              placeholder="Ex) 01012346278"
               required
             ></input>
           </div>
