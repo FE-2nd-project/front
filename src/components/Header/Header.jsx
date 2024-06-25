@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./NavBar.css";
+import "./Header.css";
 
-const NavBar = () => {
+const Header = () => {
   const navigate = useNavigate();
   const [isLoggedOutPopupOpen, setIsLoggedOutPopupOpen] = useState(false);
   const [isLoggedInPopupOpen, setIsLoggedInPopupOpen] = useState(false);
@@ -61,7 +61,9 @@ const NavBar = () => {
           />
           {isLoggedInPopupOpen && (
             <div className="loggedin-popup">
-              <div className="my-page">마이페이지</div>
+              <div className="my-page" onClick={() => navigate("/mypage")}>
+                마이페이지
+              </div>
               <div className="logout">LOG OUT</div>
             </div>
           )}
@@ -80,4 +82,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Header;

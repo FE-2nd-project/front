@@ -9,7 +9,6 @@ const Cart = () => {
   const navigate = useNavigate();
   return (
     <>
-      <NavBar />
       <CartNavLink />
       {/* <button onClick={() => navigate("/Order-payment")}>주문결제</button> */}
       <main className="cart-main-container">
