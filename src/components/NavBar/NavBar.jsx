@@ -31,7 +31,12 @@ const NavBar = () => {
             src="search-icon.png"
             alt="search"
           />
-          <img className="right-bag-icon" src="bag-icon.png" alt="bag" />
+          <img
+            className="right-bag-icon"
+            src="bag-icon.png"
+            alt="bag"
+            onClick={() => navigate("/cart")}
+          />
           <img
             className="right-loggedout-icon"
             src="loggedout-icon.png"
