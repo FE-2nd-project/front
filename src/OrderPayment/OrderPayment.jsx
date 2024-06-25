@@ -13,7 +13,7 @@ const OrderPayment = () => {
               <h2 className="section-title">주문자 정보</h2>
               <form className="order-form">
                 <div className="form-group">
-                  <label>이름</label>
+                  <label>주문자명</label>
                   <input
                     type="text"
                     name="name"
@@ -75,11 +75,13 @@ const OrderPayment = () => {
 
             <div className="order-section-payment-information">
               <h2 className="section-title">결제수단</h2>
-              <select name="payment-method">
-                <option value="credit-card">신용카드</option>
-                <option value="bank-transfer">계좌이체</option>
-                <option value="paypal">페이팔</option>
-              </select>
+              <div className="order-product">
+                <select name="payment-method">
+                  <option value="credit-card">신용카드</option>
+                  <option value="bank-transfer">계좌이체</option>
+                  <option value="paypal">페이팔</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -87,9 +89,18 @@ const OrderPayment = () => {
         <div className="Payment-Information-container">
           <div className="payment-section-container">
             <h2 className="section-title">최종 결제 금액</h2>
-            <div className="order-summary">
-              <p>상품 금액: $29.99</p>
-              <p>배송비: $5.00</p>
+            <div className="order-summary-container">
+              <div className="order-summary">
+                <div className="order-summary-price">
+                  <p>상품 금액 </p>
+                  <p>금액</p>
+                </div>
+
+                <div className="order-summary-delivery">
+                  <p>배송비</p>
+                  <p>무료배송</p>
+                </div>
+              </div>
               <p>총 결제 금액: $34.99</p>
               <button className="pay-button">결제하기</button>
             </div>
