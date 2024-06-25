@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
 
 import "./Cart.css";
 import CartNavLink from "../../components/CartNavLink/CartNavLink";
