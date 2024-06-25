@@ -1,0 +1,40 @@
+.image-slider-container {
+  position: relative;
+  width: 60%;
+}
+
+.slide {
+  position: relative;
+}
+
+.slide img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%; /*버튼 위치*/
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.347);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
+
+.slider-button-icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+}

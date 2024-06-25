@@ -1,11 +1,21 @@
+// src/App.js
+import logo from "./logo.svg";
 import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ProductDetail from "./ProductDetail";
+import Mainhome from "./Mainhome";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Mainhome />} />
+          <Route path="/product-detail" element={<ProductDetail />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
