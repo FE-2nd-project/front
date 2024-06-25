@@ -1,3 +1,19 @@
+.slick-slider {
+  margin: 0px 30px 0px 0px; /* 슬라이더 전체 컨테이너의 상단 여백 */
+}
+
+.slick-list {
+  margin-left: 10px; /* 슬라이더 목록의 좌측 여백 */
+}
+
+.slick-track {
+  margin-right: 10px; /* 슬라이더 트랙의 우측 여백 */
+}
+
+.slick-slide {
+  margin: 0px; /* 개별 슬라이드의 좌우 여백 */
+}
+
 .image-slider-container {
   position: relative;
   width: 60%;
@@ -8,7 +24,7 @@
 }
 
 .slide img {
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -16,7 +32,7 @@
 
 .slider-button {
   position: absolute;
-  top: 50%; /*버튼 위치*/
+  top: 40%; /*버튼 위치*/
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.347);
   color: white;
@@ -26,11 +42,11 @@
 }
 
 .slider-button.prev {
-  left: 10px;
+  left: 40px;
 }
 
 .slider-button.next {
-  right: 10px;
+  right: 70px;
 }
 
 .slider-button-icon {

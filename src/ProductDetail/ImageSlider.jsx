@@ -27,7 +27,7 @@ const ImageSlider = () => {
     sliderRef.current.slickPrev();
   };
 
-  const images = ["/cat.jpg", "/cat.jpg", "/cat.jpg"];
+  const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
 
   return (
     <div className="image-slider-container">

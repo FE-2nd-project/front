@@ -1,0 +1,201 @@
+.product-root {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 10px 50px;
+}
+
+.product-container {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+.product-root .product-container {
+  max-width: calc(100% - 400px);
+}
+
+.product-best {
+  width: 10%;
+  height: 30px;
+}
+
+.product-best-text {
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: #f0f0f0;
+}
+
+.product-title-container {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.product-title-text {
+  font-size: 24px;
+  overflow-wrap: break-word;
+  text-align: left;
+  max-width: 75%;
+}
+
+.product-title-side-icons {
+  display: flex;
+  padding: 0px 20px;
+  gap: 10px;
+}
+
+.product-side-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.product-price-container {
+  margin: 15px 0px 0px;
+  display: flex;
+}
+
+.product-price-text {
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.product-shipping-info {
+  display: flex;
+  margin-top: 20px;
+}
+
+.product-shipping-title {
+  font-weight: bold;
+  width: 50px;
+  height: 30px;
+}
+
+.product-shipping-detail {
+  margin-left: 10px;
+}
+
+.product-additional-benefits {
+  display: flex;
+  gap: 10px;
+}
+
+.benefit-title {
+  margin-top: 5px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.benefit-list {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.benefit-item {
+  margin-top: 5px;
+  text-align: left;
+}
+
+.option-select {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  max-width: 200px;
+}
+
+.product-options {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  background-color: rgba(240, 240, 240, 0.733);
+  padding: 20px 30px;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.quantity-button-container {
+  background-color: white;
+  width: 30%;
+  height: 45px;
+  display: flex;
+  padding: 10px;
+  gap: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+}
+.quantity-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.quantity-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.quantity-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.total-price-container {
+  margin-top: 20px;
+  padding: 20px 30px;
+  background-color: rgba(240, 240, 240, 0.733);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-price-label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.total-price-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.add-to-bag-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px; /* 위쪽 여백 */
+}
+
+.add-to-bag-text {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 20px 90px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-bag-text:hover {
+  background-color: #525252;
+}
+
+.add-to-bag-text:active {
+  background-color: #525252;
+}
