@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import ImageSlider from "./ImageSlider";
-import NavBar from "../components/NavBar/NavBar";
 import "./ProductDetail.css";
-import share from "../assets/share.svg";
-import heart from "../assets/heart.svg";
-import minus from "../assets/minus.svg";
-import plus from "../assets/plus.svg";
+import share from "../../assets/share.svg";
+import heart from "../../assets/heart.svg";
+import minus from "../../assets/minus.svg";
+import plus from "../../assets/plus.svg";
 
 const ProductDetail = () => {
   const unitPrice = 49000; //제품 단가
@@ -30,7 +29,6 @@ const ProductDetail = () => {
 
   return (
     <>
-      <NavBar />
       <div className="product-root">
         <ImageSlider />
         <div className="product-container">

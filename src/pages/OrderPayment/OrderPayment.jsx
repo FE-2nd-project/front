@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./OrderPayment.css"; // CSS 파일 import
-import NavBar from "../components/NavBar/NavBar";
 
 const OrderPayment = () => {
+  const unitPrice = 49000; //제품 단가
+  const [quantity, setQuantity] = useState(1); //수량
+  const totalPrice = unitPrice * quantity; // 총금액
+  const option = "black";
   return (
     <div>
-      <NavBar />
       <div className="order-payment-container">
         <div className="order-Information-container">
           <div className="order-section-container">
@@ -66,9 +68,9 @@ const OrderPayment = () => {
                 />
                 <div className="product-details">
                   <p>상품명: 특별한 상품</p>
-                  <p>옵션: 옵션 A</p>
-                  <p>수량: 2개</p>
-                  <p>가격: $29.99</p>
+                  <p>옵션: {option}</p>
+                  <p>수량: {quantity}개</p>
+                  <p>가격: {unitPrice}</p>
                 </div>
               </div>
             </div>
@@ -93,7 +95,7 @@ const OrderPayment = () => {
               <div className="order-summary">
                 <div className="order-summary-price">
                   <p>상품 금액 </p>
-                  <p>금액</p>
+                  <p>{totalPrice}</p>
                 </div>
 
                 <div className="order-summary-delivery">
@@ -101,7 +103,10 @@ const OrderPayment = () => {
                   <p>무료배송</p>
                 </div>
               </div>
-              <p>총 결제 금액: $34.99</p>
+              <div className="order-summary-total">
+                <p>총 결제금액</p>
+                <p>{totalPrice}</p>
+              </div>
               <button className="pay-button">결제하기</button>
             </div>
           </div>
