@@ -10,8 +10,8 @@
   margin-top: 3%;
 }
 
-.signup-text {
-  font-weight: 500;
+h2.signup-text {
+  font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 3%;
   margin-top: 0;
@@ -67,6 +67,7 @@
   font-weight: 600;
   width: 60%;
   margin-bottom: 1%;
+  margin-left: 10%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -75,7 +76,7 @@
 
 .profile-picture-label {
   width: 20%;
-  margin-left: 20%;
+  margin-left: 25%;
 }
 
 .password-span,
@@ -90,8 +91,8 @@
 .nickname,
 .phone-number,
 .address {
-  width: 60%;
-  height: 2rem;
+  width: 50%;
+  height: 2.5rem;
 }
 
 .change-profile {
@@ -102,7 +103,7 @@
   padding: 2% 2% 2% 2%;
   padding-left: 4.5%;
   margin-right: 0;
-  margin-left: 14rem;
+  margin-left: 17.5rem;
   display: flex;
   align-items: center;
   justify-items: center;
