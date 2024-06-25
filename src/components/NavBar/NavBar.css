@@ -31,9 +31,47 @@
 
 .right-search-icon,
 .right-bag-icon,
-.right-my-icon {
+.right-loggedout-icon,
+.right-loggedin-icon {
   width: 28px;
   height: 28px;
+  cursor: pointer;
+}
+
+.loggedout-popup,
+.loggedin-popup {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  left: 83%;
+  width: 6%;
+  height: 9%;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  gap: 20%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup,
+.login {
+  cursor: pointer;
+}
+
+.loggedin-popup {
+  left: 87%;
+}
+
+.my-page,
+.logout {
   cursor: pointer;
 }
 

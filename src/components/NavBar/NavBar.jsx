@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./NavBar.css";
 
 const NavBar = () => {
+  const [isLoggedOutPopupOpen, setIsLoggedOutPopupOpen] = useState(false);
+  const [isLoggedInPopupOpen, setIsLoggedInPopupOpen] = useState(false);
+
+  const toggleLoggedOutPopup = () => {
+    setIsLoggedOutPopupOpen(!isLoggedOutPopupOpen);
+  };
+
+  const toggleLoggedInPopup = () => {
+    setIsLoggedInPopupOpen(!isLoggedInPopupOpen);
+  };
+
   return (
     <div className="navbar-container">
       <div className="nav-top">
@@ -14,7 +25,30 @@ const NavBar = () => {
             alt="search"
           />
           <img className="right-bag-icon" src="bag-icon.png" alt="bag" />
-          <img className="right-my-icon" src="my-icon.png" alt="my" />
+          <img
+            className="right-loggedout-icon"
+            src="loggedout-icon.png"
+            alt="loggedout"
+            onClick={toggleLoggedOutPopup}
+          />
+          {isLoggedOutPopupOpen && (
+            <div className="loggedout-popup">
+              <div className="signup">회원가입</div>
+              <div className="login">LOG IN</div>
+            </div>
+          )}
+          <img
+            className="right-loggedin-icon"
+            src="loggedin-icon.png"
+            alt="loggedin"
+            onClick={toggleLoggedInPopup}
+          />
+          {isLoggedInPopupOpen && (
+            <div className="loggedin-popup">
+              <div className="my-page">마이페이지</div>
+              <div className="logout">LOG OUT</div>
+            </div>
+          )}
         </div>
       </div>
       <div className="nav-bottom">
