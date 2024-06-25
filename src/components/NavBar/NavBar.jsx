@@ -43,7 +43,9 @@ const NavBar = () => {
               <div className="signup" onClick={() => navigate("/signup")}>
                 회원가입
               </div>
-              <div className="login">LOG IN</div>
+              <div className="login" onClick={() => navigate("/login")}>
+                LOG IN
+              </div>
             </div>
           )}
           <img
