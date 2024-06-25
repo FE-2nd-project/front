@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "../src/ProductDetail/ProductDetail";
 import Mainhome from "./Mainhome";
 
 function App() {
