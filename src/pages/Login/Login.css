@@ -47,6 +47,19 @@
   border: 1px solid rgb(225, 223, 223);
 }
 
+.login-password-container {
+  position: relative;
+}
+
+.show-password-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 2%;
+  top: 55%;
+  cursor: pointer;
+}
+
 .login-button {
   width: 100%;
   height: 3rem;
