@@ -1,0 +1,102 @@
+.navbar-container {
+  width: 100vw;
+  height: 15vh;
+  padding: 0.3% 2% 1% 3%;
+  background-color: white;
+  cursor: pointer;
+}
+
+.mlb-icon {
+  width: 10%;
+  height: 60%;
+}
+
+.nav-top {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-right-icons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+  height: 40%;
+  margin-right: 10%;
+}
+
+.right-search-icon,
+.right-bag-icon,
+.right-loggedout-icon,
+.right-loggedin-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.loggedout-popup,
+.loggedin-popup {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  left: 83%;
+  width: 6%;
+  height: 9%;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  gap: 20%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup,
+.login {
+  cursor: pointer;
+}
+
+.loggedin-popup {
+  left: 87%;
+}
+
+.my-page,
+.logout {
+  cursor: pointer;
+}
+
+.nav-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100vw;
+  height: 40%;
+  gap: 2%;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.bottom-women,
+.bottom-men,
+.bottom-cap,
+.bottom-shoes,
+.bottom-bag,
+.bottom-promotion,
+.bottom-trend {
+  cursor: pointer;
+}
+
+.bottom-promotion,
+.bottom-trend {
+  font-weight: 700;
+}
