@@ -1,10 +1,10 @@
 import React from "react";
 import "./PaymentInformation.css";
 
-const PaymentInformation = () => {
+const PaymentInformation = ({ topText, total }) => {
   return (
     <div className="payment-section-container">
-      <h2 className="section-title">최종 결제 금액</h2>
+      <h2 className="section-title">{topText}</h2>
       <div className="order-summary-container">
         <div className="order-summary">
           <div className="order-summary-price">
@@ -16,9 +16,14 @@ const PaymentInformation = () => {
             <p>배송비</p>
             <p>무료배송</p>
           </div>
+
+          <div className="order-summary-discount">
+            <p>총 할인금액</p>
+            <p>-0원</p>
+          </div>
         </div>
         <div className="order-summary-total">
-          <p>총 결제금액</p>
+          <p>{total}</p>
           <p>totalPrice</p>
         </div>
       </div>

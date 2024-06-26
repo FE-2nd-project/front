@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./OrderPayment.css";
-import CartNavLink from "../../components/CartNavLink/CartNavLink";
+
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
+import CartNavLink from '../../components/Cart/CartNavLink/CartNavLink';
 
 const OrderPayment = () => {
   const unitPrice = 49000; //제품 단가
