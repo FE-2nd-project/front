@@ -1,8 +1,9 @@
 import React from "react";
 
 import "./Cart.css";
-import CartNavLink from "../../components/CartNavLink/CartNavLink";
+import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import { useNavigate } from "react-router-dom";
+import CartProduct from "../../components/Cart/CartProduct/CartProduct";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ const Cart = () => {
               <input type="checkbox" className="checkbox-input" />
               <label>전체선택</label>
             </div>
-            <div className="top-underline"></div>
+          </div>
+          <div className="list-bottom">
+            <CartProduct />
           </div>
         </div>
         <div className="cart-payment-container"></div>
