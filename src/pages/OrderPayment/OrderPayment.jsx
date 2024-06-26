@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./OrderPayment.css"; // CSS 파일 import
+import "./OrderPayment.css";
+import CartNavLink from "../../components/CartNavLink/CartNavLink";
+import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 
 const OrderPayment = () => {
   const unitPrice = 49000; //제품 단가
@@ -8,6 +10,7 @@ const OrderPayment = () => {
   const option = "black";
   return (
     <div>
+      <CartNavLink />
       <div className="order-payment-container">
         <div className="order-Information-container">
           <div className="order-section-container">
@@ -84,30 +87,6 @@ const OrderPayment = () => {
                   <option value="paypal">페이팔</option>
                 </select>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="Payment-Information-container">
-          <div className="payment-section-container">
-            <h2 className="section-title">최종 결제 금액</h2>
-            <div className="order-summary-container">
-              <div className="order-summary">
-                <div className="order-summary-price">
-                  <p>상품 금액 </p>
-                  <p>{totalPrice}</p>
-                </div>
-
-                <div className="order-summary-delivery">
-                  <p>배송비</p>
-                  <p>무료배송</p>
-                </div>
-              </div>
-              <div className="order-summary-total">
-                <p>총 결제금액</p>
-                <p>{totalPrice}</p>
-              </div>
-              <button className="pay-button">결제하기</button>
             </div>
           </div>
         </div>

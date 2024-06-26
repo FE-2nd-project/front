@@ -1,5 +1,5 @@
 .order-payment-container {
-  display: flex; /* flexbox로 변경 */
+  display: flex;
   gap: 50px;
   margin: 20px 10px 0px 120px;
 }
@@ -28,7 +28,6 @@
   margin: 15px 0px 15px 40px;
 }
 
-/* label 스타일 설정 */
 .form-group label {
   display: block;
   font-weight: bold;
@@ -36,7 +35,6 @@
   font-size: 15px;
 }
 
-/* input 스타일 설정 */
 .form-group input[type="text"],
 .form-group input[type="tel"],
 .form-group input[type="email"],
@@ -46,17 +44,16 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 전체 너비 설정 */
-  transition: border-color 0.3s; /* 테두리 색상 전환 효과 */
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
 
-/* input 포커스 스타일 설정 */
 .form-group input[type="text"]:focus,
 .form-group input[type="tel"]:focus,
 .form-group input[type="email"]:focus,
 .form-group input[type="password"]:focus {
-  border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
-  outline: none; /* 기본 포커스 아웃라인 제거 */
+  border-color: #007bff;
+  outline: none;
 }
 .order-product {
   display: flex;
@@ -77,7 +74,6 @@
   flex: 1;
 }
 
-/* 결제수단 섹션 스타일 */
 .order-section-payment-information {
   margin-bottom: 20px;
 }
@@ -88,74 +84,31 @@
   color: #333;
 }
 
-/* select 요소 스타일 */
 .order-section-payment-information select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 전체 너비 설정 */
-  transition: border-color 0.3s; /* 테두리 색상 전환 효과 */
+  box-sizing: border-box;
+  transition: border-color 0.3s;
   background-color: #fff;
   font-size: 1em;
   margin-top: 20px;
 }
 
-/* select 요소 포커스 스타일 */
 .order-section-payment-information select:focus {
-  border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
-  outline: none; /* 기본 포커스 아웃라인 제거 */
+  border-color: #007bff;
+  outline: none;
 }
 
-.payment-section-container {
-  width: 300px;
+.Payment-Information-container {
+  width: 350px;
   border: 1px solid #e0dddd;
   padding: 20px;
   border-radius: 8px;
   position: sticky;
-  top: 20px; /* 스크롤될 때 고정되는 위치 (위에서 20px 떨어짐) */
-  /* height: fit-content; */
-  height: 300px;
-}
-
-.order-summary-container {
-  margin-top: 20px;
-}
-
-.order-summary {
-  border-bottom: 1px solid #ccc;
-}
-
-.order-summary p {
-  margin: 0;
-  font-size: 1.2em;
-  color: #333;
-}
-
-.order-summary-price,
-.order-summary-delivery,
-.order-summary-total {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-}
-
-.order-summary-price p:first-child,
-.order-summary-delivery p:first-child {
-  color: #7f7f7f;
-}
-
-.order-summary-total p {
-  margin: 0;
-  font-size: 1.2em;
-  color: #333;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.order-summary-total p:nth-child(2) {
-  color: #000000;
-  font-size: 25px;
+  top: 20px;
+  height: fit-content;
 }
 
 .pay-button {

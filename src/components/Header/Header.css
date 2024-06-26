@@ -27,6 +27,7 @@
   width: 10%;
   height: 40%;
   margin-right: 10%;
+  gap: 2rem;
 }
 
 .right-search-icon,
@@ -43,7 +44,7 @@
   position: absolute;
   top: 8%;
   right: 0;
-  left: 83%;
+  left: 85%;
   width: 6%;
   height: 9%;
   background-color: white;
@@ -67,7 +68,7 @@
 }
 
 .loggedin-popup {
-  left: 87%;
+  left: 90%;
 }
 
 .my-page,
