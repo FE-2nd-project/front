@@ -1,16 +1,16 @@
 import React from "react";
 
 import "./Cart.css";
-import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import { useNavigate } from "react-router-dom";
 import CartProduct from "../../components/Cart/CartProduct/CartProduct";
+import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
+import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 
 const Cart = () => {
   const navigate = useNavigate();
   return (
     <>
       <CartNavLink />
-      {/* <button onClick={() => navigate("/Order-payment")}>주문결제</button> */}
       <main className="cart-main-container">
         <div className="cart-list-container">
           <div className="list-top">
@@ -25,7 +25,15 @@ const Cart = () => {
             <CartProduct />
           </div>
         </div>
-        <div className="cart-payment-container"></div>
+        <div className="cart-payment-container">
+          <PaymentInformation topText="결제정보" />
+          <button
+            className="order-button"
+            onClick={() => navigate("/Order-payment")}
+          >
+            주문하기
+          </button>
+        </div>
       </main>
     </>
   );

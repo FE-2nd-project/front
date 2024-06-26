@@ -1,10 +1,10 @@
 import React from "react";
 import "./PaymentInformation.css";
 
-const PaymentInformation = () => {
+const PaymentInformation = ({ topText }) => {
   return (
     <div className="payment-section-container">
-      <h2 className="section-title">최종 결제 금액</h2>
+      <h2 className="section-title">{topText}</h2>
       <div className="order-summary-container">
         <div className="order-summary">
           <div className="order-summary-price">
