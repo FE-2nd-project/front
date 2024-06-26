@@ -90,6 +90,12 @@ const OrderPayment = () => {
             </div>
           </div>
         </div>
+        <div className="Payment-Information-container">
+          <div className="Payment-Information">
+            <PaymentInformation />
+            <button className="pay-button">결제하기</button>
+          </div>
+        </div>
       </div>
     </div>
   );
