@@ -1,48 +1,64 @@
 .payment-section-container {
-  width: 19rem;
+  width: 85%;
   border: 1px solid #e0dddd;
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   border-radius: 8px;
   top: 20px;
   height: fit-content;
 }
 
+h2.section-title {
+  font-size: 1.25rem;
+}
 .order-summary-container {
   margin-top: 20px;
 }
 
 .order-summary {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid black;
+  padding-bottom: 2%;
+  margin-bottom: 5%;
 }
 
 .order-summary p {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #333;
 }
 
 .order-summary-price,
 .order-summary-delivery,
-.order-summary-total {
+.order-summary-total,
+.order-summary-discount {
   display: flex;
   justify-content: space-between;
   margin: 10px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .order-summary-price p:first-child,
-.order-summary-delivery p:first-child {
+.order-summary-delivery p:first-child,
+.order-summary-discount p:first-child {
   color: #7f7f7f;
+}
+
+.order-summary-price,
+.order-summary-delivery {
+  margin-bottom: 15px;
 }
 
 .order-summary-total p {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #333;
-  font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .order-summary-total p:nth-child(2) {
   color: #000000;
-  font-size: 25px;
+  font-size: 1.1em;
 }

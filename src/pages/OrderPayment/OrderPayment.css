@@ -1,11 +1,10 @@
 .order-payment-container {
   display: flex;
-  gap: 50px;
-  margin: 20px 10px 0px 120px;
+  margin: 20px 10px 0px 80px;
 }
 
 .order-section-container {
-  width: 50rem;
+  width: 53rem;
   padding: 20px;
   margin: 0px 0px 0px 10px;
   border-radius: 8px;
@@ -172,16 +171,6 @@
   text-decoration: none;
 }
 
-.Payment-Information-container {
-  width: 22rem;
-  border: 1px solid #e0dddd;
-  padding: 20px;
-  border-radius: 8px;
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-}
-
 .pay-button {
   background-color: #007bff;
   color: white;
@@ -199,4 +188,29 @@
 
 .pay-button:active {
   background-color: #004494;
+}
+
+.Payment-Information-container {
+  width: 27%;
+  height: 35%;
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  margin-left: 1%;
+  flex-direction: column;
+  position: sticky;
+  top: 20px;
+}
+
+.payment-order-button {
+  width: 96%;
+  height: 3rem;
+  margin-top: -5px;
+  padding: 1%;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
 }

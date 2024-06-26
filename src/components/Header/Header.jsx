@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Header.css";
+import mlb_logo from "../../assets/MLB-logo.png";
+import search from "../../assets/search-icon.png";
+import bag from "../../assets/bag-icon.png";
+import loggedout from "../../assets/loggedout-icon.png";
+import loggedin from "../../assets/loggedin-icon.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -21,25 +26,21 @@ const Header = () => {
       <div className="nav-top">
         <img
           className="mlb-icon"
-          src="MLB-logo.png"
+          src={mlb_logo}
           alt="MLB-logo"
           onClick={() => navigate("/")}
         />
         <div className="top-right-icons">
-          <img
-            className="right-search-icon"
-            src="search-icon.png"
-            alt="search"
-          />
+          <img className="right-search-icon" src={search} alt="search" />
           <img
             className="right-bag-icon"
-            src="bag-icon.png"
+            src={bag}
             alt="bag"
             onClick={() => navigate("/cart")}
           />
           <img
             className="right-loggedout-icon"
-            src="loggedout-icon.png"
+            src={loggedout}
             alt="loggedout"
             onClick={toggleLoggedOutPopup}
           />
@@ -55,7 +56,7 @@ const Header = () => {
           )}
           <img
             className="right-loggedin-icon"
-            src="loggedin-icon.png"
+            src={loggedin}
             alt="loggedin"
             onClick={toggleLoggedInPopup}
           />

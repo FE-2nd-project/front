@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./OrderPayment.css";
-import CartNavLink from "../../components/CartNavLink/CartNavLink";
+
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
+import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 
 const OrderPayment = () => {
   const unitPrice = 49000; //제품 단가
@@ -111,10 +112,8 @@ const OrderPayment = () => {
           </div>
         </div>
         <div className="Payment-Information-container">
-          <div className="Payment-Information">
-            <PaymentInformation />
-            <button className="pay-button">결제하기</button>
-          </div>
+          <PaymentInformation topText="최종 결제금액" total="총 주문금액" />
+          <button className="payment-order-button">결제하기</button>
         </div>
       </div>
     </div>
