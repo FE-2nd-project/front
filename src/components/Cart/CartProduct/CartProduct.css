@@ -1,4 +1,4 @@
-.product-container {
+.cart-product-container {
   width: 94%;
   height: 10rem;
   /* border: 1px solid; */
@@ -38,6 +38,7 @@
   -webkit-appearance: none;
   border: 1px solid #999;
   border-radius: 3px;
+  background-color: white;
 }
 
 .product-checkbox:checked {

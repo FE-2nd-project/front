@@ -16,6 +16,11 @@ const PaymentInformation = ({ topText, total }) => {
             <p>배송비</p>
             <p>무료배송</p>
           </div>
+
+          <div className="order-summary-discount">
+            <p>총 할인금액</p>
+            <p>-0원</p>
+          </div>
         </div>
         <div className="order-summary-total">
           <p>{total}</p>

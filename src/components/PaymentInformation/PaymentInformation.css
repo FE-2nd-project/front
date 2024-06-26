@@ -31,7 +31,8 @@ h2.section-title {
 
 .order-summary-price,
 .order-summary-delivery,
-.order-summary-total {
+.order-summary-total,
+.order-summary-discount {
   display: flex;
   justify-content: space-between;
   margin: 10px;
@@ -40,11 +41,13 @@ h2.section-title {
 }
 
 .order-summary-price p:first-child,
-.order-summary-delivery p:first-child {
+.order-summary-delivery p:first-child,
+.order-summary-discount p:first-child {
   color: #7f7f7f;
 }
 
-.order-summary-price {
+.order-summary-price,
+.order-summary-delivery {
   margin-bottom: 15px;
 }
 

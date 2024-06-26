@@ -15,15 +15,16 @@ const Cart = () => {
         <div className="cart-list-container">
           <div className="list-top">
             <div className="top-normal-order">일반주문</div>
-            <div className="top-line"></div>
+            <div className="cart-top-line"></div>
             <div className="top-entire-check">
-              <input type="checkbox" className="checkbox-input" />
+              <input type="checkbox" className="cart-checkbox-input" />
               <label>전체선택</label>
             </div>
           </div>
           <div className="list-bottom">
             <CartProduct />
             <CartProduct />
+            <div className="cart-bottom-line"></div>
           </div>
         </div>
         <div className="cart-payment-container">
