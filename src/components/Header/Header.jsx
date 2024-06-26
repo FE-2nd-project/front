@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Header.css";
@@ -20,6 +20,45 @@ const Header = () => {
   const toggleLoggedInPopup = () => {
     setIsLoggedInPopupOpen(!isLoggedInPopupOpen);
   };
+
+  const loggedOutPopupRef = useRef(null);
+  const loggedInPopupRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // loggedout icon 외 다른 곳 눌렀을 때 팝업 닫기
+      if (
+        isLoggedOutPopupOpen &&
+        loggedOutPopupRef.current &&
+        !loggedOutPopupRef.current.contains(event.target) &&
+        !event.target.closest(".right-loggedout-icon")
+      ) {
+        setIsLoggedOutPopupOpen(false);
+      }
+
+      // loggedin icon 외 다른 곳 눌렀을 때 팝업 닫기
+      if (
+        isLoggedInPopupOpen &&
+        loggedInPopupRef.current &&
+        !loggedInPopupRef.current.contains(event.target) &&
+        !event.target.closest(".right-loggedin-icon")
+      ) {
+        setIsLoggedInPopupOpen(false);
+      }
+    };
+
+    // loggedout이나 loggedin의 팝업이 열였을 때 handleClickOutside 실행
+    if (isLoggedOutPopupOpen || isLoggedInPopupOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // clean up
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isLoggedOutPopupOpen, isLoggedInPopupOpen]);
 
   return (
     <div className="navbar-container">
@@ -45,11 +84,23 @@ const Header = () => {
             onClick={toggleLoggedOutPopup}
           />
           {isLoggedOutPopupOpen && (
-            <div className="loggedout-popup">
-              <div className="signup" onClick={() => navigate("/signup")}>
+            <div className="loggedout-popup" ref={loggedOutPopupRef}>
+              <div
+                className="signup"
+                onClick={() => {
+                  navigate("/signup");
+                  setIsLoggedOutPopupOpen(false);
+                }}
+              >
                 회원가입
               </div>
-              <div className="login" onClick={() => navigate("/login")}>
+              <div
+                className="login"
+                onClick={() => {
+                  navigate("/login");
+                  setIsLoggedOutPopupOpen(false);
+                }}
+              >
                 LOG IN
               </div>
             </div>
@@ -61,8 +112,14 @@ const Header = () => {
             onClick={toggleLoggedInPopup}
           />
           {isLoggedInPopupOpen && (
-            <div className="loggedin-popup">
-              <div className="my-page" onClick={() => navigate("/mypage")}>
+            <div className="loggedin-popup" ref={loggedInPopupRef}>
+              <div
+                className="my-page"
+                onClick={() => {
+                  navigate("/mypage");
+                  setIsLoggedInPopupOpen(false);
+                }}
+              >
                 마이페이지
               </div>
               <div className="logout">LOG OUT</div>

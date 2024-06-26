@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./Login.css";
+import show from "../../assets/show-password.png";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -29,7 +30,7 @@ const Login = () => {
               required
             />
             <img
-              src="show-password.png"
+              src={show}
               className="show-password-icon"
               alt="show-password"
               onClick={() => setShowPassword((prev) => !prev)}
