@@ -1,0 +1,48 @@
+.payment-section-container {
+  width: 300px;
+  border: 1px solid #e0dddd;
+  padding: 20px;
+  border-radius: 8px;
+  top: 20px;
+  height: fit-content;
+}
+
+.order-summary-container {
+  margin-top: 20px;
+}
+
+.order-summary {
+  border-bottom: 1px solid #ccc;
+}
+
+.order-summary p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.order-summary-price,
+.order-summary-delivery,
+.order-summary-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.order-summary-price p:first-child,
+.order-summary-delivery p:first-child {
+  color: #7f7f7f;
+}
+
+.order-summary-total p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.order-summary-total p:nth-child(2) {
+  color: #000000;
+  font-size: 25px;
+}

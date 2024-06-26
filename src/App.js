@@ -11,6 +11,7 @@ import Root from "./pages/Root";
 import Error from "./pages/Error";
 import Main from "./pages/Main";
 import Product from "./pages/Product";
+import OrderPayment from "./pages/OrderPayment/OrderPayment";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <Product />,
+      },
+      {
+        path: "/Order-payment",
+        element: <OrderPayment />,
       },
       {
         path: "/cart",
