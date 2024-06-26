@@ -1,10 +1,12 @@
 .product-container {
-  width: 100%;
+  width: 94%;
   height: 10rem;
   border: 1px solid;
-  padding: 2%;
+  padding: 3%;
   display: flex;
   /* justify-content: space-between; */
+  align-items: center;
+  flex-direction: row;
 }
 
 .product-left {
@@ -16,5 +18,10 @@
 .product-img-container {
   width: 25%;
   height: 100%;
+  border: 1px solid;
+}
+
+.product-info-container {
+  width: 75%;
   border: 1px solid;
 }
