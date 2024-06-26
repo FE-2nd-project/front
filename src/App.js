@@ -12,6 +12,7 @@ import Error from "./pages/Error";
 import Main from "./pages/Main";
 import Product from "./pages/Product";
 import OrderPayment from "./pages/OrderPayment/OrderPayment";
+import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,16 @@ const router = createBrowserRouter([
         element: <Product />,
       },
       {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
         path: "/Order-payment",
         element: <OrderPayment />,
       },
       {
-        path: "/cart",
-        element: <Cart />,
+        path: "/order-completed",
+        element: <OrderCompletion />,
       },
     ],
   },

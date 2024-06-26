@@ -1,0 +1,175 @@
+.order-completion-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 4%;
+  margin-bottom: 10%;
+  position: relative;
+}
+
+/* top */
+.top-completed-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10rem;
+  padding: 3%;
+}
+
+.completed-icon {
+  width: 20%;
+  height: 20%;
+  margin-left: 20rem;
+}
+
+.top-completed-right {
+  width: 80%;
+  margin-left: -10rem;
+}
+
+.completed-right-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(93, 94, 93);
+  margin-bottom: 1%;
+}
+
+.completed-right-subtitle {
+  margin-bottom: 2%;
+}
+
+.order-inquiry {
+  color: rgb(52, 155, 214);
+  font-weight: 600;
+}
+
+.completed-right-order-number {
+  margin-bottom: 1%;
+}
+
+.only-order-number {
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: rgb(93, 94, 93);
+}
+
+/* bottom */
+.bottom-completed {
+  width: 100%;
+  padding: 20px 0px 10px;
+}
+
+.bottom-completed-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.bottom-completed-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.bottom-completed-box-totalprice,
+.bottom-completed-box-PaymentMethod {
+  width: 97.5%;
+  display: flex;
+}
+
+.bottom-completed-box-totalprice {
+  display: flex;
+  gap: 20px;
+  border: 1px solid #a8a7a7;
+  border-bottom: 1px solid #a8a7a7;
+  align-items: center;
+}
+
+.bottom-completed-box-PaymentMethod {
+  align-items: center;
+  border-left: 1px solid #a8a7a7;
+  border-right: 1px solid #a8a7a7;
+  border-bottom: 1px solid #a8a7a7;
+}
+
+.bottom-completed-totalprice-text,
+.bottom-completed-PaymentMethod-text {
+  font-weight: bold;
+  font-size: 1rem;
+  border-right: 1px solid #a8a7a7;
+  background-color: #ddd;
+}
+
+.bottom-completed-totalprice-text {
+  padding: 1rem;
+}
+
+.bottom-completed-PaymentMethod-text {
+  padding: 15px 43px 15px 25px;
+}
+
+.bottom-completed-totalprice-price,
+.bottom-completed-PaymentMethod-method {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-completed-totalprice-price {
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.bottom-completed-PaymentMethod-method {
+  margin-left: 10px;
+}
+
+.bottom-completed-PaymentMethod-method div {
+  margin-right: 10px;
+  display: flex;
+}
+
+.PaymentMethod-group {
+  display: flex;
+}
+
+.bottom-completed-PaymentMethod-method p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.PaymentMethod-group-name p:first-child,
+.PaymentMethod-group-price p:first-child {
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.PaymentMethod-group-name p:nth-child(2),
+.PaymentMethod-group-price p:nth-child(2) {
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 15px;
+}
+
+.continue-button {
+  width: 15%;
+  height: 3rem;
+  background-color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid rgb(93, 94, 93);
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 3%;
+  cursor: pointer;
+}
