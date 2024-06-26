@@ -1,7 +1,7 @@
 import React from "react";
 import "./PaymentInformation.css";
 
-const PaymentInformation = ({ topText }) => {
+const PaymentInformation = ({ topText, total }) => {
   return (
     <div className="payment-section-container">
       <h2 className="section-title">{topText}</h2>
@@ -18,7 +18,7 @@ const PaymentInformation = ({ topText }) => {
           </div>
         </div>
         <div className="order-summary-total">
-          <p>총 결제금액</p>
+          <p>{total}</p>
           <p>totalPrice</p>
         </div>
       </div>

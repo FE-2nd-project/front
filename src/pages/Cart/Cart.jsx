@@ -23,10 +23,11 @@ const Cart = () => {
           </div>
           <div className="list-bottom">
             <CartProduct />
+            <CartProduct />
           </div>
         </div>
         <div className="cart-payment-container">
-          <PaymentInformation topText="결제정보" />
+          <PaymentInformation topText="결제정보" total="총 주문금액"/>
           <button
             className="order-button"
             onClick={() => navigate("/Order-payment")}
