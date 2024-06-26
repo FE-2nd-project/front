@@ -16,6 +16,7 @@ const OrderPayment = () => {
           <div className="order-section-container">
             <div className="order-section-Personal-information">
               <h2 className="section-title">주문자 정보</h2>
+
               <form className="order-form">
                 <div className="form-group">
                   <label>주문자명</label>

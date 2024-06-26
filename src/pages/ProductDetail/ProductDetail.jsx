@@ -10,6 +10,7 @@ const ProductDetail = () => {
   const unitPrice = 49000; //제품 단가
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("Black");
+  const [selectedSize, setSelectedSize] = useState("M");
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -26,6 +27,10 @@ const ProductDetail = () => {
   };
 
   const totalPrice = unitPrice * quantity;
+
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
+  };
 
   return (
     <>
@@ -74,9 +79,21 @@ const ProductDetail = () => {
               <option value="Blue">Blue</option>
             </select>
           </div>
+          <div className="product-options">
+            <label className="benefit-title">Size</label>
+            <select
+              className="option-select"
+              value={selectedSize}
+              onChange={handleSizeChange}
+            >
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+            </select>
+          </div>
           <div className="quantity-container">
             <label className="quantity-label" htmlFor="quantity-input">
-              {selectedColor}
+              {selectedColor} | {selectedSize}
             </label>
             <div className="quantity-button-container">
               <button
