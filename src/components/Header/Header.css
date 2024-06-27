@@ -24,7 +24,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 10%;
+  width: 12%;
   height: 40%;
   margin-right: 10%;
   gap: 2rem;
@@ -45,7 +45,7 @@
   top: 8%;
   right: 0;
   left: 85%;
-  width: 6%;
+  width: 8%;
   height: 9%;
   background-color: white;
   border: 1px solid #ccc;
