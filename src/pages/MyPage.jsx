@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
+import { Link } from "react-router-dom";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -14,7 +15,7 @@ const Container = styled.div`
 `;
 
 const MainContent = styled.div`
-  flex: 3;
+  flex: 6;
   margin-left: 2rem;
 `;
 
@@ -148,6 +149,12 @@ const BottomButton = styled.div`
   }
 `;
 
+const Breadcrumb = styled.div`
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+`;
+
 function MyPage() {
   const userEmail = localStorage.getItem("email") || "unknown@domain.com";
 
@@ -156,6 +163,9 @@ function MyPage() {
       <Container>
         <Sidebar />
         <MainContent>
+          <Breadcrumb>
+            <Link to="/">HOME</Link> &gt; <Link to="/mypage">마이페이지</Link>
+          </Breadcrumb>
           <UserPreview>
             <UserInfo>
               <UserProfile>
