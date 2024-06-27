@@ -11,6 +11,8 @@ import Root from "./pages/Root";
 import Error from "./pages/Error";
 import Main from "./pages/Main";
 import Product from "./pages/Product";
+import Wishlist from "./pages/Wishlist";
+import Purchases from "./pages/Purchases";
 import OrderPayment from "./pages/OrderPayment/OrderPayment";
 import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
 
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/mypage/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/mypage/purchases",
+        element: <Purchases />,
       },
       {
         path: "/Order-payment",

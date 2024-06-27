@@ -1,9 +1,10 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarContainer = styled.div`
   flex: 1;
-  padding: 2rem;
+  padding: 0;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -33,6 +34,8 @@ const MenuItem = styled.div`
   padding: 0.5rem 0;
   font-size: 0.8rem;
   cursor: pointer;
+  color: ${({ active }) => (active ? "#007bff" : "inherit")};
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
   &:hover {
     text-decoration: underline;
     color: #007bff;
@@ -40,6 +43,12 @@ const MenuItem = styled.div`
 `;
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+  };
   return (
     <SidebarContainer>
       <SidebarTitle>마이페이지</SidebarTitle>
@@ -47,12 +56,22 @@ const Sidebar = () => {
         <MenuHeader>나의 쇼핑정보</MenuHeader>
         <MenuItem>주문/배송 조회</MenuItem>
         <MenuItem>취소/교환/반품 내역</MenuItem>
-        <MenuItem>매장구매 내역</MenuItem>
+        <MenuItem
+          active={location.pathname === "/mypage/purchases"}
+          onClick={() => handleMenuItemClick("/mypage/purchases")}
+        >
+          물품구매 내역
+        </MenuItem>
         <MenuItem>증빙서류 조회</MenuItem>
       </MenuSection>
       <MenuSection>
         <MenuHeader>나의 활동정보</MenuHeader>
-        <MenuItem>위시리스트</MenuItem>
+        <MenuItem
+          active={location.pathname === "/mypage/wishlist"}
+          onClick={() => handleMenuItemClick("/mypage/wishlist")}
+        >
+          위시리스트
+        </MenuItem>
         <MenuItem>최근 본 상품</MenuItem>
         <MenuItem>상품 리뷰</MenuItem>
         <MenuItem>1:1 문의 내역</MenuItem>
