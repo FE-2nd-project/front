@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./Header.css";
 import mlb_logo from "../../assets/MLB-logo.png";
@@ -128,11 +128,22 @@ const Header = () => {
         </div>
       </div>
       <div className="nav-bottom">
-        <div className="bottom-women">WOMEN</div>
-        <div className="bottom-men">MEN</div>
-        <div className="bottom-cap">CAP</div>
-        <div className="bottom-shoes">SHOES</div>
-        <div className="bottom-bag">BAG</div>
+        <NavLink to="/women" className="nav-women" activeClassName="active">
+          WOMEN
+        </NavLink>
+        <NavLink to="/men" className="nav-men" activeClassName="active">
+          MEN
+        </NavLink>
+        <NavLink to="/cap" className="nav-cap" activeClassName="active">
+          CAP
+        </NavLink>
+        <NavLink to="/shoes" className="nav-shoes" activeClassName="active">
+          SHOES
+        </NavLink>
+        <NavLink to="/bag" className="nav-bag" activeClassName="active">
+          BAG
+        </NavLink>
+        <div className="bottom-barrier"></div>
         <div className="bottom-promotion">PROMOTION</div>
         <div className="bottom-trend">TREND</div>
       </div>
