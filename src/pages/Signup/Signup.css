@@ -32,7 +32,7 @@ h2.signup-text {
   width: 100%;
   height: 80%;
   gap: 1.5rem;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .email-container,
@@ -43,19 +43,19 @@ h2.signup-text {
 .address-container,
 .profile-picture-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
 }
 
-.profile-picture-container {
+/* .profile-picture-container {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   width: 100%;
-}
+} */
 
 .email-label,
 .password-label,
@@ -67,17 +67,16 @@ h2.signup-text {
   font-weight: 600;
   width: 60%;
   margin-bottom: 1%;
-  margin-left: 10%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
 }
 
-.profile-picture-label {
+/* .profile-picture-label {
   width: 20%;
   margin-left: 25%;
-}
+} */
 
 .password-span,
 .phone-span {
@@ -91,22 +90,22 @@ h2.signup-text {
 .nickname,
 .phone-number,
 .address {
-  width: 50%;
+  width: 100%;
   height: 2.5rem;
 }
 
 .change-profile {
   border: 1px solid;
   cursor: pointer;
-  width: 4rem;
-  height: 1.75rem;
-  padding: 2% 2% 2% 2%;
-  padding-left: 6%;
+  width: 5rem;
+  height: 2rem;
+  padding: 4% 4% 4% 4%;
+  padding-left: 12%;
   margin-right: 0;
-  margin-left: 425%;
   display: flex;
   align-items: center;
   justify-items: center;
+  text-align: center;
   border-radius: 30px;
   font-weight: 600;
   color: white;
@@ -115,7 +114,7 @@ h2.signup-text {
 
 .submit-button {
   width: 13%;
-  height: 2rem;
+  height: 2.5rem;
   border-radius: 10px;
   margin-bottom: 3%;
   font-size: 1rem;
