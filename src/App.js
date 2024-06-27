@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import React from "react";
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
