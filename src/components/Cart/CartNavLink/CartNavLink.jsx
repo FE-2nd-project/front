@@ -32,7 +32,7 @@ const CartNavLink = () => {
       </div>
       <div className="completed-nav-container">
         <NavLink
-          to="/order-payment-completed"
+          to="/order-completed"
           activeClassName="active"
           className="navLink"
           onClick={(e) => e.preventDefault()}

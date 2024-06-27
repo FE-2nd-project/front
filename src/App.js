@@ -14,6 +14,7 @@ import Product from "./pages/Product";
 import Wishlist from "./pages/Wishlist";
 import Purchases from "./pages/Purchases";
 import OrderPayment from "./pages/OrderPayment/OrderPayment";
+import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/Order-payment",
         element: <OrderPayment />,
+      },
+      {
+        path: "/order-completed",
+        element: <OrderCompletion />,
       },
     ],
   },

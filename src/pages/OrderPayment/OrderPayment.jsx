@@ -3,8 +3,10 @@ import "./OrderPayment.css";
 
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
+import { useNavigate } from "react-router-dom";
 
 const OrderPayment = () => {
+  const navigate = useNavigate();
   const unitPrice = 49000; //제품 단가
   const quantity = 1; //수량
   const totalPrice = unitPrice * quantity; // 총금액
@@ -113,7 +115,12 @@ const OrderPayment = () => {
         </div>
         <div className="Payment-Information-container">
           <PaymentInformation topText="최종 결제금액" total="총 주문금액" />
-          <button className="payment-order-button">결제하기</button>
+          <button
+            className="payment-order-button"
+            onClick={() => navigate("/order-completed")}
+          >
+            결제하기
+          </button>
         </div>
       </div>
     </div>
