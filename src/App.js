@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Product from "./pages/Product";
+import Wishlist from "./pages/Wishlist";
+import Purchases from "./pages/Purchases";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <Product />,
+      },
+      {
+        path: "/mypage/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/mypage/purchases",
+        element: <Purchases />,
       },
     ],
   },
