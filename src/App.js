@@ -1,13 +1,19 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
+import React from "react";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import Signup from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
+import Cart from "./pages/Cart/Cart";
 import MyPage from "./pages/MyPage";
 import Root from "./pages/Root";
 import Error from "./pages/Error";
 import MainPage from "./pages/MainPage";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import ProductPage from "./pages/ProductPage";
+import Wishlist from "./pages/Wishlist";
+import Purchases from "./pages/Purchases";
+import OrderPayment from "./pages/OrderPayment/OrderPayment";
+import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +44,26 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <ProductPage />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/mypage/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/mypage/purchases",
+        element: <Purchases />,
+      },
+      {
+        path: "/Order-payment",
+        element: <OrderPayment />,
+      },
+      {
+        path: "/order-completed",
+        element: <OrderCompletion />,
       },
     ],
   },

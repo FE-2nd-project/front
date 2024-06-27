@@ -1,12 +1,10 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
 
 import "./Signup.css";
 
 const Signup = () => {
   return (
     <>
-      <NavBar />
       <div className="signup-container">
         <h2 className="signup-text">Sign Up</h2>
         <div className="signup-explanation">
@@ -24,12 +22,12 @@ const Signup = () => {
             </label>
             <input className="password" type="password" required></input>
           </div>
-          <div className="password-check-container">
+          {/* <div className="password-check-container">
             <label className="password-check-label">비밀번호 확인</label>
             <input className="password-check" type="password" required></input>
-          </div>
+          </div> */}
           <div className="nickname-container">
-            <label className="nickname-label">닉네임</label>
+            <label className="nickname-label">이름</label>
             <input className="nickname"></input>
           </div>
 

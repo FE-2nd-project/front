@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
 
 import "./Login.css";
+import show from "../../assets/show-password.png";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -10,7 +10,6 @@ const Login = () => {
 
   return (
     <>
-      <NavBar />
       <div className="login-container">
         <h2 className="login-text">로그인</h2>
         <form className="login-form">
@@ -31,7 +30,7 @@ const Login = () => {
               required
             />
             <img
-              src="show-password.png"
+              src={show}
               className="show-password-icon"
               alt="show-password"
               onClick={() => setShowPassword((prev) => !prev)}
