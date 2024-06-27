@@ -1,0 +1,15 @@
+.MainPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 85px;
+}
+
+section {
+  padding: 0px 36px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 28px;
+}

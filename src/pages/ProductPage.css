@@ -1,0 +1,14 @@
+.productPage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  max-width: 100%;
+  padding: 0px 45px;
+  column-gap: 10px;
+  row-gap: 45px;
+}
+
+.productPage img {
+  width: 100%;
+  max-width: 100%;
+}

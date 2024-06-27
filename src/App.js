@@ -3,11 +3,11 @@ import "./App.css";
 import MyPage from "./pages/MyPage";
 import Root from "./pages/Root";
 import Error from "./pages/Error";
-import Main from "./pages/Main";
+import MainPage from "./pages/MainPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
-import Product from "./pages/Product";
+import ProductPage from "./pages/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Main />,
+        element: <MainPage />,
       },
       {
         path: "/mypage",
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/product",
-        element: <Product />,
+        element: <ProductPage />,
       },
     ],
   },
