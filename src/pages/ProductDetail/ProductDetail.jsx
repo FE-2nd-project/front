@@ -10,6 +10,7 @@ const ProductDetail = () => {
   const unitPrice = 49000; //제품 단가
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("Black");
+  const [selectedSize, setSelectedSize] = useState("M");
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -26,6 +27,10 @@ const ProductDetail = () => {
   };
 
   const totalPrice = unitPrice * quantity;
+
+  const handleSizeChange = (e) => {
+    setSelectedSize(e.target.value);
+  };
 
   return (
     <>
@@ -61,23 +66,40 @@ const ProductDetail = () => {
               <li className="benefit-item">전 상품 무료반품 서비스 제공</li>
             </ul>
           </div>
-          <div className="product-options">
-            <label className="benefit-title">Option</label>
-            <select
-              className="option-select"
-              value={selectedColor}
-              onChange={handleColorChange}
-            >
-              <option value="Black">Black</option>
-              <option value="White">White</option>
-              <option value="Red">Red</option>
-              <option value="Blue">Blue</option>
-            </select>
+          <div className="product-options-container">
+            <div className="product-option-color">
+              <label className="benefit-title">Color</label>
+              <select
+                className="option-select-color"
+                value={selectedColor}
+                onChange={handleColorChange}
+              >
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Red">Red</option>
+                <option value="Blue">Blue</option>
+              </select>
+            </div>
+            <div className="product-option-size">
+              <label className="benefit-title">Size</label>
+              <select
+                className="option-select-size"
+                value={selectedSize}
+                onChange={handleSizeChange}
+              >
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+            </div>
           </div>
+
           <div className="quantity-container">
-            <label className="quantity-label" htmlFor="quantity-input">
+            <div className="quantity-label">
               {selectedColor}
-            </label>
+              <span className="quantity-label-separator">|</span>
+              {selectedSize}
+            </div>
             <div className="quantity-button-container">
               <button
                 className="quantity-button quantity-decrement"
