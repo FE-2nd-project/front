@@ -1,0 +1,55 @@
+.Product {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.productLink {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.productImgWrapper {
+  position: relative;
+}
+
+.productIsSoldOut {
+  position: absolute;
+  bottom: 0;
+  padding: 5px 10px;
+  color: white;
+  background-color: lightgray;
+}
+
+.productName {
+  color: black;
+}
+
+.producPrice {
+  font-weight: 700;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.colorOptionWrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.badgeWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.badge {
+  padding: 5px 10px;
+  font-weight: 500;
+  color: black;
+  background-color: lightgray;
+}
