@@ -4,7 +4,7 @@
 }
 
 .order-section-container {
-  width: 60%;
+  width: 62%;
   padding: 20px;
   margin: 0px 0px 0px 10px;
   border-radius: 8px;
@@ -88,7 +88,7 @@
 }
 
 .product-General-order {
-  width: 45px;
+  width: 55px;
   height: fit-content;
   border: 1px solid #d8d8d8;
   padding: 3px;
@@ -203,7 +203,7 @@
 }
 
 .payment-order-button {
-  width: 96%;
+  width: 85%;
   height: 3rem;
   margin-top: -5px;
   padding: 1%;
