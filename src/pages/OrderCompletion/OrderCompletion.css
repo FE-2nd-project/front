@@ -66,97 +66,59 @@
   margin-bottom: 10px;
 }
 
-.bottom-completed-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+.bottom-completed-box-container {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+}
+.bottom-completed-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.bottom-completed-table th,
+.bottom-completed-table td {
+  padding: 15px 0px 15px 15px;
+  text-align: left;
 }
 
-.bottom-completed-box-totalprice,
-.bottom-completed-box-PaymentMethod {
-  width: 97.5%;
-  display: flex;
+.bottom-completed-table th {
+  width: 10rem;
 }
-
-.bottom-completed-box-totalprice {
-  display: flex;
-  gap: 20px;
-  border: 1px solid #a8a7a7;
-  border-bottom: 1px solid #a8a7a7;
-  align-items: center;
-}
-
-.bottom-completed-box-PaymentMethod {
-  align-items: center;
-  border-left: 1px solid #a8a7a7;
-  border-right: 1px solid #a8a7a7;
-  border-bottom: 1px solid #a8a7a7;
-}
-
 .bottom-completed-totalprice-text,
 .bottom-completed-PaymentMethod-text {
   font-weight: bold;
-  font-size: 1rem;
-  border-right: 1px solid #a8a7a7;
-  background-color: #ddd;
+  background-color: #f1f1f1;
 }
 
 .bottom-completed-totalprice-text {
-  padding: 1rem;
-}
-
-.bottom-completed-PaymentMethod-text {
-  padding: 15px 43px 15px 25px;
-}
-
-.bottom-completed-totalprice-price,
-.bottom-completed-PaymentMethod-method {
-  display: flex;
-  flex-direction: column;
+  border-bottom: 1px solid #ddd;
 }
 
 .bottom-completed-totalprice-price {
-  align-items: center;
-  font-weight: 500;
-  font-size: 16px;
-  padding-bottom: 5px;
+  text-align: right;
+  font-size: 1.2em;
+  color: #333;
+  border-bottom: 1px solid #ddd;
 }
-
-.bottom-completed-PaymentMethod-method {
-  margin-left: 10px;
-}
-
-.bottom-completed-PaymentMethod-method div {
-  margin-right: 10px;
-  display: flex;
-}
-
 .PaymentMethod-group {
-  display: flex;
+  width: 100%;
+  border-collapse: collapse;
 }
-
-.bottom-completed-PaymentMethod-method p {
-  margin: 0;
-  font-size: 0.9rem;
+.PaymentMethod-group th,
+.PaymentMethod-group td {
+  padding: 5px;
+  text-align: left;
 }
-
-.PaymentMethod-group-name p:first-child,
-.PaymentMethod-group-price p:first-child {
-  margin: 0px;
-  padding-top: 10px;
-  padding-bottom: 5px;
-  margin-right: 10px;
-  font-size: 15px;
+.PaymentMethod-group th {
+  padding-right: 0;
+  width: 80px;
+  font-weight: normal;
+  color: #666;
 }
-
-.PaymentMethod-group-name p:nth-child(2),
-.PaymentMethod-group-price p:nth-child(2) {
-  margin: 0px;
-  padding-top: 10px;
-  padding-bottom: 5px;
-  font-size: 15px;
+.PaymentMethod-group td {
+  font-weight: bold;
+  color: #333;
+  padding-left: 0px;
 }
 
 .continue-button {

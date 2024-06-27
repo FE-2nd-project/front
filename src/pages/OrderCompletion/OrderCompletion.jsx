@@ -53,29 +53,31 @@ const OrderCompletion = () => {
           <div className="bottom-completed">
             <div className="bottom-completed-title">결제정보</div>
             <div className="bottom-completed-box-container">
-              <div className="bottom-completed-box-totalprice">
-                <div className="bottom-completed-totalprice-text">
-                  최종 결제금액
-                </div>
-                <div className="bottom-completed-totalprice-price">price</div>
-              </div>
-              <div className="bottom-completed-box-PaymentMethod">
-                <div className="bottom-completed-PaymentMethod-text">
-                  결제수단
-                </div>
-                <div className="bottom-completed-PaymentMethod-method">
-                  <div className="PaymentMethod-group">
-                    <div className="PaymentMethod-group-name">
-                      <p>입금자:</p>
-                      <p>주문자이름</p>
-                    </div>
-                    <div className="PaymentMethod-group-price">
-                      <p>결제수단:</p>
-                      <p>신용카드</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <table className="bottom-completed-table">
+                <tr>
+                  <th className="bottom-completed-totalprice-text">
+                    최종 결제금액
+                  </th>
+                  <td className="bottom-completed-totalprice-price">price</td>
+                </tr>
+                <tr>
+                  <th className="bottom-completed-PaymentMethod-text">
+                    결제수단
+                  </th>
+                  <td className="bottom-completed-PaymentMethod-method">
+                    <table className="PaymentMethod-group">
+                      <tr>
+                        <th>입금자:</th>
+                        <td>주문자이름</td>
+                      </tr>
+                      <tr>
+                        <th>결제수단:</th>
+                        <td>신용카드</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
