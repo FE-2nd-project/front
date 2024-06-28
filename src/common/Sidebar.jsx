@@ -7,7 +7,6 @@ const SidebarContainer = styled.div`
   padding: 0;
   position: sticky;
   top: 0;
-  height: 100vh;
   overflow-y: hidden; /* 스크롤 제거 */
 `;
 
@@ -89,7 +88,12 @@ const Sidebar = () => {
         <MenuItem>배송지 관리</MenuItem>
         <MenuItem>내정보 관리</MenuItem>
         <MenuItem>간편로그인 계정관리</MenuItem>
-        <MenuItem>회원 탈퇴</MenuItem>
+        <MenuItem
+          active={location.pathname === "/mypage/withdrawal"}
+          onClick={() => handleMenuItemClick("/mypage/withdrawal")}
+        >
+          회원 탈퇴
+        </MenuItem>
       </MenuSection>
     </SidebarContainer>
   );

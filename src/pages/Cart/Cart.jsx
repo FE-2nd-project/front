@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CartProduct from "../../components/Cart/CartProduct/CartProduct";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
+import EmptyCart from "../../components/Cart/EmptyCart/EmptyCart";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -24,11 +25,12 @@ const Cart = () => {
           <div className="list-bottom">
             <CartProduct />
             <CartProduct />
-            <div className="cart-bottom-line"></div>
           </div>
+          <EmptyCart />
+          <div className="cart-bottom-line"></div>
         </div>
         <div className="cart-payment-container">
-          <PaymentInformation topText="결제정보" total="총 주문금액"/>
+          <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
             className="order-button"
             onClick={() => navigate("/Order-payment")}
