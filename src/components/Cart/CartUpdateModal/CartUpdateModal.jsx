@@ -27,15 +27,19 @@ const CartUpdateModal = ({ isUpdateClicked, setIsUpdateClicked }) => {
           <div className="update-newDetails-count">
             <div className="update-newDetails-container">
               <select className="newDetails-select">
+                <option value="none">사이즈 옵션을 선택해주세요</option>
                 <option>S</option>
                 <option>M</option>
                 <option>L</option>
               </select>
             </div>
             <div className="update-count-container">
-              <img className="decrement-icon" />
-              <div className="update-count">3</div>
-              <img className="increment-icon" />
+              <div></div>
+              <div className="update-number-container">
+                <img className="decrement-icon" />
+                <div className="update-count">3</div>
+                <img className="increment-icon" />
+              </div>
             </div>
           </div>
           <div className="update-total-price-container">
