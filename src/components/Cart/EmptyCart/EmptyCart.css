@@ -1,0 +1,30 @@
+.empty-cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  height: 40%;
+  gap: 1.1rem;
+}
+
+.empty-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.empty-statement {
+  color: rgb(133, 131, 131);
+}
+
+.empty-continue-button {
+  width: 15%;
+  height: 13%;
+  border: 1px solid rgb(220, 218, 218);
+  border-radius: 3px;
+  background-color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
