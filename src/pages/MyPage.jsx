@@ -99,54 +99,33 @@ const Separator = styled.div`
 const MyPageTitle = styled.h1`
   width: 100%;
   padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
   font-size: 1.5rem;
   font-weight: 500;
 `;
 
-const OrderList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #666;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
+const UserInfoContainer = styled.div`
+  border-top: 2px solid #000;
+  padding-top: 2rem;
+  padding-left: 1rem; /* 컨테이너 크기 조절 */
 `;
 
-const OrderItem = styled.div`
-  flex: 1;
-  text-align: center;
+const UserInfoRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
   font-size: 1rem;
 `;
 
-const NoOrderMessage = styled.div`
-  text-align: center;
-  color: #999;
-  padding: 2rem 0;
+const UserInfoLabel = styled.div`
+  font-weight: bold;
+  color: #333;
+  flex: 0.3;
 `;
 
-const BottomButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-  gap: 1rem;
-`;
-
-const BottomButton = styled.div`
-  flex: 1;
-  text-align: center;
-  padding: 1.5rem;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  cursor: pointer;
-  img {
-    display: block;
-    margin: 0 auto 1rem;
-  }
-  span {
-    display: block;
-    font-size: 1rem;
-  }
+const UserInfoValue = styled.div`
+  color: #666;
+  flex: 2;
+  text-align: left;
 `;
 
 const Breadcrumb = styled.div`
@@ -193,32 +172,25 @@ function MyPage() {
               </UserHold>
             </UserCash>
           </UserPreview>
-          <MyPageTitle>주문/배송 조회 (3개월 기준)</MyPageTitle>
-          <OrderList>
-            <OrderItem>결제완료</OrderItem>
-            <OrderItem>배송준비중</OrderItem>
-            <OrderItem>배송중</OrderItem>
-            <OrderItem>배송완료</OrderItem>
-          </OrderList>
-          <NoOrderMessage>최근 3개월 내 주문 내역이 없습니다.</NoOrderMessage>
-          <BottomButtons>
-            <BottomButton>
-              <img src="https://via.placeholder.com/40" alt="위시리스트" />
-              <span>위시리스트</span>
-            </BottomButton>
-            <BottomButton>
-              <img src="https://via.placeholder.com/40" alt="취소/교환/반품" />
-              <span>취소/교환/반품</span>
-            </BottomButton>
-            <BottomButton>
-              <img src="https://via.placeholder.com/40" alt="1:1문의 내역" />
-              <span>1:1문의 내역</span>
-            </BottomButton>
-            <BottomButton>
-              <img src="https://via.placeholder.com/40" alt="재입고 알림내역" />
-              <span>재입고 알림내역</span>
-            </BottomButton>
-          </BottomButtons>
+          <MyPageTitle>회원 정보</MyPageTitle>
+          <UserInfoContainer>
+            <UserInfoRow>
+              <UserInfoLabel>이름</UserInfoLabel>
+              <UserInfoValue>홍길동</UserInfoValue>
+            </UserInfoRow>
+            <UserInfoRow>
+              <UserInfoLabel>생년월일</UserInfoLabel>
+              <UserInfoValue>1980년 11월 02일</UserInfoValue>
+            </UserInfoRow>
+            <UserInfoRow>
+              <UserInfoLabel>연락처</UserInfoLabel>
+              <UserInfoValue>010-1234-1324</UserInfoValue>
+            </UserInfoRow>
+            <UserInfoRow>
+              <UserInfoLabel>이메일</UserInfoLabel>
+              <UserInfoValue>{userEmail}</UserInfoValue>
+            </UserInfoRow>
+          </UserInfoContainer>
         </MainContent>
       </Container>
     </PageContainer>
