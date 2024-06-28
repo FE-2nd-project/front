@@ -26,10 +26,10 @@ const CartProduct = () => {
             <img className="product-img" src={cap} />
           </div>
           <div className="product-info-container">
-            <div className="product-name">언스트럭쳐 볼캡 뉴욕양키스</div>
+            <div className="product-name">언스트럭쳐 볼캡 뉴욕양키스 - BLACK</div>
             <div className="product-details-container">
-              <div className="details-color">BLACK</div>
-              <div className="details-line"></div>
+              {/* <div className="details-color">BLACK</div> */}
+              {/* <div className="details-line"></div> */}
               <div className="details-size">F</div>
               <div className="details-line"></div>
               <div className="details-quantity">1개</div>

@@ -2,6 +2,8 @@ import React from "react";
 import { createPortal } from "react-dom";
 
 import "./CartUpdateModal.css";
+import cap from "../../../assets/cap.png";
+import exit from "../../../assets/exit.png";
 
 const CartUpdateModal = ({ isUpdateClicked, setIsUpdateClicked }) => {
   if (!isUpdateClicked) return null;
@@ -10,22 +12,25 @@ const CartUpdateModal = ({ isUpdateClicked, setIsUpdateClicked }) => {
     <div className="cart-update-overlays">
       <div className="cart-update-container">
         <div className="update-left-container">
-          <img className="product-image" src="hat.jpg" alt="product-image" />
+          <img className="update-product-image" src={cap} alt="product-image" />
         </div>
         <div className="update-right-container">
-          <img className="update-exit-icon" />
-          <div className="update-product-name">언스트럭쳐 볼캡 뉴욕양키스</div>
+          <img className="update-exit-icon" src={exit} alt="exit" />
+          <div className="update-product-name">
+            언스트럭쳐 볼캡 뉴욕양키스 - BLACK
+          </div>
           <div className="update-product-details">
-            <div className="details-color">BLACK</div>
-            <div className="details-line"></div>
-            <div className="details-size">F</div>
+            <div className="details-size">Size: F</div>
           </div>
           <div className="update-color-container"></div>
           <div className="update-size-container"></div>
-          <div className="update-totalDetails-count">
-            <div className="update-totalDetails-container">
-              <div>색상옵션</div>
-              <div>사이즈옵션</div>
+          <div className="update-newDetails-count">
+            <div className="update-newDetails-container">
+              <select className="newDetails-select">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+              </select>
             </div>
             <div className="update-count-container">
               <img className="decrement-icon" />
