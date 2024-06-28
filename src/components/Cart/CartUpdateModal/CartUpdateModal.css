@@ -17,7 +17,7 @@
   flex-direction: column;
   align-items: center;
   width: 55%;
-  height: 55%;
+  /* height: 60%; */
   margin-top: 10px;
   margin-bottom: 10px;
   z-index: 1000;
@@ -29,6 +29,7 @@
 }
 
 .update-left-container {
+  flex: 1;
   width: 40%;
   height: 100%;
 }
@@ -36,7 +37,7 @@
 .update-product-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .update-right-container {
