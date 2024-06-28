@@ -5,7 +5,8 @@ import "./Withdrawal.css";
 import show from "../../assets/show-password.png";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import WithdrawalCheck from "../../components/Withdrawal/WithdrawalCheck";
 
 const Breadcrumbs = styled.div`
   font-size: 0.9rem;
@@ -13,7 +14,10 @@ const Breadcrumbs = styled.div`
 `;
 
 const Withdrawal = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  // 비밀번호 확인 성공시 WithdrawalCheck 컴포넌트 띄우기 
   return (
     <div className="withdrawal-page">
       <div className="sidebar-container">
@@ -41,8 +45,14 @@ const Withdrawal = () => {
             alt="show-password"
             onClick={() => setShowPassword((prev) => !prev)}
           />
-          <button className="check-password-button">확인</button>
+          <button
+            className="check-password-button"
+            onClick={() => navigate("/mypage/withdrawal-check")}
+          >
+            확인
+          </button>
         </div>
+        <WithdrawalCheck />
       </div>
     </div>
   );
