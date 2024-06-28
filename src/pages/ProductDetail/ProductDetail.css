@@ -65,6 +65,10 @@
   margin-top: 20px;
 }
 
+.product-shipping-detail-info {
+  font-size: 18px;
+}
+
 .product-shipping-title {
   font-weight: bold;
   width: 50px;

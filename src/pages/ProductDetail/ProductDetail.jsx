@@ -9,8 +9,7 @@ import plus from "../../assets/plus.svg";
 const ProductDetail = () => {
   const unitPrice = 49000; //제품 단가
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState("Black");
-  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedSize, setSelectedSize] = useState("S"); //사이즈
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -20,10 +19,6 @@ const ProductDetail = () => {
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
-  };
-
-  const handleColorChange = (e) => {
-    setSelectedColor(e.target.value);
   };
 
   const totalPrice = unitPrice * quantity;
@@ -53,6 +48,11 @@ const ProductDetail = () => {
             <div className="product-price-text">49,000원</div>
           </div>
           <div className="product-shipping-info">
+            <div className="product-shipping-detail-info">
+              사계절 내내 쓰고 다닐 수 있는 멋진 모자!
+            </div>
+          </div>
+          <div className="product-shipping-info">
             <div className="product-shipping-title">배송비</div>
             <div className="product-shipping-detail">전 상품 무료배송</div>
           </div>
@@ -67,19 +67,6 @@ const ProductDetail = () => {
             </ul>
           </div>
           <div className="product-options-container">
-            <div className="product-option-color">
-              <label className="benefit-title">Color</label>
-              <select
-                className="option-select-color"
-                value={selectedColor}
-                onChange={handleColorChange}
-              >
-                <option value="Black">Black</option>
-                <option value="White">White</option>
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-              </select>
-            </div>
             <div className="product-option-size">
               <label className="benefit-title">Size</label>
               <select
@@ -87,6 +74,9 @@ const ProductDetail = () => {
                 value={selectedSize}
                 onChange={handleSizeChange}
               >
+                <option value="" disabled>
+                  사이즈를 선택해주세요
+                </option>
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
@@ -95,11 +85,14 @@ const ProductDetail = () => {
           </div>
 
           <div className="quantity-container">
-            <div className="quantity-label">
-              {selectedColor}
-              <span className="quantity-label-separator">|</span>
-              {selectedSize}
+            <div className="quantity-size-container">
+              <div className="quantity-label">{selectedSize}</div>
+              <div className="out-of-stock-text">재고없음</div>
+              {quantity === 0 && (
+                <div className="out-of-stock-text">재고없음</div>
+              )}
             </div>
+
             <div className="quantity-button-container">
               <button
                 className="quantity-button quantity-decrement"
