@@ -18,19 +18,24 @@ const Signup = () => {
           </div>
           <div className="password-container">
             <label className="password-label">
-              비밀번호 <span className="password-span">(6글자 이상)</span>
+              비밀번호{" "}
+              <span className="password-span">
+                (영문자, 숫자의 조합으로 8자 이상 20자 이하)
+              </span>
             </label>
             <input className="password" type="password" required></input>
           </div>
-          {/* <div className="password-check-container">
-            <label className="password-check-label">비밀번호 확인</label>
-            <input className="password-check" type="password" required></input>
-          </div> */}
-          <div className="nickname-container">
-            <label className="nickname-label">이름</label>
-            <input className="nickname"></input>
+          <div className="name-container">
+            <label className="name-label">이름</label>
+            <input className="name"></input>
           </div>
-
+          <div className="gender-container">
+            <label className="gender-label">성별</label>
+            <select className="gender-select">
+              <option className="gender-option">FEMALE</option>
+              <option className="gender-option">MALE</option>
+            </select>
+          </div>
           <div className="profile-picture-container">
             <label className="profile-picture-label">Profile Photo</label>
             <label className="custom-file-upload" htmlFor="profile-picture">
