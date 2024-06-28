@@ -3,12 +3,18 @@ import React, { useState } from "react";
 import "./CartProduct.css";
 import cap from "../../../assets/cap.png";
 import CartDeleteModal from "../CartDeleteModal/CartDeleteModal";
+import CartUpdateModal from "../CartUpdateModal/CartUpdateModal";
 
 const CartProduct = () => {
+  const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
 
   return (
     <>
+      <CartUpdateModal
+        isUpdateClicked={isUpdateClicked}
+        setIsUpdateClicked={setIsUpdateClicked}
+      />
       <CartDeleteModal
         isDeleteClicked={isDeleteClicked}
         setIsDeleteClicked={setIsDeleteClicked}
@@ -32,6 +38,12 @@ const CartProduct = () => {
           </div>
         </div>
         <div className="product-right">
+          <button
+            className="product-update"
+            onClick={() => setIsUpdateClicked((prev) => !prev)}
+          >
+            옵션 변경
+          </button>
           <button
             className="product-delete"
             onClick={() => setIsDeleteClicked((prev) => !prev)}
