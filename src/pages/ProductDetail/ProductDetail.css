@@ -145,6 +145,15 @@
   color: #ccc;
 }
 
+.quantity-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.out-of-stock-text {
+  color: rgb(3, 120, 215);
+}
+
 .quantity-button-container {
   background-color: white;
   width: 30%;
@@ -156,10 +165,6 @@
   justify-content: center;
   border-radius: 5px;
   border: 1px solid #e3e3e3;
-}
-.quantity-label {
-  font-weight: bold;
-  margin-right: 10px;
 }
 
 .quantity-button {
