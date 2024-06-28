@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
+import PurchasesItem from "../components/MyPage/PurchasesItem";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -132,21 +133,113 @@ const FilterButtonApply = styled.button`
 const PurchaseContainer = styled.div`
   border-top: 2px solid #000;
   padding-top: 2rem;
-  padding-left: 1rem; /* 컨테이너 크기 조절 */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개씩 한 줄에 */
+  gap: 1rem;
 `;
 
 const PurchaseMessage = styled.div`
   text-align: center;
   font-size: 1rem;
   color: #999;
+  grid-column: span 4;
 `;
 
 const Purchases = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
   };
+
+  const applyFilter = () => {
+    // 필터링 로직
+    let filtered = items;
+    const currentDate = new Date();
+
+    if (selectedFilter === "3개월") {
+      const dateLimit = new Date();
+      dateLimit.setMonth(currentDate.getMonth() - 3);
+      filtered = items.filter(
+        (item) => new Date(item.purchaseDate) >= dateLimit
+      );
+    } else if (selectedFilter === "6개월") {
+      const dateLimit = new Date();
+      dateLimit.setMonth(currentDate.getMonth() - 6);
+      filtered = items.filter(
+        (item) => new Date(item.purchaseDate) >= dateLimit
+      );
+    } else if (selectedFilter === "기간선택") {
+      if (year && month) {
+        filtered = items.filter((item) => {
+          const purchaseDate = new Date(item.purchaseDate);
+          return (
+            purchaseDate.getFullYear() === parseInt(year) &&
+            purchaseDate.getMonth() === parseInt(month) - 1
+          );
+        });
+      }
+    }
+
+    setFilteredItems(filtered);
+    toggleFilter();
+  };
+
+  const items = [
+    {
+      id: 1,
+      image: "https://via.placeholder.com/200",
+      title: "루키 언스트럭처 블캡 LAC다저스",
+      orderNumber: "123456",
+      purchaseDate: "2023-01-15",
+    },
+    {
+      id: 2,
+      image: "https://via.placeholder.com/200",
+      title: "루키 언스트럭처 블캡 LAC다저스",
+      orderNumber: "123457",
+      purchaseDate: "2023-01-16",
+    },
+    {
+      id: 3,
+      image: "https://via.placeholder.com/200",
+      title: "루키 언스트럭처 블캡 LAC다저스",
+      orderNumber: "123458",
+      purchaseDate: "2023-05-17",
+    },
+    {
+      id: 4,
+      image: "https://via.placeholder.com/200",
+      title: "루키 언스트럭처 블캡 LAC다저스",
+      orderNumber: "123459",
+      purchaseDate: "2023-01-18",
+    },
+    {
+      id: 5,
+      image: "https://via.placeholder.com/200",
+      title: "N-COVER 언스트럭처 캡",
+      orderNumber: "123460",
+      purchaseDate: "2023-03-19",
+    },
+    {
+      id: 6,
+      image: "https://via.placeholder.com/200",
+      title: "N-COVER 언스트럭처 캡",
+      orderNumber: "123461",
+      purchaseDate: "2024-01-19",
+    },
+  ];
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+
+  useEffect(() => {
+    setFilteredItems(items);
+  }, []);
 
   return (
     <PageContainer>
@@ -158,22 +251,75 @@ const Purchases = () => {
             &gt; 구매내역
           </Breadcrumbs>
           <TitleContainer>
-            <Title>총 0건의 내역</Title>
+            <Title>총 {filteredItems.length}건의 내역</Title>
             <FilterContainer>
               <FilterButton onClick={toggleFilter}>기간조회 ▾</FilterButton>
               {isFilterOpen && (
                 <FilterDropdown>
                   <FilterButtonGroup>
-                    <FilterButtonOption>3개월</FilterButtonOption>
-                    <FilterButtonOption>6개월</FilterButtonOption>
-                    <FilterButtonOption>기간선택</FilterButtonOption>
+                    <FilterButtonOption
+                      onClick={() => setSelectedFilter("3개월")}
+                      style={{
+                        backgroundColor:
+                          selectedFilter === "3개월" ? "#007bff" : "white",
+                        color: selectedFilter === "3개월" ? "white" : "black",
+                      }}
+                    >
+                      3개월
+                    </FilterButtonOption>
+                    <FilterButtonOption
+                      onClick={() => setSelectedFilter("6개월")}
+                      style={{
+                        backgroundColor:
+                          selectedFilter === "6개월" ? "#007bff" : "white",
+                        color: selectedFilter === "6개월" ? "white" : "black",
+                      }}
+                    >
+                      6개월
+                    </FilterButtonOption>
+                    <FilterButtonOption
+                      onClick={() => setSelectedFilter("기간선택")}
+                      style={{
+                        backgroundColor:
+                          selectedFilter === "기간선택" ? "#007bff" : "white",
+                        color:
+                          selectedFilter === "기간선택" ? "white" : "black",
+                      }}
+                    >
+                      기간선택
+                    </FilterButtonOption>
                   </FilterButtonGroup>
                   <FilterInputs>
-                    <FilterInput>
-                      <option>년</option>
+                    <FilterInput
+                      disabled={selectedFilter !== "기간선택"}
+                      value={year}
+                      onChange={(e) => setYear(e.target.value)}
+                    >
+                      <option value="">년</option>
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}년
+                        </option>
+                      ))}
                     </FilterInput>
-                    <FilterInput>
-                      <option>월</option>
+                    <FilterInput
+                      disabled={selectedFilter !== "기간선택"}
+                      value={month}
+                      onChange={(e) => setMonth(e.target.value)}
+                    >
+                      <option value="">월</option>
+                      <option value="1">1월</option>
+                      <option value="2">2월</option>
+                      <option value="3">3월</option>
+                      <option value="4">4월</option>
+                      <option value="5">5월</option>
+                      <option value="6">6월</option>
+                      <option value="7">7월</option>
+                      <option value="8">8월</option>
+                      <option value="9">9월</option>
+                      <option value="10">10월</option>
+                      <option value="11">11월</option>
+                      <option value="12">12월</option>
                     </FilterInput>
                   </FilterInputs>
                   <FilterMessage>
@@ -183,18 +329,26 @@ const Purchases = () => {
                     <FilterButtonCancel onClick={toggleFilter}>
                       취소
                     </FilterButtonCancel>
-                    <FilterButtonApply>적용하기</FilterButtonApply>
+                    <FilterButtonApply onClick={applyFilter}>
+                      적용하기
+                    </FilterButtonApply>
                   </FilterActions>
                 </FilterDropdown>
               )}
             </FilterContainer>
           </TitleContainer>
           <PurchaseContainer>
-            <PurchaseMessage>
-              보관한 구매내역이 없습니다
-              <br />
-              추천 상품을 둘러보세요
-            </PurchaseMessage>
+            {filteredItems.length === 0 ? (
+              <PurchaseMessage>
+                보관한 구매내역이 없습니다
+                <br />
+                추천 상품을 둘러보세요
+              </PurchaseMessage>
+            ) : (
+              filteredItems.map((item) => (
+                <PurchasesItem key={item.id} item={item} />
+              ))
+            )}
           </PurchaseContainer>
         </MainContent>
       </Container>
