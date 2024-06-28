@@ -1,0 +1,73 @@
+.logout-overlays {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.logout-modal-container {
+  position: fixed;
+  width: 30%;
+  height: 22%;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.exit-icon {
+  width: 18px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.logout-top-exit {
+  margin-left: 95%;
+}
+
+.logout-check {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1%;
+}
+
+.logout-bottom-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2%;
+}
+
+.logout-cancel,
+.logout-confirm {
+  width: 45%;
+  height: 3rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.logout-cancel {
+  background-color: white;
+  border: 1px solid rgb(223, 222, 222);
+}
+
+.logout-confirm {
+  background-color: black;
+  color: white;
+}

@@ -7,16 +7,22 @@ import search from "../../assets/search-icon.png";
 import bag from "../../assets/bag-icon.png";
 import loggedout from "../../assets/loggedout-icon.png";
 import loggedin from "../../assets/loggedin-icon.png";
+import LogoutModal from "../LogoutModal/LogoutModal";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const [isLoggedOutPopupOpen, setIsLoggedOutPopupOpen] = useState(false);
   const [isLoggedInPopupOpen, setIsLoggedInPopupOpen] = useState(false);
 
+  const [isLogoutClicked, setIsLogoutClicked] = useState(false);
+
+  // 로그아웃 상태의 팝업 메뉴
   const toggleLoggedOutPopup = () => {
     setIsLoggedOutPopupOpen(!isLoggedOutPopupOpen);
   };
 
+  // 로그인 상태의 팝업 메뉴
   const toggleLoggedInPopup = () => {
     setIsLoggedInPopupOpen(!isLoggedInPopupOpen);
   };
@@ -61,93 +67,104 @@ const Header = () => {
   }, [isLoggedOutPopupOpen, isLoggedInPopupOpen]);
 
   return (
-    <div className="navbar-container">
-      <div className="nav-top">
-        <img
-          className="mlb-icon"
-          src={mlb_logo}
-          alt="MLB-logo"
-          onClick={() => navigate("/")}
-        />
-        <div className="top-right-icons">
-          <img className="right-search-icon" src={search} alt="search" />
+    <>
+      <LogoutModal
+        isLogoutClicked={isLogoutClicked}
+        setIsLogoutClicked={setIsLogoutClicked}
+      />
+      <div className="navbar-container">
+        <div className="nav-top">
           <img
-            className="right-bag-icon"
-            src={bag}
-            alt="bag"
-            onClick={() => navigate("/cart")}
+            className="mlb-icon"
+            src={mlb_logo}
+            alt="MLB-logo"
+            onClick={() => navigate("/")}
           />
-          <img
-            className="right-loggedout-icon"
-            src={loggedout}
-            alt="loggedout"
-            onClick={toggleLoggedOutPopup}
-          />
-          {isLoggedOutPopupOpen && (
-            <div className="loggedout-popup" ref={loggedOutPopupRef}>
-              <div
-                className="signup"
-                onClick={() => {
-                  navigate("/signup");
-                  setIsLoggedOutPopupOpen(false);
-                }}
-              >
-                회원가입
+          <div className="top-right-icons">
+            <img className="right-search-icon" src={search} alt="search" />
+            <img
+              className="right-bag-icon"
+              src={bag}
+              alt="bag"
+              onClick={() => navigate("/cart")}
+            />
+            <img
+              className="right-loggedout-icon"
+              src={loggedout}
+              alt="loggedout"
+              onClick={toggleLoggedOutPopup}
+            />
+            {isLoggedOutPopupOpen && (
+              <div className="loggedout-popup" ref={loggedOutPopupRef}>
+                <div
+                  className="signup"
+                  onClick={() => {
+                    navigate("/signup");
+                    setIsLoggedOutPopupOpen(false);
+                  }}
+                >
+                  회원가입
+                </div>
+                <div
+                  className="login"
+                  onClick={() => {
+                    navigate("/login");
+                    setIsLoggedOutPopupOpen(false);
+                  }}
+                >
+                  LOG IN
+                </div>
               </div>
-              <div
-                className="login"
-                onClick={() => {
-                  navigate("/login");
-                  setIsLoggedOutPopupOpen(false);
-                }}
-              >
-                LOG IN
+            )}
+            <img
+              className="right-loggedin-icon"
+              src={loggedin}
+              alt="loggedin"
+              onClick={toggleLoggedInPopup}
+            />
+            {isLoggedInPopupOpen && (
+              <div className="loggedin-popup" ref={loggedInPopupRef}>
+                <div
+                  className="my-page"
+                  onClick={() => {
+                    navigate("/mypage");
+                    setIsLoggedInPopupOpen(false);
+                  }}
+                >
+                  마이페이지
+                </div>
+                <div
+                  className="logout"
+                  onClick={() => setIsLogoutClicked(true)}
+                >
+                  LOG OUT
+                </div>
               </div>
-            </div>
-          )}
-          <img
-            className="right-loggedin-icon"
-            src={loggedin}
-            alt="loggedin"
-            onClick={toggleLoggedInPopup}
-          />
-          {isLoggedInPopupOpen && (
-            <div className="loggedin-popup" ref={loggedInPopupRef}>
-              <div
-                className="my-page"
-                onClick={() => {
-                  navigate("/mypage");
-                  setIsLoggedInPopupOpen(false);
-                }}
-              >
-                마이페이지
-              </div>
-              <div className="logout">LOG OUT</div>
-            </div>
-          )}
+            )}
+          </div>
+        </div>
+        <div className="nav-bottom">
+          <NavLink to="/women" className="nav-women" activeClassName="active">
+            WOMEN
+          </NavLink>
+          <NavLink to="/men" className="nav-men" activeClassName="active">
+            MEN
+          </NavLink>
+          <NavLink to="/cap" className="nav-cap" activeClassName="active">
+            CAP
+          </NavLink>
+          <NavLink to="/shoes" className="nav-shoes" activeClassName="active">
+            SHOES
+          </NavLink>
+          <NavLink to="/bag" className="nav-bag" activeClassName="active">
+            BAG
+          </NavLink>
+          <div className="bottom-barrier"></div>
+          <div className="bottom-promotion">PROMOTION</div>
+          <div className="bottom-trend">TREND</div>
         </div>
       </div>
-      <div className="nav-bottom">
-        <NavLink to="/women" className="nav-women" activeClassName="active">
-          WOMEN
-        </NavLink>
-        <NavLink to="/men" className="nav-men" activeClassName="active">
-          MEN
-        </NavLink>
-        <NavLink to="/cap" className="nav-cap" activeClassName="active">
-          CAP
-        </NavLink>
-        <NavLink to="/shoes" className="nav-shoes" activeClassName="active">
-          SHOES
-        </NavLink>
-        <NavLink to="/bag" className="nav-bag" activeClassName="active">
-          BAG
-        </NavLink>
-        <div className="bottom-barrier"></div>
-        <div className="bottom-promotion">PROMOTION</div>
-        <div className="bottom-trend">TREND</div>
-      </div>
-    </div>
+    </>
   );
 };
 

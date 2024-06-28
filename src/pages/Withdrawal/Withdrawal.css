@@ -1,0 +1,61 @@
+.withdrawal-page {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar-container {
+  width: 17%;
+}
+
+.withdrawal-container {
+  margin-left: 0;
+  width: 80%;
+  height: 100vh;
+}
+
+.withdrawal {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4%;
+  gap: 2rem;
+}
+
+.password-check-statement {
+  font-size: 1.1rem;
+  color: rgb(106, 105, 105);
+  font-weight: 600;
+}
+
+.withdrawal-check-password {
+  width: 40%;
+  height: 12%;
+  font-size: 1rem;
+}
+
+.check-show-password {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  cursor: pointer;
+  left: 67%;
+  top: 48.5%;
+}
+
+.check-password-button {
+  width: 40%;
+  height: 12%;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+}
