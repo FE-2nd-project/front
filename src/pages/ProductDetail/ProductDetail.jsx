@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageSlider from "./ImageSlider";
 import "./ProductDetail.css";
 import share from "../../assets/share.svg";
@@ -8,8 +8,23 @@ import plus from "../../assets/plus.svg";
 
 const ProductDetail = () => {
   const unitPrice = 49000; //제품 단가
-  const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState("S"); //사이즈
+  const [quantity, setQuantity] = useState(1); // 0 또는 1
+  const [category, setCategory] = useState("신발"); // 카테고리
+  const [sizeOptions, setSizeOptions] = useState([]); // 사이즈
+
+  const defaultSize = category === "옷" ? "S" : "250";
+  const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
+
+  useEffect(() => {
+    // 카테고리에 따라 사이즈 옵션 다르게 설정 (옷(s,m,l) / 신발(220, 280) / 가방(f))
+    if (category === "옷") {
+      setSizeOptions(["S", "M", "L"]);
+      setSelectedSize("S");
+    } else if (category === "신발") {
+      setSizeOptions(Array.from({ length: 7 }, (_, i) => (i + 22) * 10));
+      setSelectedSize("250");
+    }
+  }, [category]);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -77,9 +92,11 @@ const ProductDetail = () => {
                 <option value="" disabled>
                   사이즈를 선택해주세요
                 </option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
+                {sizeOptions.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -87,9 +104,8 @@ const ProductDetail = () => {
           <div className="quantity-container">
             <div className="quantity-size-container">
               <div className="quantity-label">{selectedSize}</div>
-              <div className="out-of-stock-text">재고없음</div>
               {quantity === 0 && (
-                <div className="out-of-stock-text">재고없음</div>
+                <div className="out-of-stock-text">(재고없음)</div>
               )}
             </div>
 
@@ -97,6 +113,7 @@ const ProductDetail = () => {
               <button
                 className="quantity-button quantity-decrement"
                 onClick={decreaseQuantity}
+                disabled={quantity === 0}
               >
                 <img src={minus} alt="minus"></img>
               </button>
@@ -104,6 +121,7 @@ const ProductDetail = () => {
               <button
                 className="quantity-button quantity-increment"
                 onClick={increaseQuantity}
+                disabled={quantity === 0}
               >
                 <img src={plus} alt="plus"></img>
               </button>
