@@ -7,8 +7,7 @@ const SidebarContainer = styled.div`
   padding: 0;
   position: sticky;
   top: 0;
-  height: 100vh;
-  overflow-y: hidden; /* 스크롤 제거 */
+  overflow-y: hidden;
 `;
 
 const SidebarTitle = styled.div`
