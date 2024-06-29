@@ -1,0 +1,149 @@
+.product-registered-page {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar-container {
+  width: 17%;
+}
+
+.products-registered-container {
+  width: 100%;
+}
+
+.product-registered {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.registered-container-bydate {
+  width: 100%;
+  gap: 0;
+}
+
+.registered-each-container {
+  width: 100%;
+}
+
+.registered-top-container {
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid rgb(145, 146, 145);
+  border-bottom: none;
+}
+
+.registered-modify-button {
+  cursor: pointer;
+}
+
+.registered-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.registered-table th,
+.registered-table td {
+  padding: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid rgb(216, 216, 216);
+}
+
+.registered-table-title {
+  background-color: rgb(249, 249, 249);
+}
+
+.table-title-number,
+.table-data-productId {
+  width: 8%;
+}
+
+.data-modify-button {
+  width: 80%;
+  height: 2rem;
+  font-weight: 500;
+  color: white;
+  background-color: black;
+  border-radius: 3px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.table-title-name,
+.table-data-photo-name {
+  width: 32%;
+}
+
+.table-data-photo-name-flex {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.table-data-photo {
+  width: 22%;
+  max-height: 100px;
+  margin-right: 4%;
+  object-fit: contain;
+}
+
+.table-data-name-container {
+  display: flex;
+  align-items: center;
+  width: 78%;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.table-title-price,
+.table-data-price {
+  width: 11%;
+}
+
+.table-data-price {
+  word-wrap: break-word;
+}
+
+.table-title-category,
+.table-data-categories {
+  width: 13%;
+}
+
+.data-categories-appparel {
+  margin-top: 5px;
+}
+
+.table-title-option,
+.table-data-option-quantity {
+  width: 12%;
+}
+
+.table-data-option-quantity-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.data-quantity {
+  margin-left: 5px;
+}
+
+.table-title-registered-date,
+.table-data-registered-date,
+.table-title-end-date,
+.table-data-end-date {
+  width: 12%;
+}

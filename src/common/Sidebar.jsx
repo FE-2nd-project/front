@@ -71,7 +71,12 @@ const Sidebar = () => {
         >
           위시리스트
         </MenuItem>
-        <MenuItem>최근 본 상품</MenuItem>
+        <MenuItem
+          active={location.pathname === "/mypage/product-registered"}
+          onClick={() => handleMenuItemClick("/mypage/product-registered")}
+        >
+          등록된 판매 상품 조회
+        </MenuItem>
         <MenuItem>상품 리뷰</MenuItem>
         <MenuItem>1:1 문의 내역</MenuItem>
         <MenuItem>재입고 알림 내역</MenuItem>
