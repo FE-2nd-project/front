@@ -11,6 +11,37 @@ const OrderPayment = () => {
   const quantity = 1; //수량
   const totalPrice = unitPrice * quantity; // 총금액
   const option = "black";
+
+  const products = [
+    {
+      id: 1,
+      image: "/hat.jpg",
+      name: "특별한 상품",
+      option: "옵션1",
+      size: "F",
+      quantity: 2,
+      unitPrice: "49,000원",
+    },
+    {
+      id: 2,
+      image: "/hat.jpg",
+      name: "멋진 셔츠",
+      option: "옵션2",
+      size: "M",
+      quantity: 1,
+      unitPrice: "39,000원",
+    },
+    {
+      id: 3,
+      image: "/hat.jpg",
+      name: "이쁜 가방",
+      option: "옵션4",
+      size: "L",
+      quantity: 0,
+      unitPrice: "109,000원",
+    },
+  ];
+
   return (
     <div>
       <CartNavLink />
@@ -50,7 +81,12 @@ const OrderPayment = () => {
             <form className="order-form">
               <div className="form-group">
                 <label>주소</label>
-                <input type="text" name="address" required />
+                <input
+                  type="text"
+                  name="address"
+                  defaultValue="서울특별시 oo구"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>우편번호</label>
@@ -62,26 +98,47 @@ const OrderPayment = () => {
           <div className="order-section-product-information">
             <h2 className="section-title">주문상품 정보</h2>
             <div className="order-product-container">
-              <div className="order-product">
-                <img src="/hat.jpg" alt="Product" className="product-image" />
+              <div className="order-product-group">
+                {products.map((product) => (
+                  <div key={product.id} className="order-product">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="product-image"
+                    />
 
-                <div className="product-details">
-                  <div className="product-General-order">
-                    <p>일반주문</p>
-                  </div>
-                  <div className="product-details-group">
-                    <p>특별한 상품</p>
-                    <div className="product-details-option">
-                      <p>{option}</p>
-                      <span className="separator">|</span>
-                      <p>F</p>
-                      <span className="separator">|</span>
-                      <p>{quantity}개</p>
+                    <div className="product-details">
+                      <div className="product-General-order">
+                        <p>일반주문</p>
+                      </div>
+                      <div className="product-details-group">
+                        <p>{product.name}</p>
+                        <div className="product-details-option">
+                          <p>{product.option}</p>
+                          <span className="separator">|</span>
+                          <p>{product.size}</p>
+                          <span className="separator">|</span>
+                          <p
+                            className={
+                              product.quantity === 0
+                                ? "product-details-out-of-stock"
+                                : ""
+                            }
+                          >
+                            {product.quantity > 0
+                              ? `${product.quantity}개`
+                              : "재고없음"}
+                          </p>
+                        </div>
+                        <p>
+                          {product.quantity === 0
+                            ? `주문불가`
+                            : `${product.unitPrice}`}
+                        </p>
+                      </div>
                     </div>
-
-                    <p>{unitPrice}</p>
                   </div>
-                </div>
+                ))}
               </div>
               <div className="order-product-description">
                 <ul>
