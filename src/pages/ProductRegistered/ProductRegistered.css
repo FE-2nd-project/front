@@ -68,7 +68,7 @@
 
 .table-title-number,
 .table-data-productId {
-  width: 8%;
+  max-width: 8%;
 }
 
 .data-modify-button {
@@ -114,7 +114,7 @@
 }
 
 .table-data-price {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .table-title-category,

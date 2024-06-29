@@ -53,7 +53,7 @@ const ProductRegistered = () => {
                 </th>
                 <th className="table-data-price">40,000원</th>
                 <th className="table-data-categories">
-                  <div className="data-categories-gender">성별: Women</div>
+                  <div className="data-categories-gender">Gender: Women</div>
                   <div className="data-categories-appparel">BAG</div>
                 </th>
                 <th className="table-data-option-quantity">
@@ -61,6 +61,11 @@ const ProductRegistered = () => {
                     {" "}
                     <div className="data-option">L:</div>
                     <div className="data-quantity">130</div>
+                  </div>
+                  <div className="table-data-option-quantity-flex">
+                    {" "}
+                    <div className="data-option">M:</div>
+                    <div className="data-quantity">20</div>
                   </div>
                 </th>
                 <th className="table-data-registered-date">2024-05-02</th>
