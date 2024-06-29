@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ImageSlider from "./ImageSlider";
 import "./ProductDetail.css";
 import share from "../../assets/share.svg";
@@ -7,35 +8,29 @@ import minus from "../../assets/minus.svg";
 import plus from "../../assets/plus.svg";
 
 const ProductDetail = () => {
+  const navigate = useNavigate();
+
   const unitPrice = 49000; //제품 단가
-  const [quantity, setQuantity] = useState(0); // 수량--> 테스트 할때 0 또는 1
+  const [quantity, setQuantity] = useState(0); // 초기수량--> 테스트 할때 0 또는 1
   const [category, setCategory] = useState("신발"); // 카테고리
   const [sizeOptions, setSizeOptions] = useState([]); // 사이즈설정
 
+  const [quantities, setQuantities] = useState({}); // 수량
   const defaultSize = category === "옷" ? "S" : "250";
   const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
 
   useEffect(() => {
     // 카테고리에 따라 사이즈 옵션 설정
     if (category === "옷") {
-      setSizeOptions([
-        { size: "S", quantity: 10 },
-        { size: "M", quantity: 5 },
-        { size: "L", quantity: 0 },
-      ]);
+      setSizeOptions(["S", "M", "L"]);
+      setQuantities({ S: 10, M: 5, L: 0 });
       setSelectedSize("S");
     } else if (category === "신발") {
-      setSizeOptions([
-        { size: "220", quantity: 3 },
-        { size: "230", quantity: 7 },
-        { size: "240", quantity: 0 },
-        { size: "250", quantity: 4 },
-        { size: "260", quantity: 2 },
-        { size: "270", quantity: 6 },
-        { size: "280", quantity: 0 },
-      ]);
+      setSizeOptions(["220", "230", "240", "250", "260", "270", "280"]);
+      setQuantities({ 220: 3, 230: 7, 240: 0, 250: 4, 260: 2, 270: 6, 280: 0 });
       setSelectedSize("250");
     }
+    setQuantity(1);
   }, [category]);
 
   const decreaseQuantity = () => {
@@ -45,14 +40,20 @@ const ProductDetail = () => {
   };
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    const maxQuantity = quantities[selectedSize] || 0;
+    if (quantity < maxQuantity) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleSizeChange = (e) => {
+    const newSize = e.target.value;
+    setSelectedSize(newSize);
+    setQuantity(1);
   };
 
   const totalPrice = unitPrice * quantity;
-
-  const handleSizeChange = (e) => {
-    setSelectedSize(e.target.value);
-  };
+  const selectedSizeQuantity = quantities[selectedSize] || 0;
 
   return (
     <>
@@ -104,10 +105,12 @@ const ProductDetail = () => {
                 <option value="" disabled>
                   사이즈를 선택해주세요
                 </option>
-                {sizeOptions.map(({ size, quantity }) => (
+                {sizeOptions.map((size) => (
                   <option key={size} value={size}>
                     {size}{" "}
-                    {quantity > 0 ? `(${quantity}개 남음)` : "(재고없음)"}
+                    {quantities[size] > 0
+                      ? `(${quantities[size]}개 남음)`
+                      : "(재고없음)"}
                   </option>
                 ))}
               </select>
@@ -116,17 +119,22 @@ const ProductDetail = () => {
 
           <div className="quantity-container">
             <div className="quantity-size-container">
-              <div className="quantity-label">{selectedSize}</div>
-              {quantity === 0 && (
+              <div className="quantity-label">
+                {selectedSize}{" "}
+                {selectedSizeQuantity > 0
+                  ? `(${selectedSizeQuantity}개 남음)`
+                  : "(재고없음)"}
+              </div>
+              {/* {quantity === 0 && (
                 <div className="out-of-stock-text">(재고없음)</div>
-              )}
+              )} */}
             </div>
 
             <div className="quantity-button-container">
               <button
                 className="quantity-button quantity-decrement"
                 onClick={decreaseQuantity}
-                disabled={quantity === 0}
+                disabled={quantity === 0 || selectedSizeQuantity === 0}
               >
                 <img src={minus} alt="minus"></img>
               </button>
@@ -134,7 +142,9 @@ const ProductDetail = () => {
               <button
                 className="quantity-button quantity-increment"
                 onClick={increaseQuantity}
-                disabled={quantity === 0}
+                disabled={
+                  quantity >= selectedSizeQuantity || selectedSizeQuantity === 0
+                }
               >
                 <img src={plus} alt="plus"></img>
               </button>
@@ -147,7 +157,12 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="add-to-bag-container">
-            <button className="add-to-bag-text">Add to bag</button>
+            <button
+              className="add-to-bag-text"
+              onClick={() => navigate("/cart")}
+            >
+              Add to bag
+            </button>
           </div>
         </div>
       </div>
