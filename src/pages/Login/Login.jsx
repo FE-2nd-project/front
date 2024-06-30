@@ -3,10 +3,52 @@ import React, { useState } from "react";
 import "./Login.css";
 import show from "../../assets/show-password.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+
+  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
+  console.log(cartQuantity, "카트 수량");
+
+  const inputChangeHandler = (e, setInput) => {
+    const changedInput = e.target.value;
+
+    setInput(changedInput.trim());
+  };
+
+  // 로그인 버튼 핸들 함수
+  const loginClickHandler = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("/api/auth/login", {
+        email: emailInput,
+        password: passwordInput,
+      })
+      .then((response) => {
+        const { token, cartQuantity } = response.data;
+        const accessToken = token.accessToken;
+
+        if (response.status === 200) {
+          localStorage.setItem("accessToken", accessToken);
+          dispatch(cartActions.setCartQuantity(cartQuantity));
+        } else {
+          alert("이메일이나 패스워드가 일치하지 않습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "서버에 로그인 요청 실패");
+      });
+  };
 
   return (
     <>
@@ -18,6 +60,8 @@ const Login = () => {
             <input
               className="email-input"
               placeholder="이메일을 입력해 주세요"
+              value={emailInput}
+              onChange={(e) => inputChangeHandler(e, setEmailInput)}
               required
             />
           </div>
@@ -27,6 +71,8 @@ const Login = () => {
               className="password-input"
               placeholder="비밀번호를 입력해 주세요"
               type={showPassword ? "text" : "password"}
+              value={passwordInput}
+              onChange={(e) => inputChangeHandler(e, setPasswordInput)}
               required
             />
             <img
@@ -36,7 +82,9 @@ const Login = () => {
               onClick={() => setShowPassword((prev) => !prev)}
             />
           </div>
-          <button className="login-button">로그인</button>
+          <button className="login-button" onClick={loginClickHandler}>
+            로그인
+          </button>
         </form>
         <div className="lookfor-email-password">
           <div>아이디 찾기</div>
