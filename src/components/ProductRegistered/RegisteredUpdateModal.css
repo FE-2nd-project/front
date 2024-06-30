@@ -13,7 +13,7 @@
 
 .registered-modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
@@ -23,24 +23,29 @@
 }
 
 .registered-modal-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 16px;
+  width: 25px;
+  height: 25px;
+  margin-left: 93%;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registered-modal-close-btn:hover {
+  border-radius: 50px;
+  background-color: rgb(243, 243, 243);
 }
 
 .registered-modal-content img {
-  max-width: 100px;
-  margin-bottom: 20px;
+  max-width: 25%;
 }
 
 .registered-modal-info-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .registered-modal-info-img {
@@ -53,6 +58,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  font-weight: 700;
 }
 
 .registered-modal-info-name,
@@ -63,32 +69,74 @@
   text-align: left;
 }
 
+.registered-modal-info-name {
+  font-size: 17px;
+}
+
 .registered-modal-info-category-group {
   display: flex;
   width: 100%;
   text-align: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .registered-modal-info-category,
 .registered-modal-info-price {
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.registered-modal-info-price {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.registered-modal-info-size {
+  margin-top: 5px;
 }
 
 .registered-modal-info-size-flex {
   display: flex;
-  justify-content: space-between;
   margin-top: 5px;
+  margin-left: 20px;
   gap: 10px;
+  align-items: center;
 }
 
-.registered-modal-info-size-option,
-.registered-modal-info-size-quantity {
-  flex: 1;
+.registered-modal-info-size-option {
+  width: 25px;
+  margin: 5px;
 }
 
 .registered-modal-info input,
 .registered-modal-info select {
-  width: 50%;
   padding: 5px;
   margin-top: 5px;
+}
+
+.registered-modal-info select {
+  width: 70%;
+}
+
+.registered-modal-info input {
+  width: 81%;
+}
+
+.registered-section {
+  border-top: 1px solid rgb(216, 216, 216);
+  width: 100%;
+}
+
+.registered-modal-update-button {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  padding: 3%;
+  cursor: pointer;
 }

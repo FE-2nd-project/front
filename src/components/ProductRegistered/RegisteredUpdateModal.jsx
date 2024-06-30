@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import "./RegisteredUpdateModal.css";
 import cap from "../../assets/cap.png";
+import exit from "../../assets/exit.png";
 
-const genders = ["Women", "Men"];
+const genders = ["Men", "Women"];
 const products = ["Cap", "Shoes", "Bag"];
 
 const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
@@ -11,7 +12,8 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
   const [gender, setGender] = useState("Women");
   const [product, setProduct] = useState("Bag");
   const [sizes, setSizes] = useState([
-    { size: "S", quantity: 130 },
+    { size: "S", quantity: 0 },
+    { size: "M", quantity: 20 },
     { size: "L", quantity: 130 },
   ]);
 
@@ -26,12 +28,12 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
   return createPortal(
     <div className="registered-modal-overlay">
       <div className="registered-modal-content">
-        <button
+        <img
+          src={exit}
+          alt="exit"
           onClick={() => setIsUpdate(false)}
           className="registered-modal-close-btn"
-        >
-          닫기
-        </button>
+        />
 
         <div className="registered-modal-info-container">
           <div className="registered-modal-info-img">
@@ -41,6 +43,7 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
             <div className="registered-modal-info-name">
               언스트럭쳐 볼캡 뉴욕양키스 - BLACK
             </div>
+            <div className="registered-section"></div>
             <div className="registered-modal-info-price">
               판매가
               <input
@@ -50,6 +53,8 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
                 className="registered-modal-info-price-input"
               />
             </div>
+            <div className="registered-section"></div>
+
             <div className="registered-modal-info-category-group">
               <div className="registered-modal-info-category">
                 성별
@@ -79,6 +84,8 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
               </div>
             </div>
 
+            <div className="registered-section"></div>
+
             <div className="registered-modal-info-size">
               옵션 및 수량:
               {sizes.map((size, index) => (
@@ -100,6 +107,7 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
             </div>
           </div>
         </div>
+        <button className="registered-modal-update-button">변경하기</button>
       </div>
     </div>,
     document.getElementById("overlays-modal")
