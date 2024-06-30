@@ -9,6 +9,12 @@ const cartSlice = createSlice({
     setCartQuantity(state, action) {
       state.cartQuantity = action.payload;
     },
+    addQuantity(state, action) {
+      state.cartQuantity += 1;
+    },
+    subtractQuantity(state, action) {
+      state.cartQuantity -= 1;
+    },
   },
 });
 
