@@ -1,11 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./WithdrawalCheck.css";
 import explanationMark from "../../assets/explanation-mark.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const WithdrawalCheck = () => {
   const navigate = useNavigate();
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const isCheckedHandler = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const withdrawConfirmHandler = (e) => {
+    e.preventDefault();
+
+    if (!isChecked) {
+      alert("회원 탈퇴 유의사항에 동의해야 합니다.");
+      return;
+    }
+
+    //임시의 회원 탈퇴 요청 성공 시, 로직
+    localStorage.removeItem("accessToken");
+    navigate("/");
+
+    // 실제 회원 탈퇴 요청의 axios 로직
+    // const accessToken = localStorage.getItem("accessToken");
+    // axios
+    //   .patch(
+    //     "/api/auth/delete_user",
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       localStorage.removeItem("accessToken");
+    //       navigate("/");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error, "회원 탈퇴 요청 실패");
+    //   });
+  };
   return (
     <div className="withdrawal-check-container">
       <div className="withdraw-check-statements">
@@ -35,7 +77,13 @@ const WithdrawalCheck = () => {
         </div>
       </div>
       <div className="withdraw-checkbox-container">
-        <input className="withdraw-checkbox" type="checkbox" required />
+        <input
+          className="withdraw-checkbox"
+          type="checkbox"
+          checked={isChecked}
+          onChange={isCheckedHandler}
+          required
+        />
         <label className="withdraw-checkbox-label">
           회원 탈퇴 유의사항을 확인하였으며 동의합니다.
         </label>
@@ -47,7 +95,12 @@ const WithdrawalCheck = () => {
         >
           취소
         </button>
-        <button className="withdraw-confirm-button">회원 탈퇴</button>
+        <button
+          className="withdraw-confirm-button"
+          onClick={withdrawConfirmHandler}
+        >
+          회원 탈퇴
+        </button>
       </div>
     </div>
   );
