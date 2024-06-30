@@ -2,8 +2,11 @@ import React, { useState } from "react";
 
 import "./Signup.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -69,20 +72,31 @@ const Signup = () => {
     }
 
     axios
-      .post("/api/auth/signup", {
-        email,
-        password,
-        name,
-        gender,
-        profilePicture,
-        phone,
-        address,
-      })
+      .post(
+        "/api/auth/signup",
+        {
+          email,
+          password,
+          name,
+          gender,
+          profilePicture,
+          phone,
+          address,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
-        console.log("서버에 데이터 전송 성공:", response.data);
+        if (response.status === 200) {
+          console.log("서버에 회원가입 전송 성공:", response.data);
+          navigate("/login");
+        }
       })
       .catch((error) => {
-        console.error("서버에 데이터 전송 실패:", error);
+        console.error("서버에 회원가입 전송 실패:", error);
       });
   };
 

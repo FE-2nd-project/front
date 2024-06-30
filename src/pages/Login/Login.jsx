@@ -37,10 +37,18 @@ const Login = () => {
 
     // 실제 로그인 axios 요청
     // axios
-    //   .post("/api/auth/login", {
-    //     email: emailInput,
-    //     password: passwordInput,
-    //   })
+    //   .post(
+    //     "/api/auth/login",
+    //     {
+    //       email: emailInput,
+    //       password: passwordInput,
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   )
     //   .then((response) => {
     //     const { token, cartQuantity } = response.data;
     //     const accessToken = token.accessToken;
