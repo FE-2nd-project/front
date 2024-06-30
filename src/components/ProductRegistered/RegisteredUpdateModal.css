@@ -2,20 +2,93 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .registered-modal-content {
-  background: white;
+  background-color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  text-align: center;
 }
 
 .registered-modal-close-btn {
-  margin-top: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.registered-modal-content img {
+  max-width: 100px;
+  margin-bottom: 20px;
+}
+
+.registered-modal-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registered-modal-info-img {
+  margin-bottom: 20px;
+}
+
+.registered-modal-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.registered-modal-info-name,
+.registered-modal-info-price,
+.registered-modal-info-category,
+.registered-modal-info-size {
+  width: 100%;
+  text-align: left;
+}
+
+.registered-modal-info-category-group {
+  display: flex;
+  width: 100%;
+  text-align: left;
+}
+
+.registered-modal-info-category,
+.registered-modal-info-price {
+  display: flex;
+}
+
+.registered-modal-info-size-flex {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  gap: 10px;
+}
+
+.registered-modal-info-size-option,
+.registered-modal-info-size-quantity {
+  flex: 1;
+}
+
+.registered-modal-info input,
+.registered-modal-info select {
+  width: 50%;
+  padding: 5px;
+  margin-top: 5px;
 }
