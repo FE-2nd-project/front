@@ -3,9 +3,47 @@ import { createPortal } from "react-dom";
 
 import "./LogoutModal.css";
 import exit from "../../assets/exit.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
+  const navigate = useNavigate();
+
+  // 로그아웃 핸들 함수
+  const logoutConfirmHandler = (e) => {
+    e.preventDefault();
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    localStorage.removeItem("accessToken");
+    navigate("/");
+    setIsLogoutClicked(false);
+
+    // 실제 로그아웃 axios 로직
+    // axios
+    //   .post(
+    //     "/api/auth/logout",
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       localStorage.removeItem("accessToken");
+    //       setIsLogoutClicked(false);
+    //       navigate("/");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error, "로그아웃 요청 실패");
+    //   });
+  };
+
   if (!isLogoutClicked) return null;
+
   return createPortal(
     <div className="logout-overlays">
       <div className="logout-modal-container">
@@ -25,7 +63,9 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
           >
             취소
           </button>
-          <button className="logout-confirm">확인</button>
+          <button className="logout-confirm" onClick={logoutConfirmHandler}>
+            확인
+          </button>
         </div>
       </div>
     </div>,
