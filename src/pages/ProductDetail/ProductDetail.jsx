@@ -22,6 +22,8 @@ const ProductDetail = () => {
   const [quantities, setQuantities] = useState({}); // 수량
   const defaultSize = category === "옷" ? "S" : "250";
   const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
+  const totalPrice = unitPrice * quantity;
+  const selectedSizeQuantity = quantities[selectedSize] || 0;
 
   useEffect(() => {
     // 카테고리에 따라 사이즈 옵션 설정
@@ -55,9 +57,6 @@ const ProductDetail = () => {
     setSelectedSize(newSize);
     setQuantity(1);
   };
-
-  const totalPrice = unitPrice * quantity;
-  const selectedSizeQuantity = quantities[selectedSize] || 0;
 
   const handleAddToBag = () => {
     dispatch(cartActions.addQuantity());
