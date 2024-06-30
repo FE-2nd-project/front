@@ -8,6 +8,7 @@ import bag from "../../assets/bag-icon.png";
 import loggedout from "../../assets/loggedout-icon.png";
 import loggedin from "../../assets/loggedin-icon.png";
 import LogoutModal from "../LogoutModal/LogoutModal";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const Header = () => {
   const [isLoggedInPopupOpen, setIsLoggedInPopupOpen] = useState(false);
 
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
+
+  // 카트 수량과 현재 accessToken
+  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
+  const accessToken = localStorage.getItem("accessToken");
 
   // 로그아웃 상태의 팝업 메뉴
   const toggleLoggedOutPopup = () => {
@@ -82,18 +87,26 @@ const Header = () => {
           />
           <div className="top-right-icons">
             <img className="right-search-icon" src={search} alt="search" />
-            <img
-              className="right-bag-icon"
-              src={bag}
-              alt="bag"
+            <div
+              className="right-bag-icon-container"
               onClick={() => navigate("/cart")}
-            />
-            <img
-              className="right-loggedout-icon"
-              src={loggedout}
-              alt="loggedout"
-              onClick={toggleLoggedOutPopup}
-            />
+            >
+              <img className="right-bag-icon" src={bag} alt="bag" />
+              {accessToken && cartQuantity >= 1 && (
+                <div className="cart-quantity-container">
+                  <div className="cart-quantity-number">{cartQuantity}</div>
+                </div>
+              )}
+            </div>
+            {!accessToken && (
+              <img
+                className="right-loggedout-icon"
+                src={loggedout}
+                alt="loggedout"
+                onClick={toggleLoggedOutPopup}
+              />
+            )}
+
             {isLoggedOutPopupOpen && (
               <div className="loggedout-popup" ref={loggedOutPopupRef}>
                 <div
@@ -116,12 +129,15 @@ const Header = () => {
                 </div>
               </div>
             )}
-            <img
-              className="right-loggedin-icon"
-              src={loggedin}
-              alt="loggedin"
-              onClick={toggleLoggedInPopup}
-            />
+            {accessToken && (
+              <img
+                className="right-loggedin-icon"
+                src={loggedin}
+                alt="loggedin"
+                onClick={toggleLoggedInPopup}
+              />
+            )}
+
             {isLoggedInPopupOpen && (
               <div className="loggedin-popup" ref={loggedInPopupRef}>
                 <div
