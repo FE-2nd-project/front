@@ -6,9 +6,13 @@ import share from "../../assets/share.svg";
 import heart from "../../assets/heart.svg";
 import minus from "../../assets/minus.svg";
 import plus from "../../assets/plus.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
 
   const unitPrice = 49000; //제품 단가
   const [quantity, setQuantity] = useState(0); // 초기수량--> 테스트 할때 0 또는 1
@@ -54,6 +58,15 @@ const ProductDetail = () => {
 
   const totalPrice = unitPrice * quantity;
   const selectedSizeQuantity = quantities[selectedSize] || 0;
+
+  const handleAddToBag = () => {
+    dispatch(cartActions.addQuantity());
+    navigate("/cart");
+  };
+
+  useEffect(() => {
+    console.log("카트수량:", cartQuantity);
+  }, [cartQuantity]);
 
   return (
     <>
@@ -157,10 +170,7 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="add-to-bag-container">
-            <button
-              className="add-to-bag-text"
-              onClick={() => navigate("/cart")}
-            >
+            <button className="add-to-bag-text" onClick={handleAddToBag}>
               Add to bag
             </button>
           </div>
