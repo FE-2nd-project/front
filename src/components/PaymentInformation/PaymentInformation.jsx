@@ -8,9 +8,12 @@ const PaymentInformation = ({ topText, total }) => {
     (state) => state.cart.cartItemData[currentEmail]
   );
 
-  let totalPrice = cartItemData.reduce((accumulator, cartItem) => {
-    return accumulator + cartItem.productTotalPrice;
-  }, 0);
+  let totalPrice = 0;
+  if (cartItemData) {
+    totalPrice = cartItemData.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.productTotalPrice;
+    }, 0);
+  }
 
   return (
     <div className="payment-section-container">
