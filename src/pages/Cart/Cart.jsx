@@ -10,18 +10,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
-  // const accessToken = localStorage.getItem("accessToken");
   const currentEmail = localStorage.getItem("email");
+  console.log(currentEmail);
   const cartItemData = useSelector(
     (state) => state.cart.cartItemData[currentEmail]
   );
 
+  // const cartItemData = useSelector(
+  //   (state) => state.cart.cartItemData[currentEmail] || []
+  // );
+
+  console.log("카트아이템데이터");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // 장바구니 get 요청
   useEffect(() => {
-    dispatch(getCartData(currentEmail));
+    if (currentEmail) {
+      dispatch(getCartData(currentEmail));
+    }
+
+    console.log("카트아이템데이");
   }, [dispatch, currentEmail]);
 
   return (
@@ -38,31 +47,28 @@ const Cart = () => {
             </div> */}
           </div>
           <div className="list-bottom">
-            {cartItemData.map((cartItem) => {
-              return (
-                <CartProduct
-                  key={cartItem.id}
-                  itemId={cartItem.cartItemId}
-                  productPicture={cartItem.productPicture}
-                  name={cartItem.productName}
-                  size={cartItem.productSize}
-                  quantity={cartItem.productQuantity}
-                  totalPrice={cartItem.productTotalPrice}
-                  price={cartItem.productPrice}
-                  optionSize={cartItem.optionSize}
-                />
-              );
-            })}
+            {cartItemData &&
+              cartItemData.map((cartItem) => {
+                return (
+                  <CartProduct
+                    key={cartItem.id}
+                    itemId={cartItem.cartItemId}
+                    productPicture={cartItem.productPicture}
+                    name={cartItem.productName}
+                    size={cartItem.productSize}
+                    quantity={cartItem.productQuantity}
+                    totalPrice={cartItem.productTotalPrice}
+                    price={cartItem.productPrice}
+                    optionSize={cartItem.optionSize}
+                  />
+                );
+              })}
           </div>
-          {cartItemData.length === 0 && <EmptyCart />}
+          {cartItemData && cartItemData.length === 0 && <EmptyCart />}
           <div className="cart-bottom-line"></div>
         </div>
         <div className="cart-payment-container">
-          <PaymentInformation
-            topText="결제정보"
-            total="총 주문금액"
-            cartItemData={cartItemData}
-          />
+          <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
             className="order-button"
             onClick={() => navigate("/Order-payment")}

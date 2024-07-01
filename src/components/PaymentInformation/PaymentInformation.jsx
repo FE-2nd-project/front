@@ -1,10 +1,19 @@
 import React from "react";
 import "./PaymentInformation.css";
+import { useSelector } from "react-redux";
 
-const PaymentInformation = ({ topText, total, cartItemData }) => {
-  let totalPrice = cartItemData.reduce((accumulator, cartItem) => {
-    return accumulator + cartItem.productTotalPrice;
-  }, 0);
+const PaymentInformation = ({ topText, total }) => {
+  const currentEmail = localStorage.getItem("email");
+  const cartItemData = useSelector(
+    (state) => state.cart.cartItemData[currentEmail]
+  );
+
+  let totalPrice = 0;
+  if (cartItemData) {
+    totalPrice = cartItemData.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.productTotalPrice;
+    }, 0);
+  }
 
   return (
     <div className="payment-section-container">
