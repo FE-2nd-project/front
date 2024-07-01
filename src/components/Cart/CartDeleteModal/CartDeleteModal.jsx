@@ -3,8 +3,45 @@ import { createPortal } from "react-dom";
 
 import "./CartDeleteModal.css";
 import exit from "../../../assets/exit.png";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { cartActions, getCartData } from "../../../store/reducer/cart-slice";
 
-const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked }) => {
+const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked, itemId }) => {
+  const dispatch = useDispatch();
+
+  const deleteConfirmHandler = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const currentEmail = localStorage.getItem("email");
+
+    // 임시 장바구니 삭제 요청 로직
+    dispatch(cartActions.subtractQuantity({ email: currentEmail }));
+    setIsDeleteClicked(false);
+    dispatch(getCartData(currentEmail));
+
+    // 실제 장바구니 아이템 axios delete 요청 로직
+    // axios
+    //   .delete(
+    //     `/api/cart/${itemId}`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       dispatch(cartActions.subtractQuantity({ email: currentEmail }));
+    //       setIsDeleteClicked(false);
+    //       dispatch(getCartData(currentEmail));
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error, "장바구니 아이템 삭제 요청 실패");
+    //   });
+  };
+
   if (!isDeleteClicked) return null;
 
   return createPortal(
@@ -28,7 +65,9 @@ const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked }) => {
           >
             취소
           </button>
-          <button className="delete-confirm">확인</button>
+          <button className="delete-confirm" onClick={deleteConfirmHandler}>
+            확인
+          </button>
         </div>
       </div>
     </div>,

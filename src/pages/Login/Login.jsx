@@ -33,10 +33,12 @@ const Login = () => {
     // 임시 로그인 요청 성공 후 로직
     localStorage.setItem("accessToken", "1234567"); //실제 요청 시, 실제 token set
     localStorage.setItem("email", "test@test.com");
-    dispatch(cartActions.setCartQuantity({
-      email: "test@test.com",
-      cartQuantity: 7
-    }));
+    dispatch(
+      cartActions.setCartQuantity({
+        email: "test@test.com",
+        cartQuantity: 7,
+      })
+    );
     navigate("/");
 
     // 실제 로그인 axios 요청
@@ -81,6 +83,7 @@ const Login = () => {
             <input
               className="email-input"
               placeholder="이메일을 입력해 주세요"
+              type="email"
               value={emailInput}
               onChange={(e) => inputChangeHandler(e, setEmailInput)}
               required
