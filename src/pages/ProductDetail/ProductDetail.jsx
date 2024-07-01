@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { productDetailActions } from "../../store/reducer/productDetail-slice";
 import { cartActions } from "../../store/reducer/cart-slice";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 //get요청
 // {
@@ -31,7 +32,8 @@ import { useParams } from "react-router-dom";
   }*/
 
 const ProductDetail = () => {
-  //const { productId } = useParams(); // URL에서 productId를 가져옵니다.
+  //const { productId } = useParams();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.cart.cartQuantity);
@@ -54,6 +56,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
   const totalPrice = unitPrice * quantity;
   const selectedSizeQuantity = quantities[selectedSize] || 0;
+  const [productData, setProductData] = useState(null); // 상품데이터(서버에서 받아온 데이터 넣어놓는)
 
   useEffect(() => {
     // 초기 사이즈 옵션 및 수량 설정
@@ -85,6 +88,35 @@ const ProductDetail = () => {
     setQuantity(1);
   }, []);
 
+  // useEffect(() => {
+  //   // 상품 데이터를 서버에서 가져오는 함수
+  //   const fetchProductData = async () => {
+  //     try {
+  //       const response = await axios.get(`/product/read/${productID}`);
+  //       setProductData(response.data);
+  //     } catch (error) {
+  //       console.error("get요청에러:", error);
+  //     }
+  //   };
+  //   fetchProductData();
+  // }, [productId]);
+
+  // useEffect(() => {
+  //   if (productData) {
+  //     setSizeOptions(productData.size.map((item) => {
+  //       const [size, stock] = item.split(': ');
+  //       return size;
+  //     }));
+  //     setQuantities(productData.size.reduce((acc, item) => {
+  //       const [size, stock] = item.split(': ');
+  //       acc[size] = parseInt(stock, 10);
+  //       return acc;
+  //     }, {}));
+  //     setSelectedSize(productData.size[0].split(': ')[0]); // 첫 번째 사이즈로 초기화
+  //     setQuantity(1);
+  //   }
+  // }, [productData]);
+
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -104,6 +136,7 @@ const ProductDetail = () => {
     setQuantity(1);
   };
 
+  //로직 연결시 아래 주석친 코드로 하기
   const handleAddToBag = () => {
     const itemData = { itemId: productId, size: selectedSize, quantity };
     dispatch(productDetailActions.addCartItem(itemData));
@@ -114,12 +147,33 @@ const ProductDetail = () => {
     navigate("/cart");
   };
 
+  // const handleAddToBag = async () => {
+  //   const jwtToken = localStorage.getItem("jwtToken"); // JWT 토큰 가져오기
+  //   const itemData = { itemId: productId, size: selectedSize, quantity };
+  //   try {
+  //     const response = await axios.post("/api/cart/add", itemData, {
+  //       headers: {
+  //         Authorization: `Bearer ${jwtToken}`,
+  //       },
+  //     });
+  //     if (!isProductAdded[productId]) {
+  //       dispatch(cartActions.addQuantity({ email: currentEmail }));
+  //     }
+  //     navigate("/cart");
+  //   } catch (error) {
+  //     console.error("post요청 에러:", error);
+  //   }
+  // };
+
   console.log(currentcartQuantity);
 
   return (
     <>
       <div className="product-root">
         <ImageSlider />
+        {/* {productData && (
+          <ImageSlider images={productData.images} />
+        )} */}
         <div className="product-container">
           <div className="product-best">
             <div className="product-best-text">베스트</div>

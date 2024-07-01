@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import prevIcon from "./chevron-left.svg";
 import NextIcon from "./chevron-right.svg";
 
+//{ images }를 인자로 받기
 const ImageSlider = () => {
   const sliderRef = React.useRef(null);
 
