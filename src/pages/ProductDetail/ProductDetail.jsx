@@ -9,8 +9,29 @@ import plus from "../../assets/plus.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { productDetailActions } from "../../store/reducer/productDetail-slice";
 import { cartActions } from "../../store/reducer/cart-slice";
+import { useParams } from "react-router-dom";
+
+//get요청
+// {
+//   "productName": "Product",
+//   "price": 20000,
+//   "size": ["Large: 20", "Medium: 20", "Small: 20”],
+//   "images": ["img1.jpg", "img2.jpg", "img3.jpg"],
+//   ”description”: “제품 상세 정보”,
+//   }
+
+//post요청
+/*headers: {
+  “Authorization”: “Bearer {jwtToken}”
+  }, 
+  body: {
+  "itemId": 1,
+  "size": "M",
+  "quantity": 50,
+  }*/
 
 const ProductDetail = () => {
+  //const { productId } = useParams(); // URL에서 productId를 가져옵니다.
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.cart.cartQuantity);
@@ -26,7 +47,7 @@ const ProductDetail = () => {
 
   const unitPrice = 49000; // 제품 단가
   const [quantity, setQuantity] = useState(1); // 초기 수량
-  const [category, setCategory] = useState("옷"); // 카테고리
+  const [category, setCategory] = useState("신발"); // 카테고리
   const [sizeOptions, setSizeOptions] = useState([]); // 사이즈 설정
   const [quantities, setQuantities] = useState({}); // 수량
   const defaultSize = category === "옷" ? "S" : "250";
@@ -35,17 +56,34 @@ const ProductDetail = () => {
   const selectedSizeQuantity = quantities[selectedSize] || 0;
 
   useEffect(() => {
-    if (category === "옷") {
-      setSizeOptions(["S", "M", "L"]);
-      setQuantities({ S: 10, M: 5, L: 0 });
-      setSelectedSize("S");
-    } else if (category === "신발") {
-      setSizeOptions(["220", "230", "240", "250", "260", "270", "280"]);
-      setQuantities({ 220: 3, 230: 7, 240: 0, 250: 4, 260: 2, 270: 6, 280: 0 });
-      setSelectedSize("250");
-    }
+    // 초기 사이즈 옵션 및 수량 설정
+    setSizeOptions([
+      "S",
+      "M",
+      "L",
+      "220",
+      "230",
+      "240",
+      "250",
+      "260",
+      "270",
+      "280",
+    ]);
+    setQuantities({
+      S: 10,
+      M: 5,
+      L: 0,
+      220: 3,
+      230: 7,
+      240: 0,
+      250: 4,
+      260: 2,
+      270: 6,
+      280: 0,
+    });
+    setSelectedSize("S");
     setQuantity(1);
-  }, [category]);
+  }, []);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {

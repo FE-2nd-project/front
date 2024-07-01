@@ -5,21 +5,63 @@ import cap from "../../assets/cap.png";
 import exit from "../../assets/exit.png";
 
 const genders = ["Men", "Women"];
-const products = ["Cap", "Shoes", "Bag"];
+const products = ["Apparel", "Cap", "Shoes", "Bag"];
 
 const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
-  const [price, setPrice] = useState("40,000원");
+  const [price, setPrice] = useState("40,000");
   const [gender, setGender] = useState("Women");
   const [product, setProduct] = useState("Bag");
   const [sizes, setSizes] = useState([
-    { size: "S", quantity: 0 },
-    { size: "M", quantity: 20 },
-    { size: "L", quantity: 130 },
+    { size: "Small", quantity: 0 },
+    { size: "Medium", quantity: 20 },
+    { size: "Large", quantity: 130 },
   ]);
+  const [quantity, setQuantity] = useState(0); // Bag의 경우
 
   if (!isUpdate) return null;
 
-  const handleQuantityChange = (index, value) => {
+  const handleQuantityChange = (value) => {
+    setQuantity(value);
+  };
+
+  const renderSizeOptions = () => {
+    if (product !== "Bag" && product !== "Cap") {
+      return (
+        <div className="registered-modal-info-size">
+          옵션 및 수량:
+          {sizes.map((size, index) => (
+            <div key={index} className="registered-modal-info-size-flex">
+              <div className="registered-modal-info-size-option">
+                {size.size}
+              </div>
+              <div className="registered-modal-info-size-quantity">
+                <input
+                  type="number"
+                  value={size.quantity}
+                  onChange={(e) =>
+                    handleSizeQuantityChange(index, e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="registered-modal-info-size">
+          수량:
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+        </div>
+      );
+    }
+  };
+
+  const handleSizeQuantityChange = (index, value) => {
     const newSizes = [...sizes];
     newSizes[index].quantity = value;
     setSizes(newSizes);
@@ -86,25 +128,8 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
 
             <div className="registered-section"></div>
 
-            <div className="registered-modal-info-size">
-              옵션 및 수량:
-              {sizes.map((size, index) => (
-                <div key={index} className="registered-modal-info-size-flex">
-                  <div className="registered-modal-info-size-option">
-                    {size.size}
-                  </div>
-                  <div className="registered-modal-info-size-quantity">
-                    <input
-                      type="number"
-                      value={size.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(index, e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* 옵션및수량 */}
+            {renderSizeOptions()}
           </div>
         </div>
         <button className="registered-modal-update-button">변경하기</button>
