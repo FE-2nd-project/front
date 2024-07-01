@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
-  // const accessToken = localStorage.getItem("accessToken");
   const currentEmail = localStorage.getItem("email");
   const cartItemData = useSelector(
     (state) => state.cart.cartItemData[currentEmail]
@@ -38,31 +37,28 @@ const Cart = () => {
             </div> */}
           </div>
           <div className="list-bottom">
-            {cartItemData.map((cartItem) => {
-              return (
-                <CartProduct
-                  key={cartItem.id}
-                  itemId={cartItem.cartItemId}
-                  productPicture={cartItem.productPicture}
-                  name={cartItem.productName}
-                  size={cartItem.productSize}
-                  quantity={cartItem.productQuantity}
-                  totalPrice={cartItem.productTotalPrice}
-                  price={cartItem.productPrice}
-                  optionSize={cartItem.optionSize}
-                />
-              );
-            })}
+            {cartItemData &&
+              cartItemData.map((cartItem) => {
+                return (
+                  <CartProduct
+                    key={cartItem.id}
+                    itemId={cartItem.cartItemId}
+                    productPicture={cartItem.productPicture}
+                    name={cartItem.productName}
+                    size={cartItem.productSize}
+                    quantity={cartItem.productQuantity}
+                    totalPrice={cartItem.productTotalPrice}
+                    price={cartItem.productPrice}
+                    optionSize={cartItem.optionSize}
+                  />
+                );
+              })}
           </div>
           {cartItemData.length === 0 && <EmptyCart />}
           <div className="cart-bottom-line"></div>
         </div>
         <div className="cart-payment-container">
-          <PaymentInformation
-            topText="결제정보"
-            total="총 주문금액"
-            cartItemData={cartItemData}
-          />
+          <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
             className="order-button"
             onClick={() => navigate("/Order-payment")}
