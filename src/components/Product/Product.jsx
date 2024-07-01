@@ -1,48 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Product.css";
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Product.css';
+import styled from 'styled-components';
 
-const ColorOption = styled.div`
-  border: none;
-  border-radius: 100%;
-  width: 16px;
-  height: 16px;
-  background-color: ${(props) => props.color};
+const ProductUnit = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
-export function Product({
-  id,
-  name,
-  price,
-  url,
-  colors,
-  isNew,
-  isBest,
-  stock,
-}) {
+const ProductImg = styled.img``;
+
+const ProductName = styled.div`
+  color: black;
+`;
+const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const ProducPrice = styled.div`
+  font-weight: 700;
+`;
+
+export function Product({ id, name, price, urls, options }) {
+  const totalStock = options.reduce((sum, option) => sum + option.stock, 0);
+  if (!totalStock) return <></>;
   return (
-    <div className="Product">
+    <ProductUnit>
       {/* <Link to=`/product-detail/${product_id}`> */}
       <Link to="/product-detail" className="productLink">
-        <div className="productImgWrapper">
-          <img src={url} alt="" />
-          {stock ? <></> : <div className="productIsSoldOut">일시 품절</div>}
-        </div>
-        <div className="productName">{name}</div>
+        <ProductImg src={urls[0]} alt="" />
+        <ProductName>{name}</ProductName>
       </Link>
-      <div className="productInfo">
-        <div className="producPrice">{price}</div>
-        <div className="colorOptionWrapper">
-          {colors.map((color) => (
-            <ColorOption color={color} />
-          ))}
-        </div>
-        <div className="badgeWrapper">
-          {isNew ? <div className="badge">신상품</div> : <></>}
-          {isBest ? <div className="badge">Best</div> : <></>}
-        </div>
-      </div>
-    </div>
+      <ProductInfo>
+        <ProducPrice>{price}</ProducPrice>
+      </ProductInfo>
+    </ProductUnit>
   );
 }

@@ -109,8 +109,10 @@
   font-weight: 500;
 }
 
+.nav-all,
 .nav-women,
 .nav-men,
+.nav-apparel,
 .nav-cap,
 .nav-shoes,
 .nav-bag {
@@ -119,16 +121,20 @@
   cursor: pointer;
 }
 
+.nav-all.active,
 .nav-women.active,
 .nav-men.active,
+.nav-apparel.active,
 .nav-cap.active,
 .nav-shoes.active,
 .nav-bag.active {
   text-decoration: underline;
 }
 
+.nav-all:hover,
 .nav-women:hover,
 .nav-men:hover,
+.nav-apparel:hover,
 .nav-cap:hover,
 .nav-shoes:hover,
 .nav-bag:hover {
