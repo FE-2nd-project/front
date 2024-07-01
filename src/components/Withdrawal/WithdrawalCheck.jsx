@@ -24,6 +24,7 @@ const WithdrawalCheck = () => {
 
     //임시의 회원 탈퇴 요청 성공 시, 로직
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("email");
     navigate("/");
 
     // 실제 회원 탈퇴 요청의 axios 로직
@@ -41,6 +42,7 @@ const WithdrawalCheck = () => {
     //   .then((response) => {
     //     if (response.status === 200) {
     //       localStorage.removeItem("accessToken");
+    //       localStorage.removeItem("email");
     //       navigate("/");
     //     }
     //   })

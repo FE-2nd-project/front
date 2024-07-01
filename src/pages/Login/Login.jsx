@@ -32,6 +32,7 @@ const Login = () => {
 
     // 임시 로그인 요청 성공 후 로직
     localStorage.setItem("accessToken", "1234567"); //실제 요청 시, 실제 token set
+    localStorage.setItem("email", "test@test.com");
     dispatch(cartActions.setCartQuantity(7));
     navigate("/");
 
@@ -50,11 +51,12 @@ const Login = () => {
     //     }
     //   )
     //   .then((response) => {
-    //     const { token, cartQuantity } = response.data;
+    //     const { token, email, cartQuantity } = response.data;
     //     const accessToken = token.accessToken;
 
     //     if (response.status === 200) {
     //       localStorage.setItem("accessToken", accessToken);
+    //       localStorage.setItem("email", email);
     //       dispatch(cartActions.setCartQuantity(cartQuantity));
     //       navigate("/");
     //     } else {
