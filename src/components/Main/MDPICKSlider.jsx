@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { GrNext } from "react-icons/gr";
-import { GrPrevious } from "react-icons/gr";
-import { SlArrowLeft } from "react-icons/sl";
-import { SlArrowRight } from "react-icons/sl";
-import { FocusEditionInnerSlider } from "./FocusEditionInnerSlider";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { GrNext } from 'react-icons/gr';
+import { GrPrevious } from 'react-icons/gr';
+import { SlArrowLeft } from 'react-icons/sl';
+import { SlArrowRight } from 'react-icons/sl';
+import { MDPICKInnerSlider } from './MDPICKInnerSlider';
 
 const SlideContainer = styled.div`
   width: 100%;
@@ -16,7 +16,7 @@ const Slide = styled.div`
   position: relative;
   min-width: 100%;
   height: 100%;
-  display: ${(props) => (props.currentIndex ? "flex" : "none")};
+  display: ${(props) => (props.currentIndex ? 'flex' : 'none')};
   flex-direction: column;
   gap: 30px;
 `;
@@ -73,30 +73,34 @@ const RightButton = styled(SlArrowRight)`
   z-index: 1;
 `;
 
-export function FocusEditionSlider() {
+export function MDPICKSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slides = [
     {
-      url: "https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=918,format=auto,fit=contain,onerror=redirect/images/3b0a80a7-7d18-45e5-a5a7-289f0053e307.jpg",
-      title: "청량한 스타일링 데님 볼캡",
+      url: 'https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=918,format=auto,fit=contain,onerror=redirect/images/3b0a80a7-7d18-45e5-a5a7-289f0053e307.jpg',
+      title: '의류',
     },
     {
-      url: "https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=674,format=auto,fit=contain,onerror=redirect/images/0062cf44-3bfc-4bcc-84d6-9a3eba58ae77.jpg",
-      title: "쿨하게 즐기는 링거 원피스",
+      url: 'https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=674,format=auto,fit=contain,onerror=redirect/images/0062cf44-3bfc-4bcc-84d6-9a3eba58ae77.jpg',
+      title: '볼캡',
+    },
+    {
+      url: 'https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=674,format=auto,fit=contain,onerror=redirect/images/0062cf44-3bfc-4bcc-84d6-9a3eba58ae77.jpg',
+      title: '신발',
+    },
+    {
+      url: 'https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=75,w=674,format=auto,fit=contain,onerror=redirect/images/0062cf44-3bfc-4bcc-84d6-9a3eba58ae77.jpg',
+      title: '가방',
     },
   ];
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? slides.length - 1 : prevIndex - 1));
   };
 
   return (
@@ -117,7 +121,7 @@ export function FocusEditionSlider() {
           </SlideHeader>
           <SlideContents>
             <SlideImage src={content.url} />
-            <FocusEditionInnerSlider index={index} />
+            <MDPICKInnerSlider index={index} />
           </SlideContents>
         </Slide>
       ))}

@@ -1,25 +1,26 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
-import React from "react";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
-import Signup from "./pages/Signup/Signup";
-import Login from "./pages/Login/Login";
-import Cart from "./pages/Cart/Cart";
-import MyPage from "./pages/MyPage";
-import Root from "./pages/Root";
-import Error from "./pages/Error";
-import MainPage from "./pages/MainPage";
-import ProductPage from "./pages/ProductPage";
-import Wishlist from "./pages/Wishlist";
-import Purchases from "./pages/Purchases";
-import OrderPayment from "./pages/OrderPayment/OrderPayment";
-import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
-import Withdrawal from "./pages/Withdrawal/Withdrawal";
-import RegisterPage from "./pages/RegisterPage";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './App.css';
+import React from 'react';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Signup from './pages/Signup/Signup';
+import Login from './pages/Login/Login';
+import Cart from './pages/Cart/Cart';
+import MyPage from './pages/MyPage';
+import Root from './pages/Root';
+import Error from './pages/Error';
+import MainPage from './pages/MainPage';
+import ProductPage from './pages/ProductPage';
+import Wishlist from './pages/Wishlist';
+import Purchases from './pages/Purchases';
+import OrderPayment from './pages/OrderPayment/OrderPayment';
+import OrderCompletion from './pages/OrderCompletion/OrderCompletion';
+import Withdrawal from './pages/Withdrawal/Withdrawal';
+import RegisterPage from './pages/RegisterPage';
+import RegisterListPage from './pages/RegisterListPage';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     errorElement: <Error />,
     children: [
@@ -28,50 +29,55 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: "/mypage",
+        path: '/mypage',
         element: <MyPage />,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <Login />,
       },
       {
-        path: "/signup",
+        path: '/signup',
         element: <Signup />,
       },
       {
-        path: "/product-detail",
+        path: '/product-detail',
         element: <ProductDetail />,
       },
       {
-        path: "/product",
+        path: '/product/:category',
         element: <ProductPage />,
       },
-      {path:'register',
-        element:<RegisterPage />,
+      {
+        path: 'register',
+        element: <RegisterPage />,
       },
       {
-        path: "/cart",
+        path: '/cart',
         element: <Cart />,
       },
       {
-        path: "/mypage/wishlist",
+        path: '/mypage/register-list',
+        element: <RegisterListPage />,
+      },
+      {
+        path: '/mypage/wishlist',
         element: <Wishlist />,
       },
       {
-        path: "/mypage/purchases",
+        path: '/mypage/purchases',
         element: <Purchases />,
       },
       {
-        path: "/mypage/withdrawal",
+        path: '/mypage/withdrawal',
         element: <Withdrawal />,
       },
       {
-        path: "/Order-payment",
+        path: '/Order-payment',
         element: <OrderPayment />,
       },
       {
-        path: "/order-completed",
+        path: '/order-completed',
         element: <OrderCompletion />,
       },
     ],
