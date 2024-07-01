@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,25 @@ import CartProduct from "../../components/Cart/CartProduct/CartProduct";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import EmptyCart from "../../components/Cart/EmptyCart/EmptyCart";
+import axios from "axios";
 
 const Cart = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // const accessToken = localStorage.getItem("accessToken");
+    // axios.get(
+    //   "/api/cart",
+    //   {},
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${accessToken}`,
+    //     },
+    //   }
+    // );
+  }, []);
+
+
   return (
     <>
       <CartNavLink />
