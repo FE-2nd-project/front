@@ -7,7 +7,7 @@ import heart from "../../assets/heart.svg";
 import minus from "../../assets/minus.svg";
 import plus from "../../assets/plus.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "../../store/reducer/cart-slice";
+import { addCartItem } from "../../store/reducer/ productDetail-slice";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const ProductDetail = () => {
 
   const unitPrice = 49000; //제품 단가
   const [quantity, setQuantity] = useState(0); // 초기수량--> 테스트 할때 0 또는 1
-  const [category, setCategory] = useState("신발"); // 카테고리
+  const [category, setCategory] = useState("옷"); // 카테고리
   const [sizeOptions, setSizeOptions] = useState([]); // 사이즈설정
 
   const [quantities, setQuantities] = useState({}); // 수량
@@ -59,7 +59,8 @@ const ProductDetail = () => {
   };
 
   const handleAddToBag = () => {
-    dispatch(cartActions.addQuantity());
+    dispatch(addCartItem({ itemId: productId, size: selectedSize, quantity }));
+    //여기서 이미 담은 건지 확인하고 담은거면 디스패치하지말고 그냥 false로 전환후...
     navigate("/cart");
   };
 
