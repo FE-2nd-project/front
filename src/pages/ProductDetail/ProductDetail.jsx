@@ -17,7 +17,6 @@ const ProductDetail = () => {
   const isProductAdded = useSelector(
     (state) => state.productDetail.isProductAdded
   );
-  const productId = "12345"; //테스트용 제품아이디
 
   const unitPrice = 49000; // 제품 단가
   const [quantity, setQuantity] = useState(1); // 초기 수량
@@ -61,12 +60,15 @@ const ProductDetail = () => {
     setQuantity(1);
   };
 
+  const productId = "123"; //테스트용 제품아이디
+  // const email = "test@email.com"; //테스트용 이메일
+
   const handleAddToBag = () => {
     const itemData = { itemId: productId, size: selectedSize, quantity };
     dispatch(productDetailActions.addCartItem(itemData));
     if (!isProductAdded[productId]) {
       //해당 물품이 추가가 된적이 없으면
-      dispatch(cartActions.addQuantity()); //장바구니 수량 +1증가
+      // dispatch(cartActions.addQuantity(email)); //장바구니 수량 +1증가
     }
     navigate("/cart");
   };

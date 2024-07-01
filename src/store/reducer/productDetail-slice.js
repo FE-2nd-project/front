@@ -27,7 +27,7 @@ const productDetailSlice = createSlice({
       state.isProductAdded[itemId] = true;
 
       console.log(
-        "이건 프로덕트디테일 슬라이스에서 내보내는 데이터임~:",
+        "이건 productDetail 슬라이스에서 출력되는:",
         itemId,
         size,
         quantity

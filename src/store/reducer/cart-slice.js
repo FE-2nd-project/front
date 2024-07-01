@@ -8,11 +8,16 @@ const cartSlice = createSlice({
   reducers: {
     setCartQuantity(state, action) {
       const { email, cartQuantity } = action.payload;
-      state.cartQuantity[email] = cartQuantity;
+      //state.cartQuantity[email] = cartQuantity;
+      state.cartQuantity = { ...state.cartQuantity, email: cartQuantity };
     },
     addQuantity(state, action) {
       const { email } = action.payload;
       state.cartQuantity[email] += 1;
+      // state.cartQuantity = {
+      //   ...state.cartQuantity,
+      //   email: (state.cartQuantity[email] += 1),
+      // };
     },
     subtractQuantity(state, action) {
       const { email } = action.payload;
