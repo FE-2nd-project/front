@@ -7,23 +7,38 @@ import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import EmptyCart from "../../components/Cart/EmptyCart/EmptyCart";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const currentEmail = localStorage.getItem("email");
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // const accessToken = localStorage.getItem("accessToken");
-    // axios.get(
-    //   "/api/cart",
-    //   {},
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   }
-    // );
+    axios
+      .get(
+        "/api/cart",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(
+            cartActions.setCartItemData({
+              email: currentEmail,
+              cartItemData: response.data,
+            })
+          );
+        }
+      });
   }, []);
-
 
   return (
     <>

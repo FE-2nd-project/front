@@ -17,7 +17,10 @@ const Header = () => {
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
 
   // 카트 수량과 현재 accessToken
-  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
+  const currentEmail = localStorage.getItem("email");
+  const cartQuantity = useSelector(
+    (state) => state.cart.cartQuantity[currentEmail]
+  );
   const accessToken = localStorage.getItem("accessToken");
 
   // 로그아웃 상태의 팝업 메뉴
@@ -38,7 +41,7 @@ const Header = () => {
         isLoggedOutPopupOpen &&
         loggedOutPopupRef.current &&
         !loggedOutPopupRef.current.contains(event.target) &&
-        !event.target.closest('.right-loggedout-icon')
+        !event.target.closest(".right-loggedout-icon")
       ) {
         setIsLoggedOutPopupOpen(false);
       }
@@ -47,29 +50,37 @@ const Header = () => {
         isLoggedInPopupOpen &&
         loggedInPopupRef.current &&
         !loggedInPopupRef.current.contains(event.target) &&
-        !event.target.closest('.right-loggedin-icon')
+        !event.target.closest(".right-loggedin-icon")
       ) {
         setIsLoggedInPopupOpen(false);
       }
     };
 
     if (isLoggedOutPopupOpen || isLoggedInPopupOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isLoggedOutPopupOpen, isLoggedInPopupOpen]);
 
   return (
     <>
-      <LogoutModal isLogoutClicked={isLogoutClicked} setIsLogoutClicked={setIsLogoutClicked} />
+      <LogoutModal
+        isLogoutClicked={isLogoutClicked}
+        setIsLogoutClicked={setIsLogoutClicked}
+      />
       <div className="navbar-container">
         <div className="nav-top">
-          <img className="mlb-icon" src={mlb_logo} alt="MLB-logo" onClick={() => navigate('/')} />
+          <img
+            className="mlb-icon"
+            src={mlb_logo}
+            alt="MLB-logo"
+            onClick={() => navigate("/")}
+          />
           <div className="top-right-icons">
             <img className="right-search-icon" src={search} alt="search" />
             <div
@@ -97,7 +108,7 @@ const Header = () => {
                 <div
                   className="signup"
                   onClick={() => {
-                    navigate('/signup');
+                    navigate("/signup");
                     setIsLoggedOutPopupOpen(false);
                   }}
                 >
@@ -106,7 +117,7 @@ const Header = () => {
                 <div
                   className="login"
                   onClick={() => {
-                    navigate('/login');
+                    navigate("/login");
                     setIsLoggedOutPopupOpen(false);
                   }}
                 >
@@ -128,13 +139,16 @@ const Header = () => {
                 <div
                   className="my-page"
                   onClick={() => {
-                    navigate('/mypage');
+                    navigate("/mypage");
                     setIsLoggedInPopupOpen(false);
                   }}
                 >
                   마이페이지
                 </div>
-                <div className="logout" onClick={() => setIsLogoutClicked(true)}>
+                <div
+                  className="logout"
+                  onClick={() => setIsLogoutClicked(true)}
+                >
                   LOG OUT
                 </div>
               </div>
@@ -142,25 +156,60 @@ const Header = () => {
           </div>
         </div>
         <div className="nav-bottom">
-          <NavLink to="/product/all" className={({ isActive }) => (isActive ? 'active nav-all' : 'nav-all')}>
+          <NavLink
+            to="/product/all"
+            className={({ isActive }) =>
+              isActive ? "active nav-all" : "nav-all"
+            }
+          >
             ALL
           </NavLink>
-          <NavLink to="/product/women" className={({ isActive }) => (isActive ? 'active nav-women' : 'nav-women')}>
+          <NavLink
+            to="/product/women"
+            className={({ isActive }) =>
+              isActive ? "active nav-women" : "nav-women"
+            }
+          >
             WOMEN
           </NavLink>
-          <NavLink to="/product/men" className={({ isActive }) => (isActive ? 'active nav-men' : 'nav-men')}>
+          <NavLink
+            to="/product/men"
+            className={({ isActive }) =>
+              isActive ? "active nav-men" : "nav-men"
+            }
+          >
             MEN
           </NavLink>
-          <NavLink to="/product/apparel" className={({ isActive }) => (isActive ? 'active nav-apparel' : 'nav-apparel')}>
+          <NavLink
+            to="/product/apparel"
+            className={({ isActive }) =>
+              isActive ? "active nav-apparel" : "nav-apparel"
+            }
+          >
             APPAREL
           </NavLink>
-          <NavLink to="/product/cap" className={({ isActive }) => (isActive ? 'active nav-cap' : 'nav-cap')}>
+          <NavLink
+            to="/product/cap"
+            className={({ isActive }) =>
+              isActive ? "active nav-cap" : "nav-cap"
+            }
+          >
             CAP
           </NavLink>
-          <NavLink to="/product/shoes" className={({ isActive }) => (isActive ? 'active nav-shoes' : 'nav-shoes')}>
+          <NavLink
+            to="/product/shoes"
+            className={({ isActive }) =>
+              isActive ? "active nav-shoes" : "nav-shoes"
+            }
+          >
             SHOES
           </NavLink>
-          <NavLink to="/product/bag" className={({ isActive }) => (isActive ? 'active nav-bag' : 'nav-bag')}>
+          <NavLink
+            to="/product/bag"
+            className={({ isActive }) =>
+              isActive ? "active nav-bag" : "nav-bag"
+            }
+          >
             BAG
           </NavLink>
           <div className="bottom-barrier"></div>
