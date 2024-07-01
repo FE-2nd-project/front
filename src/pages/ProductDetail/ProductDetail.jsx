@@ -7,18 +7,22 @@ import heart from "../../assets/heart.svg";
 import minus from "../../assets/minus.svg";
 import plus from "../../assets/plus.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem } from "../../store/reducer/ productDetail-slice";
+import { productDetailActions } from "../../store/reducer/productDetail-slice";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.cart.cartQuantity);
+  const isProductAdded = useSelector(
+    (state) => state.productDetail.isProductAdded
+  );
+  const productId = "12345"; //테스트용 제품아이디
 
-  const unitPrice = 49000; //제품 단가
-  const [quantity, setQuantity] = useState(0); // 초기수량--> 테스트 할때 0 또는 1
+  const unitPrice = 49000; // 제품 단가
+  const [quantity, setQuantity] = useState(1); // 초기 수량
   const [category, setCategory] = useState("옷"); // 카테고리
-  const [sizeOptions, setSizeOptions] = useState([]); // 사이즈설정
-
+  const [sizeOptions, setSizeOptions] = useState([]); // 사이즈 설정
   const [quantities, setQuantities] = useState({}); // 수량
   const defaultSize = category === "옷" ? "S" : "250";
   const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
@@ -26,7 +30,6 @@ const ProductDetail = () => {
   const selectedSizeQuantity = quantities[selectedSize] || 0;
 
   useEffect(() => {
-    // 카테고리에 따라 사이즈 옵션 설정
     if (category === "옷") {
       setSizeOptions(["S", "M", "L"]);
       setQuantities({ S: 10, M: 5, L: 0 });
@@ -59,8 +62,12 @@ const ProductDetail = () => {
   };
 
   const handleAddToBag = () => {
-    dispatch(addCartItem({ itemId: productId, size: selectedSize, quantity }));
-    //여기서 이미 담은 건지 확인하고 담은거면 디스패치하지말고 그냥 false로 전환후...
+    const itemData = { itemId: productId, size: selectedSize, quantity };
+    dispatch(productDetailActions.addCartItem(itemData));
+    if (!isProductAdded[productId]) {
+      //해당 물품이 추가가 된적이 없으면
+      dispatch(cartActions.addQuantity()); //장바구니 수량 +1증가
+    }
     navigate("/cart");
   };
 

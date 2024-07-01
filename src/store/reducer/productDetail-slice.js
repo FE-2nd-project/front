@@ -3,28 +3,39 @@ import { createSlice } from "@reduxjs/toolkit";
 const productDetailSlice = createSlice({
   name: "productDetail",
   initialState: {
-    items: [], // 장바구니에 담긴 아이템들
-    totalQuantity: 0, // 장바구니에 담긴 총 아이템 수
-    totalAmount: 0, // 총 결제 금액
-    isProductAdded: {}, // 상품이 장바구니에 추가되었는지 true, false
+    items: [],
+    totalQuantity: 0,
+    totalAmount: 0,
+    isProductAdded: {}, // add to bag을 한 상품이 장바구니에 추가되었는지 true, false
   },
 
   reducers: {
     addCartItem(state, action) {
       const { itemId, size, quantity } = action.payload;
-      const existingItem = state.cartItems.find(
+      const existingItem = state.items.find(
         (item) => item.itemId === itemId && item.size === size
       );
 
       if (existingItem) {
-        existingItem.quantity += quantity; // 이미 장바구니에 있는 경우 수량 추가
+        existingItem.quantity += quantity;
       } else {
-        state.cartItems.push({ itemId, size, quantity }); // 새로운 상품 추가
+        state.items.push({ itemId, size, quantity });
       }
+
+      state.totalQuantity += quantity; // 전체 수량
+      state.totalAmount += quantity * 49000; // 단가 * 수량
+      state.isProductAdded[itemId] = true;
+
+      console.log(
+        "이건 프로덕트디테일 슬라이스에서 내보내는 데이터임~:",
+        itemId,
+        size,
+        quantity
+      );
     },
   },
 });
 
-export const { addCartItem } = productDetailSlice.actions;
+export const productDetailActions = productDetailSlice.actions;
 
-export default cartSlice;
+export default productDetailSlice;
