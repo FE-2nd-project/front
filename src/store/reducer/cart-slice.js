@@ -33,6 +33,7 @@ export const getCartData = (currentEmail) => {
     //     console.error(error, "장바구니 조회 요청 실패");
     //   });
 
+    console.log(currentEmail);
     // 임시 장바구니 조회 데이터 로직
     dispatch(
       cartActions.setCartItemData({
@@ -73,7 +74,7 @@ const cartSlice = createSlice({
   reducers: {
     setCartItemData(state, action) {
       const { email, cartItemData } = action.payload;
-      // state.cartItemData[email] = cartItemData;
+      //state.cartItemData[email] = cartItemData;
       state.cartItemData = { ...state.cartItemData, [email]: cartItemData };
     },
     setCartQuantity(state, action) {
@@ -103,4 +104,3 @@ const cartSlice = createSlice({
 export const cartActions = cartSlice.actions;
 
 export default cartSlice;
-
