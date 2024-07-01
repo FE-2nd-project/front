@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { SlArrowLeft } from 'react-icons/sl';
@@ -75,7 +75,7 @@ const ElementColor = styled.div`
   background-color: ${(props) => props.color};
 `;
 
-const focusEditionElementInnerDatas = [
+const MDPICKSliderInnerDatas = [
   [
     {
       id: 1,
@@ -263,8 +263,9 @@ const focusEditionElementInnerDatas = [
 export function MDPICKInnerSlider({ index }) {
   const slickRef = useRef(null);
 
-  const focusEditionElementInnerData = focusEditionElementInnerDatas[index];
-
+  const MDPICKSliderInnerData = useMemo(() => MDPICKSliderInnerDatas[index], [index]);
+  console.log(MDPICKSliderInnerData);
+ 
   const prevSlide = () => {
     slickRef.current.slickPrev();
   };
@@ -294,20 +295,22 @@ export function MDPICKInnerSlider({ index }) {
   };
 
   return (
-    <ElementSliderContainer>
-      <LeftButton onClick={prevSlide} />
-      <RightButton onClick={nextSlide} />
-      <Slider ref={slickRef} {...setSlider}>
-        {focusEditionElementInnerData.map((data) => (
-          <ElementSlider key={data.id}>
-            <ElementSliderBlock>
-              <ElementImage src={data.url} />
-              <ElementTitle>{data.title}</ElementTitle>
-              <ElementPrice>{data.price}</ElementPrice>
-            </ElementSliderBlock>
-          </ElementSlider>
-        ))}
-      </Slider>
-    </ElementSliderContainer>
+    <>
+      <ElementSliderContainer>
+        <LeftButton onClick={prevSlide} />
+        <RightButton onClick={nextSlide} />
+        <Slider ref={slickRef} {...setSlider}>
+          {MDPICKSliderInnerData.map((data) => (
+            <ElementSlider key={data.id}>
+              <ElementSliderBlock>
+                <ElementImage src={data.url} />
+                <ElementTitle>{data.title}</ElementTitle>
+                <ElementPrice>{data.price}</ElementPrice>
+              </ElementSliderBlock>
+            </ElementSlider>
+          ))}
+        </Slider>
+      </ElementSliderContainer>
+    </>
   );
 }
