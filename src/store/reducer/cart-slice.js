@@ -9,7 +9,7 @@ const cartSlice = createSlice({
   reducers: {
     setCartItemData(state, action) {
       const { email, cartItemData } = action.payload;
-      state.cartQuantity[email] = cartItemData;
+      state.cartItemData[email] = cartItemData;
     },
     setCartQuantity(state, action) {
       const { email, cartQuantity } = action.payload;
@@ -17,7 +17,12 @@ const cartSlice = createSlice({
     },
     addQuantity(state, action) {
       const { email } = action.payload;
-      state.cartQuantity[email] += 1;
+
+      if (!state.cartQuantity[email]) {
+        state.cartQuantity[email] = 1;
+      } else {
+        state.cartQuantity[email] += 1;
+      }
     },
     subtractQuantity(state, action) {
       const { email } = action.payload;
