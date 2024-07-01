@@ -30,6 +30,28 @@
   gap: 2rem;
 }
 
+.right-bag-icon-container {
+  width: 30px;
+  height: 30px;
+  /* border: 1px solid; */
+  position: relative;
+}
+
+.cart-quantity-container {
+  position: absolute;
+  background-color: black;
+  color: white;
+  width: 18px;
+  height: 18px;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  top: 0%;
+  left: 55%;
+}
+
 .right-search-icon,
 .right-bag-icon,
 .right-loggedout-icon,

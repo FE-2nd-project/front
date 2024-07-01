@@ -50,14 +50,6 @@ h2.signup-text {
   width: 50%;
 }
 
-/* .profile-picture-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-} */
-
 .email-label,
 .password-label,
 .password-check-label,
@@ -92,7 +84,7 @@ h2.signup-text {
 }
 
 .gender-select {
-  width: 15%;
+  width: 20%;
   height: 1.5rem;
   font-size: 0.9rem;
 }

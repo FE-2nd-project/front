@@ -17,6 +17,7 @@ import OrderCompletion from './pages/OrderCompletion/OrderCompletion';
 import Withdrawal from './pages/Withdrawal/Withdrawal';
 import RegisterPage from './pages/RegisterPage';
 import RegisterListPage from './pages/RegisterListPage';
+import ProductRegistered from "./pages/ProductRegistered/ProductRegistered";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
         element: <Wishlist />,
       },
       {
-        path: '/mypage/purchases',
+        path: "/mypage/product-registered",
+        element: <ProductRegistered />,
+      },
+      {
+        path: "/mypage/purchases",
         element: <Purchases />,
       },
       {
