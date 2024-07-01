@@ -1,7 +1,13 @@
 import React from "react";
 import "./PaymentInformation.css";
+import { useSelector } from "react-redux";
 
-const PaymentInformation = ({ topText, total, cartItemData }) => {
+const PaymentInformation = ({ topText, total }) => {
+  const currentEmail = localStorage.getItem("email");
+  const cartItemData = useSelector(
+    (state) => state.cart.cartItemData[currentEmail]
+  );
+
   let totalPrice = cartItemData.reduce((accumulator, cartItem) => {
     return accumulator + cartItem.productTotalPrice;
   }, 0);
