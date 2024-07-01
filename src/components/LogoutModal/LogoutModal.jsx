@@ -16,6 +16,7 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
     const accessToken = localStorage.getItem("accessToken");
 
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("email");
     navigate("/");
     setIsLogoutClicked(false);
 
@@ -33,6 +34,7 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
     //   .then((response) => {
     //     if (response.status === 200) {
     //       localStorage.removeItem("accessToken");
+    //       localStorage.removeItem("email")
     //       setIsLogoutClicked(false);
     //       navigate("/");
     //     }
