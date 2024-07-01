@@ -17,28 +17,28 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get(
-        "/api/cart",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(
-            cartActions.setCartItemData({
-              email: currentEmail,
-              cartItemData: response.data,
-            })
-          );
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "/api/cart",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         dispatch(
+  //           cartActions.setCartItemData({
+  //             email: currentEmail,
+  //             cartItemData: response.data,
+  //           })
+  //         );
+  //       }
+  //     });
+  // }, []);
 
   return (
     <>

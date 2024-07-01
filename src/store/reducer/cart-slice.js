@@ -13,8 +13,8 @@ const cartSlice = createSlice({
     },
     setCartQuantity(state, action) {
       const { email, cartQuantity } = action.payload;
-      //state.cartQuantity[email] = cartQuantity;
-      state.cartQuantity = { ...state.cartQuantity, email: cartQuantity };
+      state.cartQuantity[email] = cartQuantity;
+      //state.cartQuantity = { ...state.cartQuantity, email: cartQuantity };
     },
     addQuantity(state, action) {
       const { email } = action.payload;
