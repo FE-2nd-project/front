@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import PurchasesItem from "../components/MyPage/PurchasesItem";
 
 const PageContainer = styled.div`
@@ -40,7 +41,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 1.2rem; /* 글씨 크기 줄이기 */
+  font-size: 1.2rem;
   font-weight: bold;
 `;
 
@@ -151,6 +152,28 @@ const Purchases = () => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetchPurchases();
+  }, []);
+
+  const fetchPurchases = async () => {
+    try {
+      const response = await axios.get(
+        "${process.env.REACT_APP_SERVER_URL}/api/mypage/order",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setItems(response.data.data);
+      setFilteredItems(response.data.data);
+    } catch (error) {
+      console.error("Error fetching purchases:", error);
+    }
+  };
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -189,57 +212,8 @@ const Purchases = () => {
     toggleFilter();
   };
 
-  const items = [
-    {
-      id: 1,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      orderNumber: "123456",
-      purchaseDate: "2023-01-15",
-    },
-    {
-      id: 2,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      orderNumber: "123457",
-      purchaseDate: "2023-01-16",
-    },
-    {
-      id: 3,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      orderNumber: "123458",
-      purchaseDate: "2023-05-17",
-    },
-    {
-      id: 4,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      orderNumber: "123459",
-      purchaseDate: "2023-01-18",
-    },
-    {
-      id: 5,
-      image: "https://via.placeholder.com/200",
-      title: "N-COVER 언스트럭처 캡",
-      orderNumber: "123460",
-      purchaseDate: "2023-03-19",
-    },
-    {
-      id: 6,
-      image: "https://via.placeholder.com/200",
-      title: "N-COVER 언스트럭처 캡",
-      orderNumber: "123461",
-      purchaseDate: "2024-01-19",
-    },
-  ];
-
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
-
-  useEffect(() => {
-    setFilteredItems(items);
-  }, []);
 
   return (
     <PageContainer>
