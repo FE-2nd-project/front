@@ -5,16 +5,11 @@ export const getProductRegisteredData = () => {
     const accessToken = localStorage.getItem("accessToken");
 
     //실제 등록된 판매 물품 조회 axios 요청 로직
-    // axios
-    //   .get(
-    //     `${process.env.REACT_APP_SERVER_URL}/api/sale/current`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/api/sale/current`, {
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // });
     //   .then((response) => {
     //     if (response.status === 200) {
     //       dispatch(
