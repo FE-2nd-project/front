@@ -58,7 +58,7 @@ const CartUpdateModal = ({
 
     // axios
     //   .put(
-    //     "/api/cart/update",
+    // `${process.env.REACT_APP_SERVER_URL}/api/cart/update`,
     //     {
     //       cartItemId: itemId,
     //       cartItemSize: itemSize,

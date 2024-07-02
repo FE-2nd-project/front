@@ -9,31 +9,31 @@ export const getCartData = (currentEmail) => {
     // 실제 장바구니 조회 GET axios 요청 로직
     // axios
     //   .get(
-    //     "/api/cart",
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       dispatch(
-    //         cartActions.setCartItemData({
-    //           email: currentEmail,
-    //           cartItemData: response.data,
-    //         })
-    //       );
-    //     } else {
-    //       console.log("장바구니 조회 서버 응답의 코드가 200이 아닙니다.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "장바구니 조회 요청 실패");
-    //   });
+    // `${process.env.REACT_APP_SERVER_URL}/api/cart`,
+      //     {},
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${accessToken}`,
+      //       },
+      //     }
+      //   )
+      //   .then((response) => {
+      //     if (response.status === 200) {
+      //       dispatch(
+      //         cartActions.setCartItemData({
+      //           email: currentEmail,
+      //           cartItemData: response.data,
+      //         })
+      //       );
+      //     } else {
+      //       console.log("장바구니 조회 서버 응답의 코드가 200이 아닙니다.");
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error(error, "장바구니 조회 요청 실패");
+      //   });
 
-    console.log(currentEmail);
+      console.log(currentEmail);
     // 임시 장바구니 조회 데이터 로직
     dispatch(
       cartActions.setCartItemData({
