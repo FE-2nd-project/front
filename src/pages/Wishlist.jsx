@@ -1,3 +1,4 @@
+// Wishlist.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
@@ -78,30 +79,40 @@ const Wishlist = () => {
       image: "https://via.placeholder.com/200",
       title: "루키 언스트럭처 블캡 LAC다저스",
       price: "36,000",
+      sizes: ["M"],
+      quantity: 2,
     },
     {
       id: 2,
       image: "https://via.placeholder.com/200",
       title: "루키 언스트럭처 블캡 LAC다저스",
       price: "36,000",
+      sizes: ["L"],
+      quantity: 1,
     },
     {
       id: 3,
       image: "https://via.placeholder.com/200",
       title: "루키 언스트럭처 블캡 LAC다저스",
       price: "36,000",
+      sizes: ["S", "M"],
+      quantity: 3,
     },
     {
       id: 4,
       image: "https://via.placeholder.com/200",
       title: "루키 언스트럭처 블캡 LAC다저스",
       price: "36,000",
+      sizes: ["L", "XL"],
+      quantity: 1,
     },
     {
       id: 5,
       image: "https://via.placeholder.com/200",
       title: "N-COVER 언스트럭처 캡",
       price: "36,000",
+      sizes: ["S"],
+      quantity: 2,
     },
   ]);
 

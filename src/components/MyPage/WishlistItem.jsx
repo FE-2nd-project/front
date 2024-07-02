@@ -1,3 +1,4 @@
+// WishlistItem.jsx
 import React from "react";
 import styled from "styled-components";
 
@@ -31,7 +32,28 @@ const ItemTitle = styled.div`
 const ItemPrice = styled.div`
   font-size: 1rem;
   color: #666;
-  margin-bottom: 1rem;
+  text-align: left;
+`;
+
+const SizeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+`;
+
+const SizeBox = styled.div`
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #f8f8f8;
+  text-align: center;
+`;
+
+const ItemQuantity = styled.div`
+  font-size: 1rem;
+  color: #666;
   text-align: left;
 `;
 
@@ -40,7 +62,13 @@ const WishlistItem = ({ item }) => {
     <ItemCard>
       <ItemImage src={item.image} alt={item.title} />
       <ItemTitle>{item.title}</ItemTitle>
+      <SizeContainer>
+        {item.sizes.map((size, index) => (
+          <SizeBox key={index}>{size}</SizeBox>
+        ))}
+      </SizeContainer>
       <ItemPrice>{item.price}</ItemPrice>
+      <ItemQuantity>수량: {item.quantity}</ItemQuantity>
     </ItemCard>
   );
 };
