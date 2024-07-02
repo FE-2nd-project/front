@@ -3,10 +3,7 @@ import "./PaymentInformation.css";
 import { useSelector } from "react-redux";
 
 const PaymentInformation = ({ topText, total }) => {
-  const currentEmail = localStorage.getItem("email");
-  const cartItemData = useSelector(
-    (state) => state.cart.cartItemData[currentEmail]
-  );
+  const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   let totalPrice = 0;
   if (cartItemData) {

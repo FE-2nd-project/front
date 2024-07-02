@@ -24,10 +24,8 @@ const ProductRegistered = () => {
 
   const PAGE_SIZE = 10;
 
-  const currentEmail = localStorage.getItem("email");
-
   const productRegisteredData = useSelector(
-    (state) => state.productRegistered.productRegisteredData[currentEmail]
+    (state) => state.productRegistered.productRegisteredData
   );
 
   // productRegisteredData에서 현재 페이지의 인덱스 물품 보여주기
@@ -51,8 +49,8 @@ const ProductRegistered = () => {
   };
 
   useEffect(() => {
-    dispatch(getProductRegisteredData(currentEmail));
-  }, [dispatch, currentEmail]);
+    dispatch(getProductRegisteredData());
+  }, [dispatch]);
 
   return (
     <>

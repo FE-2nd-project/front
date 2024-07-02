@@ -10,23 +10,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
-  const currentEmail = localStorage.getItem("email");
-  const cartItemData = useSelector(
-    (state) => state.cart.cartItemData[currentEmail]
-  );
+  const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // 장바구니 get 요청
   useEffect(() => {
-    if (currentEmail) {
-      dispatch(getCartData(currentEmail));
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      dispatch(getCartData());
     } else {
       alert("로그인을 먼저 해주십시오.");
       navigate("/login");
     }
-  }, [dispatch, currentEmail]);
+  }, [dispatch]);
 
   return (
     <>
