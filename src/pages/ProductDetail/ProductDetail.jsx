@@ -89,10 +89,10 @@ const ProductDetail = () => {
   }, []);
 
   // useEffect(() => {
-  //   // 상품 데이터를 서버에서 가져오는 함수
+  //   // 상품 데이터를 서버에서 가져오는 GET 함수
   //   const fetchProductData = async () => {
   //     try {
-  //       const response = await axios.get(`/product/read/${productID}`);
+  //       const response = await axios.get(`/api/item/{itemId}`);
   //       setProductData(response.data);
   //     } catch (error) {
   //       console.error("get요청에러:", error);
@@ -102,6 +102,7 @@ const ProductDetail = () => {
   // }, [productId]);
 
   // useEffect(() => {
+  //사이즈랑 재고 분리
   //   if (productData) {
   //     setSizeOptions(productData.size.map((item) => {
   //       const [size, stock] = item.split(': ');
@@ -148,7 +149,9 @@ const ProductDetail = () => {
   };
 
   // const handleAddToBag = async () => {
-  //   const jwtToken = localStorage.getItem("jwtToken"); // JWT 토큰 가져오기
+  //jwtToken인지 accesstoken인지 확인하고 넣으셈
+
+  //   const jwtToken = localStorage.getItem("jwtToken");
   //   const itemData = { itemId: productId, size: selectedSize, quantity };
   //   try {
   //     const response = await axios.post("/api/cart/add", itemData, {

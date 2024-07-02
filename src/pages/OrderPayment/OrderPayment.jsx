@@ -5,6 +5,38 @@ import PaymentInformation from "../../components/PaymentInformation/PaymentInfor
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import { useNavigate } from "react-router-dom";
 
+///GET요청 시 api주소: api/cart/order
+// {
+//   “cartItemId” : [1,2]
+// }
+// body: {
+//   "customerInfo": {
+//   "name": "Test",
+//   "contact": "010-1234-5678",
+//   "email": "Test@example.com",
+//   "address": "123 Example Street, Seoul",
+//   },
+//   "orderItems": [
+//   {
+//       "productImage": "product1.jpg",
+//       "productName": "Product 1",
+//       "color": "Red",
+//       "size": "M",
+//       "quantity": 2,
+//       "price": 20000
+//   },
+//   {
+//       "productImage": "product2.jpg",
+//       "productName": "Product 2",
+//       "color": "Blue",
+//      "size": "L",
+//      "quantity": 1,
+//      "price": 10000
+//   }
+//   ],
+//   "totalPrice": 30000,
+//   }
+
 const OrderPayment = () => {
   const navigate = useNavigate();
   const unitPrice = 49000; //제품 단가
