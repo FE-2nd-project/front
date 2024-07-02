@@ -1,15 +1,28 @@
 import React from "react";
 import "./PaymentInformation.css";
+import { useSelector } from "react-redux";
 
 const PaymentInformation = ({ topText, total }) => {
+  const currentEmail = localStorage.getItem("email");
+  const cartItemData = useSelector(
+    (state) => state.cart.cartItemData[currentEmail]
+  );
+
+  let totalPrice = 0;
+  if (cartItemData) {
+    totalPrice = cartItemData.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.productTotalPrice;
+    }, 0);
+  }
+
   return (
     <div className="payment-section-container">
       <h2 className="section-title">{topText}</h2>
       <div className="order-summary-container">
         <div className="order-summary">
           <div className="order-summary-price">
-            <p>상품 금액 </p>
-            <p>price</p>
+            <p>상품 금액</p>
+            <p>{totalPrice.toLocaleString()}원</p>
           </div>
 
           <div className="order-summary-delivery">
@@ -24,7 +37,7 @@ const PaymentInformation = ({ topText, total }) => {
         </div>
         <div className="order-summary-total">
           <p>{total}</p>
-          <p>totalPrice</p>
+          <p>{totalPrice.toLocaleString()}원</p>
         </div>
       </div>
     </div>

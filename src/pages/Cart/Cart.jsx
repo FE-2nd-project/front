@@ -6,39 +6,32 @@ import CartProduct from "../../components/Cart/CartProduct/CartProduct";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import EmptyCart from "../../components/Cart/EmptyCart/EmptyCart";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/reducer/cart-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
-  const accessToken = localStorage.getItem("accessToken");
   const currentEmail = localStorage.getItem("email");
+  console.log(currentEmail);
+  const cartItemData = useSelector(
+    (state) => state.cart.cartItemData[currentEmail]
+  );
 
+  // const cartItemData = useSelector(
+  //   (state) => state.cart.cartItemData[currentEmail] || []
+  // );
+
+  console.log("카트아이템데이터");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // 장바구니 get 요청
   useEffect(() => {
-    axios
-      .get(
-        "/api/cart",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(
-            cartActions.setCartItemData({
-              email: currentEmail,
-              cartItemData: response.data,
-            })
-          );
-        }
-      });
-  }, []);
+    if (currentEmail) {
+      dispatch(getCartData(currentEmail));
+    }
+
+    console.log("카트아이템데이");
+  }, [dispatch, currentEmail]);
 
   return (
     <>
@@ -48,16 +41,30 @@ const Cart = () => {
           <div className="list-top">
             <div className="top-normal-order">일반주문</div>
             <div className="cart-top-line"></div>
-            <div className="top-entire-check">
+            {/* <div className="top-entire-check">
               <input type="checkbox" className="cart-checkbox-input" />
               <label>전체선택</label>
-            </div>
+            </div> */}
           </div>
           <div className="list-bottom">
-            <CartProduct />
-            <CartProduct />
+            {cartItemData &&
+              cartItemData.map((cartItem) => {
+                return (
+                  <CartProduct
+                    key={cartItem.id}
+                    itemId={cartItem.cartItemId}
+                    productPicture={cartItem.productPicture}
+                    name={cartItem.productName}
+                    size={cartItem.productSize}
+                    quantity={cartItem.productQuantity}
+                    totalPrice={cartItem.productTotalPrice}
+                    price={cartItem.productPrice}
+                    optionSize={cartItem.optionSize}
+                  />
+                );
+              })}
           </div>
-          <EmptyCart />
+          {cartItemData && cartItemData.length === 0 && <EmptyCart />}
           <div className="cart-bottom-line"></div>
         </div>
         <div className="cart-payment-container">
