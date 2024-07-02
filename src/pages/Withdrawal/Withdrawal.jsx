@@ -36,7 +36,7 @@ const Withdrawal = () => {
 
     // axios
     //   .post(
-    //     "/api/auth/delete_user",
+    // `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
     //     { password: passwordInput },
     //     {
     //       headers: {

@@ -22,7 +22,7 @@ const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked, itemId }) => {
     // 실제 장바구니 아이템 axios delete 요청 로직
     // axios
     //   .delete(
-    //     `/api/cart/${itemId}`,
+    // `${process.env.REACT_APP_SERVER_URL}/api/cart/${itemId}`,
     //     {},
     //     {
     //       headers: {
