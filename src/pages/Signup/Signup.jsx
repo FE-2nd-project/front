@@ -70,8 +70,6 @@ const Signup = () => {
       return;
     }
 
-    console.log(email, password, name, gender, profilePicture, phone, address);
-
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
@@ -88,11 +86,11 @@ const Signup = () => {
         },
       })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("서버에 회원가입 전송 성공:", response.data);
           navigate("/login");
         } else if (response.data.message === "이미 존재하는 회원입니다.") {
-          alert("이미 존재하는 회원입니다.");
+          alert(response.data.message);
         }
       })
       .catch((error) => {
