@@ -117,14 +117,7 @@ const RegisterPage = () => {
 
   const updateImgs = (event) => {
     const imgs = Array.from(event.target.files);
-    imgs.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataURL = reader.result;
-        setUploadImgs((prev) => [...prev, dataURL]);
-      };
-      reader.readAsDataURL(file);
-    });
+    setUploadImgs(imgs);
   };
 
   const removeImg = (index) => {
@@ -138,25 +131,27 @@ const RegisterPage = () => {
   const registerItem = async (event) => {
     event.preventDefault();
 
-    const formData = {
-      images: uploadImgs,
-      name: itemName,
-      description: itemDesc,
-      gender: selectedGender,
-      category: selectedCategory,
-      sizes: sizeStockList,
-      price: itemPrice,
-      registerDate: registerDate,
-      sellByDate: sellByDate,
-    };
+    const formData = new FormData();
+    uploadImgs.forEach((img, index) => {
+      formData.append(`image-${index}`, img);
+    });
+    formData.append('name', itemName);
+    formData.append('description', itemDesc);
+    formData.append('gender', selectedGender);
+    formData.append('category', selectedCategory);
+    formData.append('price', itemPrice);
+    formData.append('registerDate', registerDate);
+    formData.append('sellByDate', sellByDate);
+
+    sizeStockList.forEach((item, index) => {
+      formData.append(`sizes[${index}][size]`, item.size);
+      formData.append(`sizes[${index}][stock]`, item.stock);
+    });
 
     try {
       const response = await fetch('/api/product/add', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -213,9 +208,9 @@ const RegisterPage = () => {
             <div>사진을 등록해주세요</div>
           ) : (
             <>
-              {uploadImgs.map((dataURL, index) => (
+              {uploadImgs.map((img, index) => (
                 <li key={index}>
-                  <img src={dataURL} alt="" />
+                  <img src={URL.createObjectURL(img)} alt="" />
                   <button type="button" onClick={() => removeImg(index)}>
                     삭제
                   </button>

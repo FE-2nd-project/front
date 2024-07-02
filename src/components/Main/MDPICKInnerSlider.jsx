@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { SlArrowLeft } from 'react-icons/sl';
@@ -60,19 +60,6 @@ const ElementTitle = styled.div`
 const ElementPrice = styled.div`
   font-size: 14px;
   font-weight: 500;
-`;
-
-const ElementColorWrapper = styled.div`
-  display: flex;
-  gap: 5px;
-`;
-
-const ElementColor = styled.div`
-  border: none;
-  border-radius: 100%;
-  width: 10px;
-  height: 10px;
-  background-color: ${(props) => props.color};
 `;
 
 const MDPICKSliderInnerDatas = [
@@ -260,12 +247,15 @@ const MDPICKSliderInnerDatas = [
   ],
 ];
 
-export function MDPICKInnerSlider({ index }) {
+export function MDPICKInnerSlider({ index, setSliderState }) {
+  useEffect(() => {
+    setSliderState((prev) => ({ ...prev, index, initialized: true }));
+  }, [index, setSliderState]);
+
   const slickRef = useRef(null);
 
   const MDPICKSliderInnerData = useMemo(() => MDPICKSliderInnerDatas[index], [index]);
-  console.log(MDPICKSliderInnerData);
- 
+
   const prevSlide = () => {
     slickRef.current.slickPrev();
   };
@@ -295,22 +285,20 @@ export function MDPICKInnerSlider({ index }) {
   };
 
   return (
-    <>
-      <ElementSliderContainer>
-        <LeftButton onClick={prevSlide} />
-        <RightButton onClick={nextSlide} />
-        <Slider ref={slickRef} {...setSlider}>
-          {MDPICKSliderInnerData.map((data) => (
-            <ElementSlider key={data.id}>
-              <ElementSliderBlock>
-                <ElementImage src={data.url} />
-                <ElementTitle>{data.title}</ElementTitle>
-                <ElementPrice>{data.price}</ElementPrice>
-              </ElementSliderBlock>
-            </ElementSlider>
-          ))}
-        </Slider>
-      </ElementSliderContainer>
-    </>
+    <ElementSliderContainer>
+      <LeftButton onClick={prevSlide} />
+      <RightButton onClick={nextSlide} />
+      <Slider ref={slickRef} {...setSlider}>
+        {MDPICKSliderInnerData.map((data, i) => (
+          <ElementSlider key={`${data.id}-${i}`}>
+            <ElementSliderBlock>
+              <ElementImage src={data.url} />
+              <ElementTitle>{data.title}</ElementTitle>
+              <ElementPrice>{data.price}</ElementPrice>
+            </ElementSliderBlock>
+          </ElementSlider>
+        ))}
+      </Slider>
+    </ElementSliderContainer>
   );
 }

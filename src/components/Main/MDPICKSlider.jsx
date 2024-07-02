@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { GrNext } from "react-icons/gr";
-import { GrPrevious } from "react-icons/gr";
-import { SlArrowLeft } from "react-icons/sl";
-import { SlArrowRight } from "react-icons/sl";
+import { GrNext, GrPrevious } from "react-icons/gr";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { MDPICKInnerSlider } from "./MDPICKInnerSlider";
 
 const SlideContainer = styled.div`
@@ -75,6 +73,7 @@ const RightButton = styled(SlArrowRight)`
 
 export function MDPICKSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [sliderState, setSliderState] = useState({});
 
   const slides = [
     {
@@ -125,7 +124,12 @@ export function MDPICKSlider() {
           </SlideHeader>
           <SlideContents>
             <SlideImage src={content.url} />
-            <MDPICKInnerSlider index={index} />
+            {index === currentIndex && (
+              <MDPICKInnerSlider
+                index={index}
+                setSliderState={setSliderState}
+              />
+            )}
           </SlideContents>
         </Slide>
       ))}
