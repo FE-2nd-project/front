@@ -58,6 +58,17 @@ const Signup = () => {
     }
   };
 
+  // 파일 크기 체크
+  const validateFileSize = (file) => {
+    const maxSize = 1 * 1024 * 1024; // 1MB
+
+    if (file.size > maxSize) {
+      alert("파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.");
+      return false;
+    }
+    return true;
+  };
+
   // submit 처리 함수
   const submitHandler = (e) => {
     e.preventDefault();
@@ -69,6 +80,12 @@ const Signup = () => {
     if (!validatePhone(phone)) {
       return;
     }
+
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
+
+    console.log(email, password, name, gender, profilePicture, phone, address);
 
     const formData = new FormData();
     formData.append("email", email);

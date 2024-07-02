@@ -18,6 +18,7 @@ const Cart = () => {
   // 장바구니 get 요청
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
     if (accessToken) {
       dispatch(getCartData());
     } else {
@@ -25,6 +26,8 @@ const Cart = () => {
       navigate("/login");
     }
   }, [dispatch]);
+
+  console.log("카트 아이템 데이터", cartItemData);
 
   return (
     <>
@@ -41,6 +44,7 @@ const Cart = () => {
           </div>
           <div className="list-bottom">
             {cartItemData &&
+              cartItemData.length > 0 &&
               cartItemData.map((cartItem) => {
                 return (
                   <CartProduct

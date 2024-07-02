@@ -6,7 +6,7 @@ const PaymentInformation = ({ topText, total }) => {
   const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   let totalPrice = 0;
-  if (cartItemData) {
+  if (cartItemData && cartItemData.length > 0) {
     totalPrice = cartItemData.reduce((accumulator, cartItem) => {
       return accumulator + cartItem.productTotalPrice;
     }, 0);
