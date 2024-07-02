@@ -31,10 +31,9 @@ const Signup = () => {
     setPhone(phoneInput.trim());
   };
 
-  // 백에 어떤 형식의 사진 파일을 보내는지 알아내기 / 사진을 올리지 않았을 시, 기본 유저 사진을 백에다가 보내기!
   const profilePictureChangeHandler = (e) => {
     const selectedProfilePicture = e.target.files[0];
-    setProfilePicture(selectedProfilePicture); // 객체 형식의 File
+    setProfilePicture(selectedProfilePicture);
   };
 
   // 비밀번호 유효성 검사
@@ -73,24 +72,21 @@ const Signup = () => {
 
     console.log(email, password, name, gender, profilePicture, phone, address);
 
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("name", name);
+    formData.append("gender", gender);
+    formData.append("profilePicture", profilePicture);
+    formData.append("phoneNum", phone);
+    formData.append("address", address);
+
     axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
-        {
-          email,
-          password,
-          name,
-          gender,
-          profilePicture,
-          phoneNum: phone,
-          address,
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/signup`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      })
       .then((response) => {
         if (response.status === 200) {
           console.log("서버에 회원가입 전송 성공:", response.data);
@@ -172,6 +168,7 @@ const Signup = () => {
                 type="file"
                 style={{ display: "none" }}
                 onChange={profilePictureChangeHandler}
+                accept=".jpg, .jpeg, .png"
               />
             </label>
           </div>
