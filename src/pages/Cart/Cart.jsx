@@ -11,16 +11,10 @@ import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
   const currentEmail = localStorage.getItem("email");
-  console.log(currentEmail);
   const cartItemData = useSelector(
     (state) => state.cart.cartItemData[currentEmail]
   );
 
-  // const cartItemData = useSelector(
-  //   (state) => state.cart.cartItemData[currentEmail] || []
-  // );
-
-  console.log("카트아이템데이터");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,9 +22,10 @@ const Cart = () => {
   useEffect(() => {
     if (currentEmail) {
       dispatch(getCartData(currentEmail));
+    } else {
+      alert("로그인을 먼저 해주십시오.")
+      navigate("/login");
     }
-
-    console.log("카트아이템데이");
   }, [dispatch, currentEmail]);
 
   return (
