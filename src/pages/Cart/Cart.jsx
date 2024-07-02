@@ -23,7 +23,7 @@ const Cart = () => {
     if (currentEmail) {
       dispatch(getCartData(currentEmail));
     } else {
-      alert("로그인을 먼저 해주십시오.")
+      alert("로그인을 먼저 해주십시오.");
       navigate("/login");
     }
   }, [dispatch, currentEmail]);
@@ -66,7 +66,10 @@ const Cart = () => {
           <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
             className="order-button"
-            onClick={() => navigate("/Order-payment")}
+            onClick={() => {
+              navigate("/Order-payment");
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
           >
             주문하기
           </button>

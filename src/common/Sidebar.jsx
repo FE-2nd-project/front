@@ -57,7 +57,10 @@ const Sidebar = () => {
         <MenuItem>취소/교환/반품 내역</MenuItem>
         <MenuItem
           active={location.pathname === "/mypage/purchases"}
-          onClick={() => handleMenuItemClick("/mypage/purchases")}
+          onClick={() => {
+            handleMenuItemClick("/mypage/purchases");
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           물품구매 내역
         </MenuItem>
@@ -67,13 +70,19 @@ const Sidebar = () => {
         <MenuHeader>나의 활동정보</MenuHeader>
         <MenuItem
           active={location.pathname === "/mypage/wishlist"}
-          onClick={() => handleMenuItemClick("/mypage/wishlist")}
+          onClick={() => {
+            handleMenuItemClick("/mypage/wishlist");
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           위시리스트
         </MenuItem>
         <MenuItem
           active={location.pathname === "/mypage/product-registered"}
-          onClick={() => handleMenuItemClick("/mypage/product-registered")}
+          onClick={() => {
+            handleMenuItemClick("/mypage/product-registered");
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           등록된 판매 상품 조회
         </MenuItem>
@@ -95,7 +104,10 @@ const Sidebar = () => {
         <MenuItem>간편로그인 계정관리</MenuItem>
         <MenuItem
           active={location.pathname === "/mypage/withdrawal"}
-          onClick={() => handleMenuItemClick("/mypage/withdrawal")}
+          onClick={() => {
+            handleMenuItemClick("/mypage/withdrawal");
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           회원 탈퇴
         </MenuItem>
