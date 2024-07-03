@@ -39,11 +39,11 @@ const cartSlice = createSlice({
       state.cartQuantity = action.payload;
     },
     addQuantity(state, action) {
-      state.cartQuantity += 1;
+      state.cartQuantity += action.payload;
     },
     subtractQuantity(state, action) {
       if (state.cartQuantity >= 1) {
-        state.cartQuantity -= 1;
+        state.cartQuantity -= action.payload;
       }
     },
   },

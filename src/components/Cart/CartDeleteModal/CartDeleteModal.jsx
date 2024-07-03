@@ -7,7 +7,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { cartActions, getCartData } from "../../../store/reducer/cart-slice";
 
-const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked, itemId }) => {
+const CartDeleteModal = ({
+  isDeleteClicked,
+  setIsDeleteClicked,
+  itemId,
+  quantity,
+}) => {
   const dispatch = useDispatch();
 
   const deleteConfirmHandler = () => {
@@ -22,7 +27,7 @@ const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked, itemId }) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(cartActions.subtractQuantity());
+          dispatch(cartActions.subtractQuantity(quantity));
           setIsDeleteClicked(false);
           dispatch(getCartData());
         }

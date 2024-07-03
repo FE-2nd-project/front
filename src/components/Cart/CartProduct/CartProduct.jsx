@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import "./CartProduct.css";
-import cap from "../../../assets/cap.png";
 import CartDeleteModal from "../CartDeleteModal/CartDeleteModal";
 import CartUpdateModal from "../CartUpdateModal/CartUpdateModal";
 
@@ -36,6 +35,7 @@ const CartProduct = ({
         isDeleteClicked={isDeleteClicked}
         setIsDeleteClicked={setIsDeleteClicked}
         itemId={itemId}
+        quantity={quantity}
       />
       <div className="cart-product-container">
         <div className="product-left">
@@ -66,7 +66,9 @@ const CartProduct = ({
           </button>
           <button
             className="product-delete"
-            onClick={() => setIsDeleteClicked((prev) => !prev)}
+            onClick={() => {
+              setIsDeleteClicked((prev) => !prev);
+            }}
           >
             삭제
           </button>
