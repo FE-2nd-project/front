@@ -130,10 +130,10 @@ const Header = () => {
           </div>
         </div>
         <div className="nav-bottom">
-          <NavLink to="/product/all" className={({ isActive }) => (isActive ? 'active nav-all' : 'nav-all')}>
+          <NavLink to="/product/ALL" className={({ isActive }) => (isActive ? 'active nav-all' : 'nav-all')}>
             ALL
           </NavLink>
-          <NavLink to="/product/women" className={({ isActive }) => (isActive ? 'active nav-women' : 'nav-women')}>
+          <NavLink to="/product/Women" className={({ isActive }) => (isActive ? 'active nav-women' : 'nav-women')}>
             WOMEN
           </NavLink>
           <NavLink to="/product/men" className={({ isActive }) => (isActive ? 'active nav-men' : 'nav-men')}>
@@ -145,7 +145,7 @@ const Header = () => {
           >
             APPAREL
           </NavLink>
-          <NavLink to="/product/cap" className={({ isActive }) => (isActive ? 'active nav-cap' : 'nav-cap')}>
+          <NavLink to="/product/Cap" className={({ isActive }) => (isActive ? 'active nav-cap' : 'nav-cap')}>
             CAP
           </NavLink>
           <NavLink to="/product/shoes" className={({ isActive }) => (isActive ? 'active nav-shoes' : 'nav-shoes')}>

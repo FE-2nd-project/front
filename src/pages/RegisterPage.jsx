@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsImages } from 'react-icons/bs';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const RegisterPageContainer = styled.form`
   width: 100%;
-  padding: 15px 100px;
+  padding: 0 100px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -99,10 +101,25 @@ const AddSizeButton = styled.button`
 `;
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      alert('로그인을 먼저 해주십시오.');
+      navigate('/login');
+    }
+  }, [dispatch]);
+
   const uploadRef = useRef();
 
   const handleUploadImg = () => {
-    uploadRef.current.click();
+    if (uploadImgs.length >= 3) {
+      alert('이미지는 3개까지 등록 가능합니다.');
+    } else {
+      uploadRef.current.click();
+    }
   };
 
   const [uploadImgs, setUploadImgs] = useState([]);
@@ -115,6 +132,7 @@ const RegisterPage = () => {
   const [itemPrice, setItemPrice] = useState('');
   const [registerDate, setRegisterDate] = useState('');
   const [sellByDate, setSellByDate] = useState('');
+  const [totalStock, setTotalStock] = useState(0);
 
   const updateImgs = (event) => {
     const imgs = Array.from(event.target.files);
@@ -130,8 +148,24 @@ const RegisterPage = () => {
     setSizeStockList((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const validateFileSize = (file) => {
+    const maxSize = 1 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
+      return false;
+    }
+    return true;
+  };
+
   const registerItem = async (event) => {
     event.preventDefault();
+
+    uploadImgs.forEach((img) => {
+      if (!validateFileSize(img)) {
+        return;
+      }
+    });
 
     const formData = new FormData();
     uploadImgs.forEach((img, index) => {
@@ -139,11 +173,12 @@ const RegisterPage = () => {
     });
     formData.append('name', itemName);
     formData.append('description', itemDesc);
-    formData.append('gender', selectedGender);
-    formData.append('category', selectedCategory);
+    formData.append('totalStock', totalStock);
+    formData.append('categoryGender', selectedGender);
+    formData.append('categoryKind', selectedCategory);
     formData.append('price', itemPrice);
-    formData.append('registerDate', registerDate);
-    formData.append('sellByDate', sellByDate);
+    formData.append('listedDate', registerDate);
+    formData.append('endDate', sellByDate);
 
     sizeStockList.forEach((item, index) => {
       formData.append(`sizes[${index}][size]`, item.size);
@@ -151,7 +186,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const response = await axios.post('/api/product/add', formData);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/sale/add`, formData);
 
       if (response.ok) {
         console.log('Item registered successfully!');

@@ -16,7 +16,6 @@ import OrderPayment from "./pages/OrderPayment/OrderPayment";
 import OrderCompletion from "./pages/OrderCompletion/OrderCompletion";
 import Withdrawal from "./pages/Withdrawal/Withdrawal";
 import RegisterPage from "./pages/RegisterPage";
-import RegisterListPage from "./pages/RegisterListPage";
 import ProductRegistered from "./pages/ProductRegistered/ProductRegistered";
 
 const router = createBrowserRouter([
@@ -47,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:category",
-        element: <ProductPage />,
+        element: <ProductPage/>,
       },
       {
         path: "/register",
@@ -56,10 +55,6 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
-      },
-      {
-        path: "/mypage/register-list",
-        element: <RegisterListPage />,
       },
       {
         path: "/mypage/wishlist",
