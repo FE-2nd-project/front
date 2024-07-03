@@ -43,7 +43,7 @@ const ProductPage = () => {
           <Product key={data.id} id={data.id} name={data.name} price={data.price} url={data.url} />
         ))}
       </div>
-      <Pagination page={page} setPage={setPage} totalPages={totalPages} size={size} setSize={setSize} />
+      <Pagination page={page} setPagep={setPage} totalPages={totalPages} size={size} setSize={setSize} />
     </div>
   );
 };
