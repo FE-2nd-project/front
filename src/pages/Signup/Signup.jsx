@@ -85,8 +85,6 @@ const Signup = () => {
       return;
     }
 
-    console.log(email, password, name, gender, profilePicture, phone, address);
-
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);

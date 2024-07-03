@@ -17,16 +17,6 @@ const CartProduct = ({
 }) => {
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
-  console.log(
-    itemId,
-    productPicture,
-    name,
-    size,
-    quantity,
-    totalPrice,
-    price,
-    optionSize
-  );
 
   return (
     <>
@@ -51,7 +41,11 @@ const CartProduct = ({
         <div className="product-left">
           <div className="product-img-container">
             {/* <input className="product-checkbox" type="checkbox"></input> */}
-            <img className="product-img" src={cap} alt="productPicture" />
+            <img
+              className="product-img"
+              src={productPicture}
+              alt="productPicture"
+            />
           </div>
           <div className="product-info-container">
             <div className="product-name">{name}</div>

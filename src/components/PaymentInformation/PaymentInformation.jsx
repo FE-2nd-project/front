@@ -12,9 +12,6 @@ const PaymentInformation = ({ topText, total }) => {
     }, 0);
   }
 
-  console.log(totalPrice, "총 금액");
-  console.log(cartItemData[0], "카트 아이템 데이터");
-
   return (
     <div className="payment-section-container">
       <h2 className="section-title">{topText}</h2>

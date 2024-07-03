@@ -26,8 +26,6 @@ const Cart = () => {
     }
   }, [dispatch]);
 
-  console.log("카트 아이템 데이터", cartItemData);
-
   return (
     <>
       <CartNavLink />
