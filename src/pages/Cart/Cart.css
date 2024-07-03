@@ -93,7 +93,8 @@
   top: 20px;
 }
 
-.order-button {
+.order-button,
+.order-button-disabled {
   width: 100%;
   height: 30%;
   margin-top: -5px;
@@ -104,4 +105,10 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.order-button-disabled {
+  background-color: rgb(93, 94, 93);
+  color: rgba(244, 244, 244, 0.715);
+  cursor: not-allowed;
 }
