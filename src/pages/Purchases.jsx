@@ -1,8 +1,11 @@
+// Purchases.jsx
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPurchases } from "../store/reducer/purchaseSlice";
 import PurchasesItem from "../components/MyPage/PurchasesItem";
 
 const PageContainer = styled.div`
@@ -19,13 +22,6 @@ const Container = styled.div`
 const MainContent = styled.div`
   flex: 6;
   margin-left: 2rem;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
 `;
 
 const Breadcrumbs = styled.div`
@@ -135,7 +131,7 @@ const PurchaseContainer = styled.div`
   border-top: 2px solid #000;
   padding-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4개씩 한 줄에 */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 `;
 
@@ -151,54 +147,42 @@ const Purchases = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]); // Add this line
+  const dispatch = useDispatch();
+  const purchases = useSelector((state) => state.purchase.purchases);
 
   useEffect(() => {
-    fetchPurchases();
-  }, []);
+    const token = localStorage.getItem("accessToken");
+    dispatch(fetchPurchases(token));
+  }, [dispatch]);
 
-  const fetchPurchases = async () => {
-    try {
-      const response = await axios.get(
-        "${process.env.REACT_APP_SERVER_URL}/api/mypage/order",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setItems(response.data.data);
-      setFilteredItems(response.data.data);
-    } catch (error) {
-      console.error("Error fetching purchases:", error);
-    }
-  };
+  useEffect(() => {
+    setFilteredItems(purchases); // Initialize filtered items
+  }, [purchases]);
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
   const applyFilter = () => {
-    // 필터링 로직
-    let filtered = items;
+    let filtered = purchases;
     const currentDate = new Date();
 
     if (selectedFilter === "3개월") {
       const dateLimit = new Date();
       dateLimit.setMonth(currentDate.getMonth() - 3);
-      filtered = items.filter(
+      filtered = purchases.filter(
         (item) => new Date(item.purchaseDate) >= dateLimit
       );
     } else if (selectedFilter === "6개월") {
       const dateLimit = new Date();
       dateLimit.setMonth(currentDate.getMonth() - 6);
-      filtered = items.filter(
+      filtered = purchases.filter(
         (item) => new Date(item.purchaseDate) >= dateLimit
       );
     } else if (selectedFilter === "기간선택") {
       if (year && month) {
-        filtered = items.filter((item) => {
+        filtered = purchases.filter((item) => {
           const purchaseDate = new Date(item.purchaseDate);
           return (
             purchaseDate.getFullYear() === parseInt(year) &&

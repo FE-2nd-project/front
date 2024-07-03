@@ -46,6 +46,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const handleMenuItemClick = (path) => {
+    window.scrollTo({ top: 0 });
     navigate(path);
   };
 
