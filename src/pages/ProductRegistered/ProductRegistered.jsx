@@ -91,16 +91,16 @@ const ProductRegistered = () => {
                     return (
                       <EachProductRegistered
                         setIsUpdate={setIsUpdate}
-                        key={eachProduct.productId}
-                        productId={eachProduct.productId}
-                        productImage={eachProduct.productImage}
-                        productName={eachProduct.productName}
-                        productPrice={eachProduct.productPrice}
-                        genderCategory={eachProduct.genderCategory}
-                        shopCategory={eachProduct.shopCategory}
-                        sizes={eachProduct.sizes}
-                        registerDate={eachProduct.registerDate}
-                        sellByDate={eachProduct.sellByDate}
+                        key={eachProduct.id}
+                        productId={eachProduct.id}
+                        productImage={eachProduct.firstImageUrl}
+                        productName={eachProduct.name}
+                        productPrice={eachProduct.price}
+                        genderCategory={eachProduct.categoryGender}
+                        shopCategory={eachProduct.categoryKind}
+                        sizes={eachProduct.itemSizes}
+                        registerDate={eachProduct.listedDate}
+                        sellByDate={eachProduct.endDate}
                       />
                     );
                   })}
