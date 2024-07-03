@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("FEMALE");
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
@@ -31,10 +31,9 @@ const Signup = () => {
     setPhone(phoneInput.trim());
   };
 
-  // 백에 어떤 형식의 사진 파일을 보내는지 알아내기 / 사진을 올리지 않았을 시, 기본 유저 사진을 백에다가 보내기!
   const profilePictureChangeHandler = (e) => {
     const selectedProfilePicture = e.target.files[0];
-    setProfilePicture(selectedProfilePicture); // 객체 형식의 File
+    setProfilePicture(selectedProfilePicture);
   };
 
   // 비밀번호 유효성 검사
@@ -59,6 +58,17 @@ const Signup = () => {
     }
   };
 
+  // 파일 크기 체크
+  const validateFileSize = (file) => {
+    const maxSize = 1 * 1024 * 1024; // 1MB
+
+    if (file.size > maxSize) {
+      alert("파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.");
+      return false;
+    }
+    return true;
+  };
+
   // submit 처리 함수
   const submitHandler = (e) => {
     e.preventDefault();
@@ -71,28 +81,33 @@ const Signup = () => {
       return;
     }
 
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
+
+    console.log(email, password, name, gender, profilePicture, phone, address);
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("name", name);
+    formData.append("gender", gender);
+    formData.append("profilePicture", profilePicture);
+    formData.append("phoneNum", phone);
+    formData.append("address", address);
+
     axios
-      .post(
-        "/api/auth/signup",
-        {
-          email,
-          password,
-          name,
-          gender,
-          profilePicture,
-          phone,
-          address,
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/signup`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("서버에 회원가입 전송 성공:", response.data);
           navigate("/login");
+        } else if (response.data.message === "이미 존재하는 회원입니다.") {
+          alert(response.data.message);
         }
       })
       .catch((error) => {
@@ -168,6 +183,7 @@ const Signup = () => {
                 type="file"
                 style={{ display: "none" }}
                 onChange={profilePictureChangeHandler}
+                accept=".jpg, .jpeg, .png"
               />
             </label>
           </div>

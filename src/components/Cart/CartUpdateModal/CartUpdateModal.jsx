@@ -50,36 +50,36 @@ const CartUpdateModal = ({
     e.preventDefault();
 
     //임시 장바구니 업데이트 확인 로직
-    setIsUpdateClicked(false);
+    // setIsUpdateClicked(false);
 
     // 실제 장바구니 axois update 요청 로직
-    // const accessToken = localStorage.getItem("accessToken");
-    // const currentEmail = localStorage.getItem("email");
+    const accessToken = localStorage.getItem("accessToken");
+    const currentEmail = localStorage.getItem("email");
 
-    // axios
-    //   .put(
-    //     "/api/cart/update",
-    //     {
-    //       cartItemId: itemId,
-    //       cartItemSize: itemSize,
-    //       cartItemQuantity: itemQuantity,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //         "Content-type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       setIsUpdateClicked(false);
-    //       dispatch(getCartData(currentEmail));
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "장바구니 아이템 수정 요청 실패");
-    //   });
+    axios
+      .put(
+    `${process.env.REACT_APP_SERVER_URL}/api/cart/update`,
+        {
+          cartItemId: itemId,
+          cartItemSize: itemSize,
+          cartItemQuantity: itemQuantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setIsUpdateClicked(false);
+          dispatch(getCartData(currentEmail));
+        }
+      })
+      .catch((error) => {
+        console.error(error, "장바구니 아이템 수정 요청 실패");
+      });
   };
 
   if (!isUpdateClicked) return null;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -45,10 +46,9 @@ const UserProfile = styled.div`
   gap: 1rem;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 80px;
   height: 80px;
-  background-color: grey;
   border-radius: 50%;
 `;
 
@@ -106,7 +106,7 @@ const MyPageTitle = styled.h1`
 const UserInfoContainer = styled.div`
   border-top: 2px solid #000;
   padding-top: 2rem;
-  padding-left: 1rem; /* 컨테이너 크기 조절 */
+  padding-left: 1rem;
 `;
 
 const UserInfoRow = styled.div`
@@ -135,7 +135,37 @@ const Breadcrumb = styled.div`
 `;
 
 function MyPage() {
-  const userEmail = localStorage.getItem("email") || "unknown@domain.com";
+  const [user, setUser] = useState({
+    name: "",
+    phone_num: "",
+    email: "",
+    address: "",
+    profile_picture_url: "",
+    shopping_pay: 0,
+    about_me: "",
+  });
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const token =
+  //         "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb21pbnN1QGV4YW1wbGUzLmNvbSIsInRva2VuVHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6NiwiaWF0IjoxNzE5OTI4OTE0LCJleHAiOjE3MTk5Mjk1MTR9.vTBNXhYm_ORNbwiAcixxxSzA1Lx6P44SJu6yo2YGT6YzPwurCdsLJqCAYpjM48xNL3fsnCY3rwHYScKegqb6kA";
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_SERVER_URL}/api/mypage/user`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setUser(response.data.data.mypageUserInfos[0]);
+  //     } catch (error) {
+  //       console.error("There was an error fetching the user data!", error);
+  //     }
+  //   };
+
+  //   fetchUserData();
+  // }, []);
 
   return (
     <PageContainer>
@@ -148,16 +178,16 @@ function MyPage() {
           <UserPreview>
             <UserInfo>
               <UserProfile>
-                <ProfileImage />
+                <ProfileImage src={user.profile_picture_url} alt="Profile" />
                 <UserName>
-                  <div>{userEmail.split("@")[0]} 님</div>
+                  <div>{user.name} 님</div>
                   <span>회원등급/혜택 보기 &gt;</span>
                 </UserName>
               </UserProfile>
             </UserInfo>
             <UserCash>
               <UserHold>
-                <div>10,000</div>
+                <div>{user.shopping_pay.toLocaleString()}</div>
                 <div>마일리지</div>
               </UserHold>
               <Separator />
@@ -176,19 +206,23 @@ function MyPage() {
           <UserInfoContainer>
             <UserInfoRow>
               <UserInfoLabel>이름</UserInfoLabel>
-              <UserInfoValue>홍길동</UserInfoValue>
-            </UserInfoRow>
-            <UserInfoRow>
-              <UserInfoLabel>생년월일</UserInfoLabel>
-              <UserInfoValue>1980년 11월 02일</UserInfoValue>
+              <UserInfoValue>{user.name}</UserInfoValue>
             </UserInfoRow>
             <UserInfoRow>
               <UserInfoLabel>연락처</UserInfoLabel>
-              <UserInfoValue>010-1234-1324</UserInfoValue>
+              <UserInfoValue>{user.phone_num}</UserInfoValue>
             </UserInfoRow>
             <UserInfoRow>
               <UserInfoLabel>이메일</UserInfoLabel>
-              <UserInfoValue>{userEmail}</UserInfoValue>
+              <UserInfoValue>{user.email}</UserInfoValue>
+            </UserInfoRow>
+            <UserInfoRow>
+              <UserInfoLabel>주소</UserInfoLabel>
+              <UserInfoValue>{user.address}</UserInfoValue>
+            </UserInfoRow>
+            <UserInfoRow>
+              <UserInfoLabel>소개글</UserInfoLabel>
+              <UserInfoValue>{user.about_me}</UserInfoValue>
             </UserInfoRow>
           </UserInfoContainer>
         </MainContent>

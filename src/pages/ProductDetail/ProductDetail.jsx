@@ -97,8 +97,6 @@ const ProductDetail = () => {
     }
   };
 
-  if (!productData) return null;
-
   return (
     <div className="product-root">
       <ImageSlider images={productData.image_urls} />

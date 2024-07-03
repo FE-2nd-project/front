@@ -26,51 +26,59 @@ const Login = () => {
     setInput(changedInput.trim());
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (regex.test(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   // 로그인 버튼 핸들 함수
   const loginClickHandler = (e) => {
     e.preventDefault();
 
+    if (!validateEmail(emailInput)) {
+      alert("이메일 형식의 아이디를 적어주세요.");
+      return;
+    }
+
     // 임시 로그인 요청 성공 후 로직
-    localStorage.setItem("accessToken", "1234567"); //실제 요청 시, 실제 token set
-    localStorage.setItem("email", "test@test.com");
-    dispatch(
-      cartActions.setCartQuantity({
-        email: "test@test.com",
-        cartQuantity: 7,
-      })
-    );
-    navigate("/");
+    // localStorage.setItem("accessToken", "1234567");
+    // dispatch(cartActions.setCartQuantity(7));
+    // navigate("/");
 
     // 실제 로그인 axios 요청
-    // axios
-    //   .post(
-    //     "/api/auth/login",
-    //     {
-    //       email: emailInput,
-    //       password: passwordInput,
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     const { token, email, cartQuantity } = response.data;
-    //     const accessToken = token.accessToken;
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
+        {
+          email: emailInput,
+          password: passwordInput,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const { token, cartQuantity } = response.data;
+        const accessToken = token.accessToken;
 
-    //     if (response.status === 200) {
-    //       localStorage.setItem("accessToken", accessToken);
-    //       localStorage.setItem("email", email);
-    //       dispatch(cartActions.setCartQuantity({ email, cartQuantity }));
-    //       navigate("/");
-    //     } else {
-    //       alert("이메일이나 패스워드가 일치하지 않습니다.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "서버에 로그인 요청 실패");
-    //   });
+        if (response.status === 200) {
+          localStorage.setItem("accessToken", accessToken);
+          dispatch(cartActions.setCartQuantity(cartQuantity));
+          navigate("/");
+        } else {
+          alert("이메일이나 패스워드가 일치하지 않습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "서버에 로그인 요청 실패");
+      });
   };
 
   return (
