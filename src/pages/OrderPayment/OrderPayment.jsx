@@ -8,14 +8,7 @@ import { useSelector } from "react-redux";
 
 const OrderPayment = () => {
   const navigate = useNavigate();
-  const currentEmail = localStorage.getItem("email");
-  const cartItemData = useSelector(
-    (state) => state.cart.cartItemData[currentEmail]
-  );
-  const [stockErrors, setStockErrors] = useState({
-    itemId: 0,
-    itemStock,
-  });
+  const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   // const products = cartItemData
   //   ? cartItemData.map((cartItem) => ({
@@ -42,7 +35,7 @@ const OrderPayment = () => {
     const axiosGetOrderData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/cart/order`,
+          `${process.env.REACT_APP_SERVER_URL}/api/cart/order`,
           {
             params: {
               cartItemId: cartItemData.map((cartItem) => cartItem.cartItemId),
@@ -53,7 +46,7 @@ const OrderPayment = () => {
           console.log("주문데이터확인: ", response.data);
           const { customerInfo, orderItems, totalPrice } = response.data;
           setCustomerInfo(customerInfo);
-          setcartProducts(orderItems);
+          setCartProducts(orderItems);
           setTotalPrice(totalPrice);
         } else {
           console.log("200을 받아오지 못함");
@@ -81,7 +74,7 @@ const OrderPayment = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/cart/order`,
+        `${process.env.REACT_APP_SERVER_URL}/api/cart/order`,
         {
           cartItemId: cartProducts.map((product) => product.id),
           totalPrice: totalPrice,
@@ -101,7 +94,6 @@ const OrderPayment = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         console.log("결제 실패: ", error.response.data);
-        setStockErrors(error.response.data.stockErrors);
         updateProductsStock(error.response.data.stockErrors);
       } else {
         console.log("결제 실패: ", error);
@@ -134,8 +126,9 @@ const OrderPayment = () => {
                 <input
                   type="text"
                   name="name"
-                  defaultValue="홍길동"
-                  /*defaultValue={customerInfo.name}*/ required
+                  //defaultValue="홍길동"
+                  defaultValue={customerInfo.name}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -143,9 +136,8 @@ const OrderPayment = () => {
                 <input
                   type="tel"
                   name="phone"
-                  defaultValue="010-1234-5678"
-                  /*defaultValue={customerInfo.contact}*/
-                  required
+                  //defaultValue="010-1234-5678"
+                  defaultValue={customerInfo.contact}
                 />
               </div>
               <div className="form-group">
@@ -153,8 +145,8 @@ const OrderPayment = () => {
                 <input
                   type="email"
                   name="email"
-                  defaultValue="example@example.com"
-                  /*defaultValue={customerInfo.email}*/
+                  //defaultValue="example@example.com"
+                  defaultValue={customerInfo.email}
                   required
                 />
               </div>
@@ -169,8 +161,8 @@ const OrderPayment = () => {
                 <input
                   type="text"
                   name="address"
-                  defaultValue="서울특별시 oo구"
-                  /*defaultValue={customerInfo.address}*/
+                  //defaultValue="서울특별시 oo구"
+                  defaultValue={customerInfo.address}
                   required
                 />
               </div>

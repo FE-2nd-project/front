@@ -32,7 +32,7 @@ const OrderCompletion = () => {
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/cart/order/success/${orderId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/cart/order/success/${orderId}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
