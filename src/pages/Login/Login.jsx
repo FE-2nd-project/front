@@ -48,8 +48,7 @@ const Login = () => {
     }
 
     // 실제 로그인 axios 요청
-    axios.defaults.withCredentials = true;
-    
+
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
@@ -72,7 +71,10 @@ const Login = () => {
           localStorage.setItem("accessToken", accessToken);
           Cookies.set("refreshToken", refreshToken, {
             expires: 7,
+            path: "/",
           });
+
+          // axios.defaults.withCredentials = true; //모든 요청에 쿠키를 담아 보내기
 
           dispatch(cartActions.setCartQuantity(cartQuantity));
           navigate("/");

@@ -1,6 +1,8 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
+import Cookies from "js-cookie";
+
 import "./LogoutModal.css";
 import exit from "../../assets/exit.png";
 import axios from "axios";
@@ -20,6 +22,8 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
     // setIsLogoutClicked(false);
 
     // 실제 로그아웃 axios 로직
+    axios.defaults.withCredentials = true;
+
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
@@ -33,6 +37,8 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
       .then((response) => {
         if (response.status === 200) {
           localStorage.removeItem("accessToken");
+          Cookies.remove("refreshToken");
+
           setIsLogoutClicked(false);
           navigate("/");
         }
