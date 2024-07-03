@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Cookies from "js-cookie";
+
 import "./WithdrawalCheck.css";
 import explanationMark from "../../assets/explanation-mark.png";
 import { useNavigate } from "react-router-dom";
@@ -23,32 +25,31 @@ const WithdrawalCheck = () => {
     }
 
     //임시의 회원 탈퇴 요청 성공 시, 로직
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("email");
-    navigate("/");
+    // localStorage.removeItem("accessToken");
+    // navigate("/");
 
     // 실제 회원 탈퇴 요청의 axios 로직
-    // const accessToken = localStorage.getItem("accessToken");
-    // axios
-    //   .patch(
-    // `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       localStorage.removeItem("accessToken");
-    //       localStorage.removeItem("email");
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "회원 탈퇴 요청 실패");
-    //   });
+    const accessToken = localStorage.getItem("accessToken");
+    axios
+      .patch(
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.removeItem("accessToken");
+          Cookies.remove("refreshToken");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "회원 탈퇴 요청 실패");
+      });
   };
   return (
     <div className="withdrawal-check-container">

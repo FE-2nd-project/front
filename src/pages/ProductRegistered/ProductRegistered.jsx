@@ -28,6 +28,11 @@ const ProductRegistered = () => {
     (state) => state.productRegistered.productRegisteredData
   );
 
+  console.log(
+    "등록된 판매 물품 조회 페이지에서의 product registered data",
+    productRegisteredData
+  );
+
   // productRegisteredData에서 현재 페이지의 인덱스 물품 보여주기
   const currentPageProducts = productRegisteredData
     ? productRegisteredData.slice(
@@ -51,6 +56,10 @@ const ProductRegistered = () => {
   useEffect(() => {
     dispatch(getProductRegisteredData());
   }, [dispatch]);
+
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (!accessToken) return null;
 
   return (
     <>
