@@ -1,6 +1,8 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
+import Cookies from "js-cookie";
+
 import "./LogoutModal.css";
 import exit from "../../assets/exit.png";
 import axios from "axios";
@@ -15,33 +17,35 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
 
     const accessToken = localStorage.getItem("accessToken");
 
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("email");
-    navigate("/");
-    setIsLogoutClicked(false);
+    // localStorage.removeItem("accessToken");
+    // navigate("/");
+    // setIsLogoutClicked(false);
 
     // 실제 로그아웃 axios 로직
-    // axios
-    //   .post(
-    //     "/api/auth/logout",
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       localStorage.removeItem("accessToken");
-    //       localStorage.removeItem("email")
-    //       setIsLogoutClicked(false);
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "로그아웃 요청 실패");
-    //   });
+    axios.defaults.withCredentials = true;
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.removeItem("accessToken");
+          Cookies.remove("refreshToken");
+
+          setIsLogoutClicked(false);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "로그아웃 요청 실패");
+      });
   };
 
   if (!isLogoutClicked) return null;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Cookies from "js-cookie";
+
 import "./Login.css";
 import show from "../../assets/show-password.png";
 
@@ -45,12 +47,8 @@ const Login = () => {
       return;
     }
 
-    // 임시 로그인 요청 성공 후 로직
-    // localStorage.setItem("accessToken", "1234567");
-    // dispatch(cartActions.setCartQuantity(7));
-    // navigate("/");
-
     // 실제 로그인 axios 요청
+
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
@@ -67,9 +65,17 @@ const Login = () => {
       .then((response) => {
         const { token, cartQuantity } = response.data;
         const accessToken = token.accessToken;
+        const refreshToken = token.refreshToken;
 
         if (response.status === 200) {
           localStorage.setItem("accessToken", accessToken);
+          Cookies.set("refreshToken", refreshToken, {
+            expires: 7,
+            path: "/",
+          });
+
+          // axios.defaults.withCredentials = true; //모든 요청에 쿠키를 담아 보내기
+
           dispatch(cartActions.setCartQuantity(cartQuantity));
           navigate("/");
         } else {

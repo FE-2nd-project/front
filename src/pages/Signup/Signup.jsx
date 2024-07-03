@@ -85,7 +85,13 @@ const Signup = () => {
       return;
     }
 
-    console.log(email, password, name, gender, profilePicture, phone, address);
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
+
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
 
     const formData = new FormData();
     formData.append("email", email);
@@ -189,12 +195,12 @@ const Signup = () => {
           </div>
           <div className="phone-number-container">
             <label className="phone-number-label">
-              전화번호 <span className="phone-span">(- 없이 10자리)</span>
+              전화번호 <span className="phone-span">(- 없이 11자리)</span>
             </label>
             <input
               className="phone-number"
               type="tel"
-              pattern="[0-9]{10}"
+              pattern="[0-9]{11}"
               value={phone}
               onChange={phoneChangeHandler}
               required

@@ -8,7 +8,7 @@ const PaymentInformation = ({ topText, total }) => {
   let totalPrice = 0;
   if (cartItemData && cartItemData.length > 0) {
     totalPrice = cartItemData.reduce((accumulator, cartItem) => {
-      return accumulator + cartItem.productTotalPrice;
+      return accumulator + cartItem.totalPrice;
     }, 0);
   }
 
