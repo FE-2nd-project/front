@@ -82,9 +82,7 @@ const WithdrawalCheck = () => {
             src={explanationMark}
             alt="explanation-mark"
           />
-          <div>
-           회원 탈퇴 버튼을 누르시는 즉시, 로그아웃 됩니다.
-          </div>
+          <div>회원 탈퇴 버튼을 누르시는 즉시, 로그아웃 됩니다.</div>
         </div>
       </div>
       <div className="withdraw-checkbox-container">
@@ -102,7 +100,7 @@ const WithdrawalCheck = () => {
       <div className="withdraw-buttons">
         <button
           className="withdraw-cancel-button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/mypage")}
         >
           취소
         </button>

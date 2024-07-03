@@ -64,11 +64,16 @@ const Cart = () => {
         <div className="cart-payment-container">
           <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
-            className="order-button"
+            className={
+              cartItemData.length > 0 ? "order-button" : "order-button-disabled"
+            }
             onClick={() => {
-              navigate("/Order-payment");
-              window.scrollTo({ top: 0, behavior: "auto" });
+              if (cartItemData.length > 0) {
+                navigate("/Order-payment");
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }
             }}
+            disabled={cartItemData.length === 0}
           >
             주문하기
           </button>
