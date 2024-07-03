@@ -10,23 +10,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
-  const currentEmail = localStorage.getItem("email");
-  const cartItemData = useSelector(
-    (state) => state.cart.cartItemData[currentEmail]
-  );
+  const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // 장바구니 get 요청
   useEffect(() => {
-    if (currentEmail) {
-      dispatch(getCartData(currentEmail));
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    if (accessToken) {
+      dispatch(getCartData());
     } else {
-      alert("로그인을 먼저 해주십시오.")
+      alert("로그인을 먼저 해주십시오.");
       navigate("/login");
     }
-  }, [dispatch, currentEmail]);
+  }, [dispatch]);
+
+  console.log("카트 아이템 데이터", cartItemData);
 
   return (
     <>
@@ -43,6 +44,7 @@ const Cart = () => {
           </div>
           <div className="list-bottom">
             {cartItemData &&
+              cartItemData.length > 0 &&
               cartItemData.map((cartItem) => {
                 return (
                   <CartProduct
@@ -66,7 +68,10 @@ const Cart = () => {
           <PaymentInformation topText="결제정보" total="총 주문금액" />
           <button
             className="order-button"
-            onClick={() => navigate("/Order-payment")}
+            onClick={() => {
+              navigate("/Order-payment");
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
           >
             주문하기
           </button>

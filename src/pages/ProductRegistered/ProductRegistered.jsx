@@ -17,19 +17,40 @@ const Breadcrumbs = styled.div`
 `;
 
 const ProductRegistered = () => {
-  const [isUpdate, setIsUpdate] = useState(false);
-
   const dispatch = useDispatch();
 
-  const currentEmail = localStorage.getItem("email");
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    dispatch(getProductRegisteredData(currentEmail));
-  }, [dispatch, currentEmail]);
+  const PAGE_SIZE = 10;
 
   const productRegisteredData = useSelector(
-    (state) => state.productRegistered.productRegisteredData[currentEmail]
+    (state) => state.productRegistered.productRegisteredData
   );
+
+  // productRegisteredData에서 현재 페이지의 인덱스 물품 보여주기
+  const currentPageProducts = productRegisteredData
+    ? productRegisteredData.slice(
+        (currentPage - 1) * PAGE_SIZE,
+        currentPage * PAGE_SIZE
+      )
+    : [];
+
+  // productRegisteredData를 기반으로 전체 페이지 수 계산
+  const totalPages = productRegisteredData
+    ? Math.ceil(productRegisteredData.length / PAGE_SIZE)
+    : 0;
+
+  //페이지 변환되면 currentPage 바꿔주기
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    dispatch(getProductRegisteredData());
+  }, [dispatch]);
 
   return (
     <>
@@ -57,7 +78,7 @@ const ProductRegistered = () => {
                   <th className="table-title-end-date">상품 마감일</th>
                 </tr>
                 {productRegisteredData &&
-                  productRegisteredData.map((eachProduct) => {
+                  currentPageProducts.map((eachProduct) => {
                     return (
                       <EachProductRegistered
                         setIsUpdate={setIsUpdate}
@@ -75,6 +96,24 @@ const ProductRegistered = () => {
                     );
                   })}
               </table>
+              {/* 페이지네이션 컨트롤 */}
+              <div className="pagination">
+                {Array.from({ length: totalPages }).map((_, index) => {
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => handlePageChange(index + 1)}
+                      className={
+                        currentPage === index + 1
+                          ? "pagination-button-active"
+                          : "pagination-button"
+                      }
+                    >
+                      {index + 1}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
