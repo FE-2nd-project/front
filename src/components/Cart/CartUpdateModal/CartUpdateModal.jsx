@@ -27,6 +27,8 @@ const CartUpdateModal = ({
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const [itemTotalPrice, setItemTotalPrice] = useState(totalPrice);
 
+  console.log(itemSize, itemQuantity, itemTotalPrice);
+
   const dispatch = useDispatch();
 
   const changeSizeHandler = (e) => {
@@ -49,20 +51,16 @@ const CartUpdateModal = ({
   const updateButtonHandler = (e) => {
     e.preventDefault();
 
-    //임시 장바구니 업데이트 확인 로직
-    // setIsUpdateClicked(false);
-
     // 실제 장바구니 axois update 요청 로직
     const accessToken = localStorage.getItem("accessToken");
-    const currentEmail = localStorage.getItem("email");
 
     axios
       .put(
-    `${process.env.REACT_APP_SERVER_URL}/api/cart/update`,
+        `${process.env.REACT_APP_SERVER_URL}/api/cart/update`,
         {
           cartItemId: itemId,
-          cartItemSize: itemSize,
-          cartItemQuantity: itemQuantity,
+          itemSize: itemSize,
+          quantity: itemQuantity,
         },
         {
           headers: {
@@ -74,7 +72,7 @@ const CartUpdateModal = ({
       .then((response) => {
         if (response.status === 200) {
           setIsUpdateClicked(false);
-          dispatch(getCartData(currentEmail));
+          dispatch(getCartData());
         }
       })
       .catch((error) => {

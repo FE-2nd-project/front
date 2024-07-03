@@ -18,7 +18,6 @@ const Cart = () => {
   // 장바구니 get 요청
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken);
     if (accessToken) {
       dispatch(getCartData());
     } else {
@@ -26,8 +25,6 @@ const Cart = () => {
       navigate("/login");
     }
   }, [dispatch]);
-
-  console.log("카트 아이템 데이터", cartItemData);
 
   return (
     <>
@@ -50,12 +47,12 @@ const Cart = () => {
                   <CartProduct
                     key={cartItem.id}
                     itemId={cartItem.cartItemId}
-                    productPicture={cartItem.productPicture}
-                    name={cartItem.productName}
-                    size={cartItem.productSize}
-                    quantity={cartItem.productQuantity}
-                    totalPrice={cartItem.productTotalPrice}
-                    price={cartItem.productPrice}
+                    productPicture={cartItem.itemUrl}
+                    name={cartItem.itemName}
+                    size={cartItem.itemSize}
+                    quantity={cartItem.quantity}
+                    totalPrice={cartItem.totalPrice}
+                    price={cartItem.itemPrice}
                     optionSize={cartItem.optionSize}
                   />
                 );
