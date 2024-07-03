@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsImages } from 'react-icons/bs';
+import axios from 'axios';
 
 const RegisterPageContainer = styled.form`
   width: 100%;
@@ -117,7 +118,8 @@ const RegisterPage = () => {
 
   const updateImgs = (event) => {
     const imgs = Array.from(event.target.files);
-    setUploadImgs(imgs);
+    console.log(imgs);
+    setUploadImgs((prev) => [...prev, ...imgs]);
   };
 
   const removeImg = (index) => {
@@ -149,10 +151,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const response = await fetch('/api/product/add', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await axios.post('/api/product/add', formData);
 
       if (response.ok) {
         console.log('Item registered successfully!');

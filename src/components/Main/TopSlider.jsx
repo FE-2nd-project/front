@@ -113,7 +113,7 @@ export function TopSlider() {
       url: 'https://cdn-onlinemall.mlb-korea.com/cdn-cgi/image/q=88,w=3024,format=auto,fit=contain,onerror=redirect/images/bccecd79-0989-4e8a-8d4a-e0c440088a7f.png',
       text1: 'INFLUENCER\'S PICK',
       text2: 'RUNNER SANDAL',
-      text3: '인플루언서 조하나의 썸머 슈즈 PICK!',
+      text3: '청량한 여름 볼캡 스타일링',
       color: 'white',
     },
   ];
