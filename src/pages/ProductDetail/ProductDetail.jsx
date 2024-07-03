@@ -1,122 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImageSlider from "./ImageSlider";
 import "./ProductDetail.css";
 import share from "../../assets/share.svg";
 import heart from "../../assets/heart.svg";
 import minus from "../../assets/minus.svg";
 import plus from "../../assets/plus.svg";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { productDetailActions } from "../../store/reducer/productDetail-slice";
 import { cartActions } from "../../store/reducer/cart-slice";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-
-//get요청
-// {
-//   "productName": "Product",
-//   "price": 20000,
-//   "size": ["Large: 20", "Medium: 20", "Small: 20”],
-//   "images": ["img1.jpg", "img2.jpg", "img3.jpg"],
-//   ”description”: “제품 상세 정보”,
-//   }
-
-//post요청
-/*headers: {
-  “Authorization”: “Bearer {jwtToken}”
-  }, 
-  body: {
-  "itemId": 1,
-  "size": "M",
-  "quantity": 50,
-  }*/
 
 const ProductDetail = () => {
-  //const { productId } = useParams();
+  // const { itemId } = useParams();
+  const itemId = "4"; //테스트용 제품아이디
+  const currentEmail = localStorage.getItem("email");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
+  const [productData, setProductData] = useState(null);
+  const [quantity, setQuantity] = useState(1); //유저가 선택한 수량
+  const [selectedSize, setSelectedSize] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const selectedSizeQuantity = quantity || 0;
+  const [maxQuantity, setMaxQuantity] = useState(1); // 각 사이즈의 현재 수량
+
   const isProductAdded = useSelector(
     (state) => state.productDetail.isProductAdded
   );
 
-  const productId = "123"; //테스트용 제품아이디
-  const currentEmail = localStorage.getItem("email");
-  const currentcartQuantity = useSelector(
-    (state) => state.cart.cartQuantity[currentEmail]
-  );
-
-  const unitPrice = 49000; // 제품 단가
-  const [quantity, setQuantity] = useState(1); // 초기 수량
-  const [category, setCategory] = useState("신발"); // 카테고리
-  const [sizeOptions, setSizeOptions] = useState([]); // 사이즈 설정
-  const [quantities, setQuantities] = useState({}); // 수량
-  const defaultSize = category === "옷" ? "S" : "250";
-  const [selectedSize, setSelectedSize] = useState(defaultSize); // 사이즈
-  const totalPrice = unitPrice * quantity;
-  const selectedSizeQuantity = quantities[selectedSize] || 0;
-  const [productData, setProductData] = useState(null); // 상품데이터(서버에서 받아온 데이터 넣어놓는)
+  console.log(selectedSize);
 
   useEffect(() => {
-    // 초기 사이즈 옵션 및 수량 설정
-    setSizeOptions([
-      "S",
-      "M",
-      "L",
-      "220",
-      "230",
-      "240",
-      "250",
-      "260",
-      "270",
-      "280",
-    ]);
-    setQuantities({
-      S: 10,
-      M: 5,
-      L: 0,
-      220: 3,
-      230: 7,
-      240: 0,
-      250: 4,
-      260: 2,
-      270: 6,
-      280: 0,
-    });
-    setSelectedSize("S");
-    setQuantity(1);
-  }, []);
-
-  // useEffect(() => {
-  //   // 상품 데이터를 서버에서 가져오는 GET 함수
-  //   const fetchProductData = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/item/{itemId}`);
-  //       setProductData(response.data);
-  //     } catch (error) {
-  //       console.error("get요청에러:", error);
-  //     }
-  //   };
-  //   fetchProductData();
-  // }, [productId]);
-
-  // useEffect(() => {
-  //사이즈랑 재고 분리
-  //   if (productData) {
-  //     setSizeOptions(productData.size.map((item) => {
-  //       const [size, stock] = item.split(': ');
-  //       return size;
-  //     }));
-  //     setQuantities(productData.size.reduce((acc, item) => {
-  //       const [size, stock] = item.split(': ');
-  //       acc[size] = parseInt(stock, 10);
-  //       return acc;
-  //     }, {}));
-  //     setSelectedSize(productData.size[0].split(': ')[0]); // 첫 번째 사이즈로 초기화
-  //     setQuantity(1);
-  //   }
-  // }, [productData]);
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/item/${itemId}`
+        );
+        setProductData(response.data);
+        setSelectedSize(
+          response.data.size_options_with_stock[0].split(": ")[0]
+        );
+        setMaxQuantity(response.data.size_options_with_stock[1].split(": ")[1]);
+        setTotalPrice(response.data.item_price);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+    fetchProductData();
+  }, [itemId]);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -125,7 +57,6 @@ const ProductDetail = () => {
   };
 
   const increaseQuantity = () => {
-    const maxQuantity = quantities[selectedSize] || 0;
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
     }
@@ -137,151 +68,142 @@ const ProductDetail = () => {
     setQuantity(1);
   };
 
-  //로직 연결시 아래 주석친 코드로 하기
-  const handleAddToBag = () => {
-    const itemData = { itemId: productId, size: selectedSize, quantity };
-    dispatch(productDetailActions.addCartItem(itemData));
-    if (!isProductAdded[productId]) {
-      //해당 물품이 추가가 된적이 없으면
-      dispatch(cartActions.addQuantity({ email: currentEmail })); //장바구니 수량 +1증가
+  const handleAddToBag = async () => {
+    //const accessToken = localStorage.getItem("accessToken");
+    const accessToken =
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMUBleGFtcGxlLmNvbSIsInRva2VuVHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6MTEsImlhdCI6MTcxOTkzNjExOSwiZXhwIjoxNzE5OTM2NzE5fQ.wlFYmDlZR-mdEajp1qKTk5_3Yu-OQrKQkzVZpa_IB1aSfJve6yNmGhvtpiPOpSrxrWhJ4HalcAtkUHh-INC16w";
+    const itemData = {
+      itemId: itemId,
+      size: selectedSize,
+      quantity,
+    };
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/cart/add`,
+        itemData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!isProductAdded[itemId]) {
+        dispatch(cartActions.addQuantity({ email: currentEmail }));
+      }
+      navigate("/cart");
+      console.log("성공");
+    } catch (error) {
+      console.error("post요청 에러:", error);
     }
-    navigate("/cart");
   };
 
-  // const handleAddToBag = async () => {
-  //jwtToken인지 accesstoken인지 확인하고 넣으셈
-
-  //   const jwtToken = localStorage.getItem("jwtToken");
-  //   const itemData = { itemId: productId, size: selectedSize, quantity };
-  //   try {
-  //     const response = await axios.post("/api/cart/add", itemData, {
-  //       headers: {
-  //         Authorization: `Bearer ${jwtToken}`,
-  //       },
-  //     });
-  //     if (!isProductAdded[productId]) {
-  //       dispatch(cartActions.addQuantity({ email: currentEmail }));
-  //     }
-  //     navigate("/cart");
-  //   } catch (error) {
-  //     console.error("post요청 에러:", error);
-  //   }
-  // };
-
-  console.log(currentcartQuantity);
+  if (!productData) return null;
 
   return (
-    <>
-      <div className="product-root">
-        <ImageSlider />
-        {/* {productData && (
-          <ImageSlider images={productData.images} />
-        )} */}
-        <div className="product-container">
-          <div className="product-best">
-            <div className="product-best-text">베스트</div>
+    <div className="product-root">
+      <ImageSlider images={productData.image_urls} />
+      <div className="product-container">
+        <div className="product-best">
+          <div className="product-best-text">베스트</div>
+        </div>
+        <div className="product-title-container">
+          <div className="product-title-text">{productData.item_name}</div>
+          <div className="product-title-side-icons">
+            <img src={share} className="product-side-icon" alt="공유"></img>
+            <img src={heart} className="product-side-icon" alt="하트"></img>
           </div>
-          <div className="product-title-container">
-            <div className="product-title-text">
-              바시티 컬시브 레터링 데님 언스트럭쳐 볼캡 뉴욕양키스
-            </div>
-            <div className="product-title-side-icons">
-              <img src={share} className="product-side-icon" alt="공유"></img>
-              <img src={heart} className="product-side-icon" alt="하트"></img>
-            </div>
+        </div>
+        <div className="product-price-container">
+          <div className="product-price-text">
+            {productData.item_price.toLocaleString()}원
           </div>
-          <div className="product-price-container">
-            <div className="product-price-text">49,000원</div>
+        </div>
+
+        <div className="product-shipping-info">
+          <div className="product-shipping-detail-info">
+            {productData.item_description}
           </div>
-          <div className="product-shipping-info">
-            <div className="product-shipping-detail-info">
-              사계절 내내 쓰고 다닐 수 있는 멋진 모자!
-            </div>
-          </div>
-          <div className="product-shipping-info">
-            <div className="product-shipping-title">배송비</div>
-            <div className="product-shipping-detail">전 상품 무료배송</div>
-          </div>
-          <div className="product-additional-benefits">
-            <div className="benefit-title">추가혜택</div>
-            <ul className="benefit-list">
-              <li className="benefit-item">첫 구매 시 10% 할인 쿠폰 지급</li>
-              <li className="benefit-item">
-                리뷰 작성 시 최대 1천 마일리지 적립
-              </li>
-              <li className="benefit-item">전 상품 무료반품 서비스 제공</li>
-            </ul>
-          </div>
-          <div className="product-options-container">
-            <div className="product-option-size">
-              <label className="benefit-title">Size</label>
-              <select
-                className="option-select-size"
-                value={selectedSize}
-                onChange={handleSizeChange}
-              >
-                <option value="" disabled>
-                  사이즈를 선택해주세요
-                </option>
-                {sizeOptions.map((size) => (
-                  <option key={size} value={size}>
+        </div>
+
+        <div className="product-shipping-info">
+          <div className="product-shipping-title">배송비</div>
+          <div className="product-shipping-detail">전 상품 무료배송</div>
+        </div>
+        <div className="product-additional-benefits">
+          <div className="benefit-title">추가혜택</div>
+          <ul className="benefit-list">
+            <li className="benefit-item">첫 구매 시 10% 할인 쿠폰 지급</li>
+            <li className="benefit-item">
+              리뷰 작성 시 최대 1천 마일리지 적립
+            </li>
+            <li className="benefit-item">전 상품 무료반품 서비스 제공</li>
+          </ul>
+        </div>
+
+        <div className="product-options-container">
+          <div className="product-option-size">
+            <label className="benefit-title">Size</label>
+            <select
+              className="option-select-size"
+              value={selectedSize}
+              onChange={handleSizeChange}
+            >
+              <option value="" disabled>
+                사이즈를 선택해주세요
+              </option>
+              {productData.size_options_with_stock.map((option, index) => {
+                const [size, stock] = option.split(": ");
+                return (
+                  <option key={index} value={size}>
                     {size}{" "}
-                    {quantities[size] > 0
-                      ? `(${quantities[size]}개 남음)`
-                      : "(재고없음)"}
+                    {parseInt(stock, 10) > 0
+                      ? `(${stock}개 남음)`
+                      : `(재고없음)`}
                   </option>
-                ))}
-              </select>
-            </div>
+                );
+              })}
+            </select>
           </div>
+        </div>
 
-          <div className="quantity-container">
-            <div className="quantity-size-container">
-              <div className="quantity-label">
-                {selectedSize}{" "}
-                {selectedSizeQuantity > 0
-                  ? `(${selectedSizeQuantity}개 남음)`
-                  : "(재고없음)"}
-              </div>
-              {/* {quantity === 0 && (
-                <div className="out-of-stock-text">(재고없음)</div>
-              )} */}
-            </div>
-
-            <div className="quantity-button-container">
-              <button
-                className="quantity-button quantity-decrement"
-                onClick={decreaseQuantity}
-                disabled={quantity === 0 || selectedSizeQuantity === 0}
-              >
-                <img src={minus} alt="minus"></img>
-              </button>
-              <div className="quantity-text">{quantity}</div>
-              <button
-                className="quantity-button quantity-increment"
-                onClick={increaseQuantity}
-                disabled={
-                  quantity >= selectedSizeQuantity || selectedSizeQuantity === 0
-                }
-              >
-                <img src={plus} alt="plus"></img>
-              </button>
+        <div className="quantity-container">
+          <div className="quantity-size-container">
+            <div className="quantity-label">
+              {selectedSize}{" "}
+              {maxQuantity > 0 ? `(${maxQuantity}개 남음)` : "(재고없음)"}
             </div>
           </div>
-          <div className="total-price-container">
-            <div className="total-price-label">총 결제금액</div>
-            <div className="total-price-text">
-              {totalPrice.toLocaleString()}원
-            </div>
-          </div>
-          <div className="add-to-bag-container">
-            <button className="add-to-bag-text" onClick={handleAddToBag}>
-              Add to bag
+          <div className="quantity-button-container">
+            <button
+              className="quantity-button quantity-decrement"
+              onClick={decreaseQuantity}
+              disabled={quantity === 1}
+            >
+              <img src={minus} alt="minus"></img>
+            </button>
+            <div className="quantity-text">{quantity}</div>
+            <button
+              className="quantity-button quantity-increment"
+              onClick={increaseQuantity}
+              disabled={quantity >= maxQuantity}
+            >
+              <img src={plus} alt="plus"></img>
             </button>
           </div>
         </div>
+        <div className="total-price-container">
+          <div className="total-price-label">총 결제금액</div>
+          <div className="total-price-text">
+            {(productData.item_price * quantity).toLocaleString()}원
+          </div>
+        </div>
+        <div className="add-to-bag-container">
+          <button className="add-to-bag-text" onClick={handleAddToBag}>
+            Add to bag
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -6,9 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 import prevIcon from "./chevron-left.svg";
 import NextIcon from "./chevron-right.svg";
 
-//{ images }를 인자로 받기
-const ImageSlider = () => {
+const ImageSlider = ({ images }) => {
   const sliderRef = React.useRef(null);
+  if (!Array.isArray(images)) {
+    // Handle the case where images is not an array (e.g., convert or display an error)
+    console.error("`images` prop is not an array:", images);
+    return null; // or handle error state
+  }
 
   const settings = {
     dots: true,
@@ -28,7 +32,7 @@ const ImageSlider = () => {
     sliderRef.current.slickPrev();
   };
 
-  const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
+  // const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
 
   return (
     <div className="image-slider-container">

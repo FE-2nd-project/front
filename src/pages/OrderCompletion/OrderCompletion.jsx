@@ -1,27 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 
 import "./OrderCompletion.css";
 import confirmation from "../../assets/confirmation.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const OrderCompletion = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+  const { orderId } = useParams(); //url에서 가져오기
+  const [orderDetails, setOrderDetails] = useState(null);
+
   // 현재 시간
   const currentTime = new Date().toLocaleString();
-
   // 랜덤 오더 넘버 생성
   const generateOrderNumber = () => {
     let result = "";
     const numbers = "0123456789";
-
     for (let i = 0; i <= 15; i++) {
       const randomNum = Math.floor(Math.random() * numbers.length);
       result += numbers[randomNum];
     }
-
     return result;
   };
+
+  //get요청~
+  useEffect(() => {
+    const axiosGetOrderCompletion = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/cart/order/success/${orderId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          console.log("주문 데이터 받음:", response.data);
+          setOrderDetails(response.data);
+        } else {
+          console.log("서버에서 데이터를 가져오지 못했습니다.");
+        }
+      } catch (error) {
+        console.error("주문 데이터 요청 에러:", error);
+      }
+    };
+    axiosGetOrderCompletion();
+  }, [orderId]);
+
+  const { orderNumber, orderDate, totalPrice, customerInfo } = orderDetails;
 
   return (
     <>
@@ -42,10 +73,10 @@ const OrderCompletion = () => {
             </div>
             <div className="completed-right-order-number">
               주문번호 :{" "}
-              <span className="only-order-number">{generateOrderNumber()}</span>
+              <span className="only-order-number">{orderNumber}</span>
             </div>
             <div className="completed-right-order-date">
-              주문일자 : {currentTime}
+              주문일자 : {orderDate}
             </div>
           </div>
         </div>
@@ -58,7 +89,9 @@ const OrderCompletion = () => {
                   <th className="bottom-completed-totalprice-text">
                     최종 결제금액
                   </th>
-                  <td className="bottom-completed-totalprice-price">price</td>
+                  <td className="bottom-completed-totalprice-price">
+                    {totalPrice}
+                  </td>
                 </tr>
                 <tr>
                   <th className="bottom-completed-PaymentMethod-text">
@@ -68,7 +101,7 @@ const OrderCompletion = () => {
                     <table className="PaymentMethod-group">
                       <tr>
                         <th>입금자:</th>
-                        <td>주문자이름</td>
+                        <td>{customerInfo.name}</td>
                       </tr>
                       <tr>
                         <th>결제수단:</th>

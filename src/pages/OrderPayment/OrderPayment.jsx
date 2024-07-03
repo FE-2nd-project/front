@@ -1,78 +1,124 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./OrderPayment.css";
-
+import axios from "axios";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import { useNavigate } from "react-router-dom";
-
-///GET요청 시 api주소: api/cart/order
-// {
-//   “cartItemId” : [1,2]
-// }
-// body: {
-//   "customerInfo": {
-//   "name": "Test",
-//   "contact": "010-1234-5678",
-//   "email": "Test@example.com",
-//   "address": "123 Example Street, Seoul",
-//   },
-//   "orderItems": [
-//   {
-//       "productImage": "product1.jpg",
-//       "productName": "Product 1",
-//       "color": "Red",
-//       "size": "M",
-//       "quantity": 2,
-//       "price": 20000
-//   },
-//   {
-//       "productImage": "product2.jpg",
-//       "productName": "Product 2",
-//       "color": "Blue",
-//      "size": "L",
-//      "quantity": 1,
-//      "price": 10000
-//   }
-//   ],
-//   "totalPrice": 30000,
-//   }
+import { useSelector } from "react-redux";
 
 const OrderPayment = () => {
   const navigate = useNavigate();
-  const unitPrice = 49000; //제품 단가
-  const quantity = 1; //수량
-  const totalPrice = unitPrice * quantity; // 총금액
-  const option = "black";
+  const currentEmail = localStorage.getItem("email");
+  const cartItemData = useSelector(
+    (state) => state.cart.cartItemData[currentEmail]
+  );
+  const [stockErrors, setStockErrors] = useState({
+    itemId: 0,
+    itemStock,
+  });
 
-  const products = [
-    {
-      id: 1,
-      image: "/hat.jpg",
-      name: "특별한 상품",
-      option: "옵션1",
-      size: "F",
-      quantity: 2,
-      unitPrice: "49,000원",
-    },
-    {
-      id: 2,
-      image: "/hat.jpg",
-      name: "멋진 셔츠",
-      option: "옵션2",
-      size: "M",
-      quantity: 1,
-      unitPrice: "39,000원",
-    },
-    {
-      id: 3,
-      image: "/hat.jpg",
-      name: "이쁜 가방",
-      option: "옵션4",
-      size: "L",
-      quantity: 0,
-      unitPrice: "109,000원",
-    },
-  ];
+  // const products = cartItemData
+  //   ? cartItemData.map((cartItem) => ({
+  //       id: cartItem.cartItemId,
+  //       image: cartItem.productPicture,
+  //       name: cartItem.productName,
+  //       size: cartItem.productSize,
+  //       quantity: cartItem.productQuantity,
+  //       unitPrice: cartItem.productPrice,
+  //     }))
+  //   : [];
+
+  const [cartProducts, setCartProducts] = useState([]);
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    contact: "",
+    email: "",
+    address: "",
+  });
+  const [totalPrice, setTotalPrice] = useState(0); //이거 int로 받음
+
+  //Get요청 함수
+  useEffect(() => {
+    const axiosGetOrderData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/cart/order`,
+          {
+            params: {
+              cartItemId: cartItemData.map((cartItem) => cartItem.cartItemId),
+            },
+          }
+        );
+        if (response.status === 200) {
+          console.log("주문데이터확인: ", response.data);
+          const { customerInfo, orderItems, totalPrice } = response.data;
+          setCustomerInfo(customerInfo);
+          setcartProducts(orderItems);
+          setTotalPrice(totalPrice);
+        } else {
+          console.log("200을 받아오지 못함");
+        }
+      } catch (error) {
+        console.log("주문 get요청 실패:", error);
+      }
+    };
+    if (cartItemData.length > 0) {
+      axiosGetOrderData();
+    }
+  }, [cartItemData]);
+
+  const products = cartProducts.map((cartProduct) => ({
+    id: cartProduct.cartItemId,
+    image: cartProduct.productPicture,
+    name: cartProduct.productName,
+    size: cartProduct.productSize,
+    quantity: cartProduct.productQuantity,
+    unitPrice: cartProduct.productPrice,
+  }));
+
+  //Post요청
+  const handlePayment = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/cart/order`,
+        {
+          cartItemId: cartProducts.map((product) => product.id),
+          totalPrice: totalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("결제 성공: ", response.data);
+        navigate("/order-completed");
+      } else {
+        console.log("서버 응답 오류");
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log("결제 실패: ", error.response.data);
+        setStockErrors(error.response.data.stockErrors);
+        updateProductsStock(error.response.data.stockErrors);
+      } else {
+        console.log("결제 실패: ", error);
+      }
+    }
+  };
+
+  const updateProductsStock = (stockErrors) => {
+    const updatedProducts = products.map((product) => {
+      const error = stockErrors.find((err) => err.itemId === product.id);
+      if (error) {
+        return { ...product, quantity: 0, orderStatus: "주문불가" };
+      }
+      return product;
+    });
+    setCartProducts(updatedProducts);
+  };
 
   return (
     <div>
@@ -85,7 +131,12 @@ const OrderPayment = () => {
             <form className="order-form">
               <div className="form-group">
                 <label>주문자명</label>
-                <input type="text" name="name" defaultValue="홍길동" required />
+                <input
+                  type="text"
+                  name="name"
+                  defaultValue="홍길동"
+                  /*defaultValue={customerInfo.name}*/ required
+                />
               </div>
               <div className="form-group">
                 <label>연락처</label>
@@ -93,6 +144,7 @@ const OrderPayment = () => {
                   type="tel"
                   name="phone"
                   defaultValue="010-1234-5678"
+                  /*defaultValue={customerInfo.contact}*/
                   required
                 />
               </div>
@@ -102,6 +154,7 @@ const OrderPayment = () => {
                   type="email"
                   name="email"
                   defaultValue="example@example.com"
+                  /*defaultValue={customerInfo.email}*/
                   required
                 />
               </div>
@@ -117,12 +170,13 @@ const OrderPayment = () => {
                   type="text"
                   name="address"
                   defaultValue="서울특별시 oo구"
+                  /*defaultValue={customerInfo.address}*/
                   required
                 />
               </div>
               <div className="form-group">
                 <label>우편번호</label>
-                <input type="text" name="zipcode" required />
+                <input type="text" name="zipcode" />
               </div>
             </form>
           </div>
@@ -146,8 +200,6 @@ const OrderPayment = () => {
                       <div className="product-details-group">
                         <p>{product.name}</p>
                         <div className="product-details-option">
-                          <p>{product.option}</p>
-                          <span className="separator">|</span>
                           <p>{product.size}</p>
                           <span className="separator">|</span>
                           <p
@@ -199,7 +251,7 @@ const OrderPayment = () => {
           <PaymentInformation topText="최종 결제금액" total="총 주문금액" />
           <button
             className="payment-order-button"
-            onClick={() => navigate("/order-completed")}
+            onClick={() => navigate("/order-completed")} //handlePayment
           >
             결제하기
           </button>
