@@ -52,6 +52,10 @@ const ProductRegistered = () => {
     dispatch(getProductRegisteredData());
   }, [dispatch]);
 
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (!accessToken) return null;
+
   return (
     <>
       <RegisteredUpdateModal isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
