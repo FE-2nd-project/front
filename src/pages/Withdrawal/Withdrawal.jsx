@@ -32,32 +32,30 @@ const Withdrawal = () => {
     // setIsPasswordValidated(true);
 
     // 실제 회원탈퇴 비밀번호 확인 axios 요청 로직
-    const accessToken = localStorage.getItem("accessToken");
+    // const accessToken = localStorage.getItem("accessToken");
 
-    axios
-      .post(
-    `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
-        { password: passwordInput },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          setIsPasswordValidated(true);
-        } else {
-          alert("회원님의 비밀번호와 일치하지 않습니다.");
-        }
-      })
-      .catch((error) => {
-        console.error(error, "회원 탈퇴 비밀번호 확인 요청 실패");
-      });
+    // axios
+    //   .post(
+    // `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
+    //     { password: passwordInput },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       setIsPasswordValidated(true);
+    //     } else {
+    //       alert("회원님의 비밀번호와 일치하지 않습니다.");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error, "회원 탈퇴 비밀번호 확인 요청 실패");
+    //   });
   };
-
-  
 
   return (
     <div className="withdrawal-page">
@@ -69,7 +67,7 @@ const Withdrawal = () => {
           <Link to="/">HOME</Link> &gt; <Link to="/mypage">마이페이지</Link>{" "}
           &gt; 회원탈퇴
         </Breadcrumbs>
-        {!isPasswordValidated && (
+        {/* {!isPasswordValidated && (
           <div className="withdrawal">
             <div className="password-check-statement">
               회원님의 개인정보를 안전하게 보호하기 위해 비밀번호를 다시 한번
@@ -98,8 +96,8 @@ const Withdrawal = () => {
               확인
             </button>
           </div>
-        )}
-        {isPasswordValidated && <WithdrawalCheck />}
+        )} */}
+        <WithdrawalCheck />
       </div>
     </div>
   );
