@@ -34,25 +34,36 @@ const OrderPayment = () => {
   useEffect(() => {
     const axiosGetOrderData = async () => {
       try {
+        const cartItemIds = cartItemData.map((cartItem) => cartItem.cartItemId);
+        console.log(cartItemIds);
+        console.log("카트데이터", cartItemData);
+
         const response = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/api/cart/order`,
-          {
-            params: {
-              cartItemId: cartItemData.map((cartItem) => cartItem.cartItemId),
-            },
-          }
+          cartItemIds
+          //     {
+          //      params: {
+          //     cartItemId: cartItemIds,
+          //   }
+          // }
         );
+
+        console.log("response다음", cartItemData);
         if (response.status === 200) {
           console.log("주문데이터확인: ", response.data);
-          const { customerInfo, orderItems, totalPrice } = response.data;
+          const { customerInfo, orderItems } = response.data;
           setCustomerInfo(customerInfo);
           setCartProducts(orderItems);
-          setTotalPrice(totalPrice);
         } else {
           console.log("200을 받아오지 못함");
         }
       } catch (error) {
         console.log("주문 get요청 실패:", error);
+        if (error.response) {
+          console.log("응답 데이터:", error.response.data);
+          console.log("응답 상태 코드:", error.response.status);
+          console.log("응답 헤더:", error.response.headers);
+        }
       }
     };
     if (cartItemData.length > 0) {
