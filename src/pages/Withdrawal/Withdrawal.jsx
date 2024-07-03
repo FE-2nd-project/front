@@ -29,33 +29,35 @@ const Withdrawal = () => {
     e.preventDefault();
 
     //임시의 비밀번호 확인 성공 로직
-    setIsPasswordValidated(true);
+    // setIsPasswordValidated(true);
 
     // 실제 회원탈퇴 비밀번호 확인 axios 요청 로직
-    // const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
 
-    // axios
-    //   .post(
-    // `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
-    //     { password: passwordInput },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       setIsPasswordValidated(true);
-    //     } else {
-    //       alert("회원님의 비밀번호와 일치하지 않습니다.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "회원 탈퇴 비밀번호 확인 요청 실패");
-    //   });
+    axios
+      .post(
+    `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
+        { password: passwordInput },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setIsPasswordValidated(true);
+        } else {
+          alert("회원님의 비밀번호와 일치하지 않습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "회원 탈퇴 비밀번호 확인 요청 실패");
+      });
   };
+
+  
 
   return (
     <div className="withdrawal-page">

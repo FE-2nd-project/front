@@ -27,7 +27,11 @@ const EachProductRegistered = ({
       </th>
       <th className="table-data-photo-name">
         <div className="table-data-photo-name-flex">
-          <img className="table-data-photo" src={cap} alt="productImage" />
+          <img
+            className="table-data-photo"
+            src={productImage}
+            alt="productImage"
+          />
           <div className="table-data-name-container">
             <div className="table-data-name">{productName}</div>
           </div>
