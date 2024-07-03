@@ -96,7 +96,6 @@ const ProductRegistered = () => {
                     );
                   })}
               </table>
-              {/* 페이지네이션 컨트롤 */}
               <div className="pagination">
                 {Array.from({ length: totalPages }).map((_, index) => {
                   return (
