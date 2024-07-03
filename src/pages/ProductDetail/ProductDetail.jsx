@@ -19,10 +19,8 @@ const ProductDetail = () => {
   );
 
   const productId = "123"; //테스트용 제품아이디
-  const currentEmail = localStorage.getItem("email");
-  const currentcartQuantity = useSelector(
-    (state) => state.cart.cartQuantity[currentEmail]
-  );
+
+  const currentcartQuantity = useSelector((state) => state.cart.cartQuantity);
 
   const unitPrice = 49000; // 제품 단가
   const [quantity, setQuantity] = useState(1); // 초기 수량
@@ -71,12 +69,10 @@ const ProductDetail = () => {
     dispatch(productDetailActions.addCartItem(itemData));
     if (!isProductAdded[productId]) {
       //해당 물품이 추가가 된적이 없으면
-      dispatch(cartActions.addQuantity({ email: currentEmail })); //장바구니 수량 +1증가
+      dispatch(cartActions.addQuantity()); //장바구니 수량 +1증가
     }
     navigate("/cart");
   };
-
-  console.log(currentcartQuantity);
 
   return (
     <>

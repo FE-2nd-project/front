@@ -12,7 +12,7 @@ export const fetchPurchases = (token) => {
           },
         }
       );
-      dispatch(purchaseActions.setPurchases(response.data.data));
+      dispatch(purchaseActions.setPurchases(response.data.data.orders));
     } catch (error) {
       console.error("Error fetching purchases:", error);
     }

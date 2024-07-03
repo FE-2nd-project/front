@@ -4,30 +4,29 @@ import './Product.css';
 import styled from 'styled-components';
 
 const ProductUnit = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  background: rgba(10, 10, 10, 0.03);
+  padding: 15px;
 `;
 
-const ProductImg = styled.img``;
+const ProductImg = styled.img`
+  width: 100%;
+`;
 
 const ProductName = styled.div`
   color: black;
-`;
-const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  margin-bottom: 40px;
 `;
 
 const ProducPrice = styled.div`
+  text-align: end;
   font-weight: 700;
 `;
 
-export function Product({ id, name, price, url, stock }) {
-  // const totalStock = options.reduce((sum, option) => sum + option.stock, 0);
-  // if (!totalStock) return <></>;
-  if (!stock) return <></>;
+export function Product({ id, name, price, url }) {
   return (
     <ProductUnit>
       {/* <Link to=`/product-detail/${product_id}`> */}
@@ -35,9 +34,7 @@ export function Product({ id, name, price, url, stock }) {
         <ProductImg src={url} alt="" />
         <ProductName>{name}</ProductName>
       </Link>
-      <ProductInfo>
-        <ProducPrice>{price}</ProducPrice>
-      </ProductInfo>
+      <ProducPrice>{price}</ProducPrice>
     </ProductUnit>
   );
 }

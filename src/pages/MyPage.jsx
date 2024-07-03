@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
@@ -137,17 +137,11 @@ const Breadcrumb = styled.div`
 `;
 
 function MyPage() {
-  const [token, setToken] = useState("");
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const token = localStorage.getItem("accessToken");
 
-  useEffect(() => {
-    // 토큰을 직접 설정 (테스트용)
-    const testToken =
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb21pbnN1QGV4YW1wbGUzLmNvbSIsInRva2VuVHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6NiwiaWF0IjoxNzE5OTI4OTE0LCJleHAiOjE3MTk5Mjk1MTR9.vTBNXhYm_ORNbwiAcixxxSzA1Lx6P44SJu6yo2YGT6YzPwurCdsLJqCAYpjM48xNL3fsnCY3rwHYScKegqb6kA";
-    setToken(testToken);
-  }, []);
-
+  // 토큰이 있으면 사용자 데이터를 가져오는 useEffect 훅
   useEffect(() => {
     if (token) {
       dispatch(fetchUserData(token));

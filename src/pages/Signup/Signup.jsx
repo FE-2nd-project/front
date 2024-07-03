@@ -58,6 +58,17 @@ const Signup = () => {
     }
   };
 
+  // 파일 크기 체크
+  const validateFileSize = (file) => {
+    const maxSize = 1 * 1024 * 1024; // 1MB
+
+    if (file.size > maxSize) {
+      alert("파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.");
+      return false;
+    }
+    return true;
+  };
+
   // submit 처리 함수
   const submitHandler = (e) => {
     e.preventDefault();
@@ -67,6 +78,10 @@ const Signup = () => {
     }
 
     if (!validatePhone(phone)) {
+      return;
+    }
+
+    if (profilePicture && !validateFileSize(profilePicture)) {
       return;
     }
 
@@ -88,11 +103,11 @@ const Signup = () => {
         },
       })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log("서버에 회원가입 전송 성공:", response.data);
           navigate("/login");
         } else if (response.data.message === "이미 존재하는 회원입니다.") {
-          alert("이미 존재하는 회원입니다.");
+          alert(response.data.message);
         }
       })
       .catch((error) => {

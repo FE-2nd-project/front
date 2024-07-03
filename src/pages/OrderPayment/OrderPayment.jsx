@@ -167,7 +167,10 @@ const OrderPayment = () => {
           <PaymentInformation topText="최종 결제금액" total="총 주문금액" />
           <button
             className="payment-order-button"
-            onClick={() => navigate("/order-completed")}
+            onClick={() => {
+              navigate("/order-completed");
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
           >
             결제하기
           </button>

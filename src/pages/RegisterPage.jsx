@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsImages } from 'react-icons/bs';
+import axios from 'axios';
 
 const RegisterPageContainer = styled.form`
   width: 100%;
@@ -117,14 +118,8 @@ const RegisterPage = () => {
 
   const updateImgs = (event) => {
     const imgs = Array.from(event.target.files);
-    imgs.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataURL = reader.result;
-        setUploadImgs((prev) => [...prev, dataURL]);
-      };
-      reader.readAsDataURL(file);
-    });
+    console.log(imgs);
+    setUploadImgs((prev) => [...prev, ...imgs]);
   };
 
   const removeImg = (index) => {
@@ -138,29 +133,28 @@ const RegisterPage = () => {
   const registerItem = async (event) => {
     event.preventDefault();
 
-    const formData = {
-      images: uploadImgs,
-      name: itemName,
-      description: itemDesc,
-      gender: selectedGender,
-      category: selectedCategory,
-      sizes: sizeStockList,
-      price: itemPrice,
-      registerDate: registerDate,
-      sellByDate: sellByDate,
-    };
+    const formData = new FormData();
+    uploadImgs.forEach((img, index) => {
+      formData.append(`image-${index}`, img);
+    });
+    formData.append('name', itemName);
+    formData.append('description', itemDesc);
+    formData.append('gender', selectedGender);
+    formData.append('category', selectedCategory);
+    formData.append('price', itemPrice);
+    formData.append('registerDate', registerDate);
+    formData.append('sellByDate', sellByDate);
+
+    sizeStockList.forEach((item, index) => {
+      formData.append(`sizes[${index}][size]`, item.size);
+      formData.append(`sizes[${index}][stock]`, item.stock);
+    });
 
     try {
-      const response = await fetch('https://api/product/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': '/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post('/api/product/add', formData);
 
       if (response.ok) {
-        console.log('Product registered successfully');
+        console.log('Item registered successfully!');
       } else {
         console.error('Failed to register item');
       }
@@ -173,7 +167,9 @@ const RegisterPage = () => {
     const isCategorySelected = selectedCategory !== '';
     const isGenderSelected = selectedGender !== '';
     const areSizesValid = selectedCategory === 'bag' || sizeStockList.every((item) => item.size !== '');
-    const areStocksValid = sizeStockList.every((item) => item.stock !== '' && item.stock > 0 && Number.isInteger(Number(item.stock)));
+    const areStocksValid = sizeStockList.every(
+      (item) => item.stock !== '' && item.stock > 0 && Number.isInteger(Number(item.stock))
+    );
     const isItemNameValid = itemName !== '';
     const isItemDescValid = itemDesc !== '';
     const isItemPriceValid = itemPrice !== '' && !isNaN(itemPrice) && Number(itemPrice) > 0;
@@ -211,10 +207,12 @@ const RegisterPage = () => {
             <div>사진을 등록해주세요</div>
           ) : (
             <>
-              {uploadImgs.map((dataURL, index) => (
+              {uploadImgs.map((img, index) => (
                 <li key={index}>
-                  <img src={dataURL} alt="" />
-                  <button type="button" onClick={() => removeImg(index)}>삭제</button>
+                  <img src={URL.createObjectURL(img)} alt="" />
+                  <button type="button" onClick={() => removeImg(index)}>
+                    삭제
+                  </button>
                 </li>
               ))}
             </>
@@ -261,11 +259,7 @@ const RegisterPage = () => {
 
           <InputUnit>
             <label htmlFor="genderCategory">성별</label>
-            <select
-              name="genderCategory"
-              value={selectedGender}
-              onChange={(e) => setSelectedGender(e.target.value)}
-            >
+            <select name="genderCategory" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
               <option value="">Select Gender</option>
               <option value="woman">woman</option>
               <option value="man">man</option>
@@ -302,10 +296,16 @@ const RegisterPage = () => {
                       const value = e.target.value;
                       setSizeStockList((prev) =>
                         prev.map((item, idx) =>
-                          idx === index ? { ...item, size: value } : item
+                          idx === index
+                            ? prev.some((stockItem) => stockItem.size === value)
+                              ? { ...item, size: '' }
+                              : { ...item, size: value }
+                            : item
                         )
                       );
-                      setSizeError('');
+                      setSizeError(
+                        sizeStockList.some((stockItem) => stockItem.size === value) ? '이미 선택된 사이즈입니다.' : ''
+                      );
                     }}
                   >
                     <option value="">Select Size</option>
@@ -341,15 +341,19 @@ const RegisterPage = () => {
                     onChange={(e) => {
                       const value = parseInt(e.target.value, 10);
                       setSizeStockList((prev) =>
-                        prev.map((item, idx) =>
-                          idx === index ? { ...item, stock: value > 0 ? value : '' } : item
-                        )
+                        prev.map((item, idx) => (idx === index ? { ...item, stock: value > 0 ? value : '' } : item))
                       );
                     }}
                     placeholder="재고"
                     min="1"
                   />
-                  <button type="button" onClick={() => removeSizeStock(index)}>삭제</button>
+                  {sizeStockList.length > 1 ? (
+                    <button type="button" onClick={() => removeSizeStock(index)}>
+                      삭제
+                    </button>
+                  ) : (
+                    <></>
+                  )}
                 </InputUnit>
               ))}
               {selectedCategory !== 'bag' && sizeStockList.length < (selectedCategory === 'shoes' ? 12 : 3) && (
@@ -357,7 +361,7 @@ const RegisterPage = () => {
                   type="button"
                   onClick={() => setSizeStockList([...sizeStockList, { size: '', stock: '' }])}
                 >
-                  추가 사이즈 및 재고
+                  +
                 </AddSizeButton>
               )}
               {sizeError && <p style={{ color: 'red' }}>{sizeError}</p>}
@@ -376,15 +380,12 @@ const RegisterPage = () => {
                     onChange={(e) => {
                       const value = parseInt(e.target.value, 10);
                       setSizeStockList((prev) =>
-                        prev.map((item, idx) =>
-                          idx === index ? { ...item, stock: value > 0 ? value : '' } : item
-                        )
+                        prev.map((item, idx) => (idx === index ? { ...item, stock: value > 0 ? value : '' } : item))
                       );
                     }}
                     placeholder="재고"
                     min="1"
                   />
-                  <button type="button" onClick={() => removeSizeStock(index)}>삭제</button>
                 </InputUnit>
               ))}
             </>
@@ -395,7 +396,7 @@ const RegisterPage = () => {
             <input
               type="text"
               id="itemPrice"
-              placeholder="상품 가격(원)"
+              placeholder="상품 가격"
               value={itemPrice}
               onChange={(e) => setItemPrice(e.target.value)}
             />
@@ -413,12 +414,7 @@ const RegisterPage = () => {
 
           <InputUnit>
             <label htmlFor="sellByDate">판매 기한</label>
-            <input
-              type="date"
-              id="sellByDate"
-              value={sellByDate}
-              onChange={(e) => setSellByDate(e.target.value)}
-            />
+            <input type="date" id="sellByDate" value={sellByDate} onChange={(e) => setSellByDate(e.target.value)} />
           </InputUnit>
         </DetailInfo>
         <SubmitButton disabled={!isFormValid()}>등록하기</SubmitButton>
