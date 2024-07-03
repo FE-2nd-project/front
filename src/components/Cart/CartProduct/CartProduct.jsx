@@ -17,6 +17,16 @@ const CartProduct = ({
 }) => {
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  console.log(
+    itemId,
+    productPicture,
+    name,
+    size,
+    quantity,
+    totalPrice,
+    price,
+    optionSize
+  );
 
   return (
     <>

@@ -5,7 +5,6 @@ import cap from "../../assets/cap.png";
 export const getCartData = () => {
   return async (dispatch) => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken);
     // 실제 장바구니 조회 GET axios 요청 로직
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/api/cart`, {

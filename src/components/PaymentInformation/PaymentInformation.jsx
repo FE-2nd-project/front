@@ -8,9 +8,12 @@ const PaymentInformation = ({ topText, total }) => {
   let totalPrice = 0;
   if (cartItemData && cartItemData.length > 0) {
     totalPrice = cartItemData.reduce((accumulator, cartItem) => {
-      return accumulator + cartItem.productTotalPrice;
+      return accumulator + cartItem.totalPrice;
     }, 0);
   }
+
+  console.log(totalPrice, "총 금액");
+  console.log(cartItemData[0], "카트 아이템 데이터");
 
   return (
     <div className="payment-section-container">
