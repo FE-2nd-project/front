@@ -24,15 +24,12 @@ const ProducPrice = styled.div`
   font-weight: 700;
 `;
 
-export function Product({ id, name, price, url, stock }) {
-  // const totalStock = options.reduce((sum, option) => sum + option.stock, 0);
-  // if (!totalStock) return <></>;
-  if (!stock) return <></>;
+export function Product({ id, name, price, url }) {
   return (
     <ProductUnit>
       {/* <Link to=`/product-detail/${product_id}`> */}
       <Link to="/product-detail" className="productLink">
-        <ProductImg src={url} alt="" />
+        <ProductImg src={url} alt="이미지를 불러오지 못했습니다" />
         <ProductName>{name}</ProductName>
       </Link>
       <ProductInfo>
