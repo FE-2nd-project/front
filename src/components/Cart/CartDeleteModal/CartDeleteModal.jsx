@@ -12,34 +12,24 @@ const CartDeleteModal = ({ isDeleteClicked, setIsDeleteClicked, itemId }) => {
 
   const deleteConfirmHandler = () => {
     const accessToken = localStorage.getItem("accessToken");
-    const currentEmail = localStorage.getItem("email");
-
-    // 임시 장바구니 삭제 요청 로직
-    dispatch(cartActions.subtractQuantity({ email: currentEmail }));
-    setIsDeleteClicked(false);
-    dispatch(getCartData(currentEmail));
 
     // 실제 장바구니 아이템 axios delete 요청 로직
-    // axios
-    //   .delete(
-    // `${process.env.REACT_APP_SERVER_URL}/api/cart/${itemId}`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       dispatch(cartActions.subtractQuantity({ email: currentEmail }));
-    //       setIsDeleteClicked(false);
-    //       dispatch(getCartData(currentEmail));
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "장바구니 아이템 삭제 요청 실패");
-    //   });
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_URL}/api/cart/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(cartActions.subtractQuantity());
+          setIsDeleteClicked(false);
+          dispatch(getCartData());
+        }
+      })
+      .catch((error) => {
+        console.error(error, "장바구니 아이템 삭제 요청 실패");
+      });
   };
 
   if (!isDeleteClicked) return null;

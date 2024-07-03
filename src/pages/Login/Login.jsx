@@ -69,6 +69,7 @@ const Login = () => {
         const accessToken = token.accessToken;
 
         if (response.status === 200) {
+          console.log(response.data, "로그인 성공 데이터");
           localStorage.setItem("accessToken", accessToken);
           dispatch(cartActions.setCartQuantity(cartQuantity));
           navigate("/");
