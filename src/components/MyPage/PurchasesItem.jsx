@@ -1,46 +1,49 @@
+// PurchasesItem.jsx
 import React from "react";
 import styled from "styled-components";
 
 const ItemCard = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 1rem;
-  width: 100%; /* 너비를 조절 */
+  padding: 0.3rem; /* 패딩 조정 */
+  width: 100%;
   box-sizing: border-box;
+  margin-bottom: 0.4rem; /* 마진 조정 */
 `;
 
 const ItemImage = styled.img`
   width: 100%;
   height: auto;
+  max-height: 100px;
   border-radius: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* 마진 조정 */
 `;
 
 const ItemTitle = styled.div`
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: left;
+  text-align: center;
 `;
 
-const OrderInfo = styled.div`
-  font-size: 0.9rem;
+const ItemInfo = styled.div`
+  font-size: 0.8rem;
   color: #666;
-  text-align: left;
+  text-align: center;
 `;
 
 const PurchasesItem = ({ item }) => {
   return (
     <ItemCard>
-      <ItemImage src={item.image} alt={item.title} />
-      <ItemTitle>{item.title}</ItemTitle>
-      <OrderInfo>주문번호: {item.orderNumber}</OrderInfo>
-      <OrderInfo>구매일: {item.purchaseDate}</OrderInfo>
+      <ItemImage src={item.image_url} alt={item.name} />
+      <ItemTitle>{item.name}</ItemTitle>
+      <ItemInfo>수량: {item.quantity}</ItemInfo>
+      <ItemInfo>단가: {item.price_per_unit.toLocaleString()}원</ItemInfo>
     </ItemCard>
   );
 };

@@ -1,4 +1,3 @@
-// WishlistItem.jsx
 import React from "react";
 import styled from "styled-components";
 
@@ -60,14 +59,12 @@ const ItemQuantity = styled.div`
 const WishlistItem = ({ item }) => {
   return (
     <ItemCard>
-      <ItemImage src={item.image} alt={item.title} />
-      <ItemTitle>{item.title}</ItemTitle>
+      <ItemImage src={item.image_url} alt={item.item_name} />
+      <ItemTitle>{item.item_name}</ItemTitle>
       <SizeContainer>
-        {item.sizes.map((size, index) => (
-          <SizeBox key={index}>{size}</SizeBox>
-        ))}
+        <SizeBox>{item.size}</SizeBox>
       </SizeContainer>
-      <ItemPrice>{item.price}</ItemPrice>
+      <ItemPrice>{item.price.toLocaleString()} 원</ItemPrice>
       <ItemQuantity>수량: {item.quantity}</ItemQuantity>
     </ItemCard>
   );
