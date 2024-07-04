@@ -48,9 +48,14 @@
   cursor: pointer;
 }
 
+.registered-each-container {
+  overflow-x: auto;
+}
+
 .registered-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .registered-table th,
@@ -85,7 +90,7 @@
 
 .table-title-name,
 .table-data-photo-name {
-  width: 32%;
+  width: 30%;
 }
 
 .table-data-photo-name-flex {
@@ -95,10 +100,10 @@
 }
 
 .table-data-photo {
-  width: 22%;
-  max-height: 100px;
+  width: 25%;
+  height: 60px;
   margin-right: 4%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .table-data-name-container {
@@ -134,7 +139,7 @@
 
 .table-title-option,
 .table-data-option-quantity {
-  width: 12%;
+  width: 14%;
 }
 
 .table-data-option-quantity-flex {

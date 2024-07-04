@@ -4,7 +4,6 @@ import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPurchases } from "../store/reducer/purchaseSlice";
-import PurchasesItem from "../components/MyPage/PurchasesItem";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -41,41 +40,32 @@ const Title = styled.h1`
 
 const PurchaseContainer = styled.div`
   border-top: 2px solid #000;
-  padding-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(250px, 1fr)
-  ); /* 가로로 배치되도록 조정 */
-  gap: 0.1rem; /* 그리드 간격 조정 */
-`;
-
-const PurchaseMessage = styled.div`
-  text-align: center;
-  font-size: 1rem;
-  color: #999;
-  grid-column: span 1;
+  padding-top: 1rem;
 `;
 
 const OrderCard = styled.div`
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+`;
+
+const ItemsTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+`;
+
+const TableHeader = styled.th`
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 0.4rem; /* 마진 조정 */
-  width: 100%; /* 너비를 100%로 설정 */
-  max-width: 240px;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
 `;
 
-const OrderInfo = styled.div`
-  font-size: 0.9rem;
-  color: #333;
-  margin-bottom: 0.5rem; /* 마진 조정 */
-`;
-
-const ItemsContainer = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+const TableCell = styled.td`
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: center;
+  vertical-align: middle; /* 수직 정렬을 중앙으로 설정 */
 `;
 
 const Purchases = () => {
@@ -101,26 +91,62 @@ const Purchases = () => {
           </TitleContainer>
           <PurchaseContainer>
             {purchases.length === 0 ? (
-              <PurchaseMessage>
+              <div>
                 보관한 구매내역이 없습니다
                 <br />
                 추천 상품을 둘러보세요
-              </PurchaseMessage>
+              </div>
             ) : (
               purchases.map((order) => (
                 <OrderCard key={order.order_id}>
-                  <OrderInfo>주문번호: {order.order_number}</OrderInfo>
-                  <OrderInfo>
-                    구매일: {new Date(order.order_date).toLocaleDateString()}
-                  </OrderInfo>
-                  <OrderInfo>
-                    총액: {order.total_price.toLocaleString()}원
-                  </OrderInfo>
-                  <ItemsContainer>
-                    {order.items.map((item) => (
-                      <PurchasesItem key={item.item_id} item={item} />
-                    ))}
-                  </ItemsContainer>
+                  <ItemsTable>
+                    <thead>
+                      <tr>
+                        <TableHeader rowSpan={order.items.length + 1}>
+                          구매일:{" "}
+                          {new Date(order.order_date).toLocaleDateString()}
+                        </TableHeader>
+                        <TableHeader>이미지</TableHeader>
+                        <TableHeader>제품 이름</TableHeader>
+                        <TableHeader>수량</TableHeader>
+                        <TableHeader>제품 가격</TableHeader>
+                        <TableHeader>합계</TableHeader>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {order.items.map((item, index) => (
+                        <tr key={item.item_id}>
+                          {index === 0 && (
+                            <TableCell rowSpan={order.items.length}>
+                              <div>
+                                주문번호: {order.order_number}
+                                <br />
+                                총액: {order.total_price.toLocaleString()}원
+                              </div>
+                            </TableCell>
+                          )}
+                          <TableCell>
+                            <img
+                              src={item.image_url}
+                              alt={item.name}
+                              style={{ width: "50px", height: "50px" }}
+                            />
+                          </TableCell>
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                          <TableCell>
+                            {item.price_per_unit.toLocaleString()}원
+                          </TableCell>
+                          <TableCell>
+                            {(
+                              item.quantity * item.price_per_unit
+                            ).toLocaleString()}
+                            원
+                          </TableCell>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </ItemsTable>
                 </OrderCard>
               ))
             )}
