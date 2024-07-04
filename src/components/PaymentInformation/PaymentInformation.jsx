@@ -1,8 +1,10 @@
 import React from "react";
 import "./PaymentInformation.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const PaymentInformation = ({ topText, total }) => {
+  const dispatch = useDispatch();
   const cartItemData = useSelector((state) => state.cart.cartItemData);
 
   let totalPrice = 0;
@@ -11,6 +13,7 @@ const PaymentInformation = ({ topText, total }) => {
       return accumulator + cartItem.totalPrice;
     }, 0);
   }
+  dispatch(cartActions.setCartTotalPrice(totalPrice));
 
   return (
     <div className="payment-section-container">

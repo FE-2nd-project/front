@@ -4,55 +4,64 @@ import axios from "axios";
 import PaymentInformation from "../../components/PaymentInformation/PaymentInformation";
 import CartNavLink from "../../components/Cart/CartNavLink/CartNavLink";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import qs from "qs";
+import { OrderPaymentActions } from "../../store/reducer/OrderPayment-slice";
 
 const OrderPayment = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItemData = useSelector((state) => state.cart.cartItemData);
-
-  // const products = cartItemData
-  //   ? cartItemData.map((cartItem) => ({
-  //       id: cartItem.cartItemId,
-  //       image: cartItem.productPicture,
-  //       name: cartItem.productName,
-  //       size: cartItem.productSize,
-  //       quantity: cartItem.productQuantity,
-  //       unitPrice: cartItem.productPrice,
-  //     }))
-  //   : [];
+  const cartTotalPrice = useSelector((state) => state.cart.cartTotalPrice);
 
   const [cartProducts, setCartProducts] = useState([]);
   const [customerInfo, setCustomerInfo] = useState({
-    name: "",
-    contact: "",
+    username: "",
+    phoneNumber: "",
     email: "",
     address: "",
   });
-  const [totalPrice, setTotalPrice] = useState(0); //이거 int로 받음
+  console.log("유저", customerInfo);
+  console.log("카트아이템", cartProducts);
 
   //Get요청 함수
   useEffect(() => {
     const axiosGetOrderData = async () => {
+      const accessToken = localStorage.getItem("accessToken");
       try {
         const cartItemIds = cartItemData.map((cartItem) => cartItem.cartItemId);
-        console.log(cartItemIds);
+
+        console.log("이게 카트아이템아이디", cartItemIds);
         console.log("카트데이터", cartItemData);
 
         const response = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/api/cart/order`,
-          cartItemIds
-          //     {
-          //      params: {
-          //     cartItemId: cartItemIds,
-          //   }
-          // }
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+              cartItemId: cartItemIds,
+            },
+            // paramsSerializer: (params) => {
+            //   return qs.stringify(params, { arrayFormat: "repeat" });
+            // },
+            paramsSerializer: (params) => {
+              const serializedParams = qs.stringify(params, {
+                arrayFormat: "repeat",
+              });
+              console.log("Serialized Params:", serializedParams);
+              return serializedParams;
+            },
+          }
         );
-
         console.log("response다음", cartItemData);
         if (response.status === 200) {
           console.log("주문데이터확인: ", response.data);
-          const { customerInfo, orderItems } = response.data;
-          setCustomerInfo(customerInfo);
+          const { username, phoneNumber, email, address, orderItems } =
+            response.data;
+
+          setCustomerInfo({ username, phoneNumber, email, address });
           setCartProducts(orderItems);
         } else {
           console.log("200을 받아오지 못함");
@@ -73,22 +82,30 @@ const OrderPayment = () => {
 
   const products = cartProducts.map((cartProduct) => ({
     id: cartProduct.cartItemId,
-    image: cartProduct.productPicture,
-    name: cartProduct.productName,
-    size: cartProduct.productSize,
-    quantity: cartProduct.productQuantity,
-    unitPrice: cartProduct.productPrice,
+    itemsizeid: cartProduct.itemSizeId,
+    image: cartProduct.itemUrl,
+    name: cartProduct.itemName,
+    size: cartProduct.itemSize,
+    quantity: cartProduct.itemQuantity,
+    unitPrice: cartProduct.itemPrice,
   }));
 
   //Post요청
   const handlePayment = async () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
+      console.log("카트아이템아이디와 총가격", {
+        cartItemId: cartProducts.map((product) => product.cartItemId),
+        totalPrice: cartTotalPrice,
+      });
+      console.log(cartProducts.map((product) => product.cartItemId));
+      console.log("cartProducts: ", cartProducts);
+
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/cart/order`,
         {
-          cartItemId: cartProducts.map((product) => product.id),
-          totalPrice: totalPrice,
+          cartItemId: cartProducts.map((product) => product.cartItemId),
+          totalPrice: cartTotalPrice,
         },
         {
           headers: {
@@ -98,28 +115,47 @@ const OrderPayment = () => {
       );
       if (response.status === 200) {
         console.log("결제 성공: ", response.data);
+        const { message, orderId } = response.data;
+        console.log("리스폰스데이터", response.data);
+        dispatch(OrderPaymentActions.setOrderPaymentId(orderId));
+        console.log("오더아이디", orderId);
         navigate("/order-completed");
+        window.scrollTo({ top: 0, behavior: "auto" });
       } else {
         console.log("서버 응답 오류");
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        console.log("결제 실패: ", error.response.data);
-        updateProductsStock(error.response.data.stockErrors);
+      if (
+        error.response &&
+        error.response.data &&
+        Array.isArray(error.response.data)
+      ) {
+        console.log("결제 실패했음~: ", error.response.data);
+        error.response.data.forEach(({ itemSizeId, quantity }) => {
+          updateProductsStock(itemSizeId, quantity);
+          console.log(itemSizeId, quantity);
+        });
       } else {
         console.log("결제 실패: ", error);
       }
     }
   };
 
-  const updateProductsStock = (stockErrors) => {
-    const updatedProducts = products.map((product) => {
-      const error = stockErrors.find((err) => err.itemId === product.id);
-      if (error) {
-        return { ...product, quantity: 0, orderStatus: "주문불가" };
+  const updateProductsStock = (itemSizeId, quantity) => {
+    const updatedProducts = cartProducts.map((product) => {
+      if (product.itemSizeId === itemSizeId) {
+        const updatedQuantity = product.quantity - quantity;
+        const newQuantity = updatedQuantity >= 0 ? updatedQuantity : 0;
+
+        return {
+          ...product,
+          quantity: updatedQuantity,
+          orderStatus: newQuantity > 0 ? product.orderStatus : "주문불가",
+        };
       }
       return product;
     });
+    console.log("에러속에서", updatedProducts);
     setCartProducts(updatedProducts);
   };
 
@@ -138,7 +174,7 @@ const OrderPayment = () => {
                   type="text"
                   name="name"
                   //defaultValue="홍길동"
-                  defaultValue={customerInfo.name}
+                  defaultValue={customerInfo.username || ""}
                   required
                 />
               </div>
@@ -148,7 +184,7 @@ const OrderPayment = () => {
                   type="tel"
                   name="phone"
                   //defaultValue="010-1234-5678"
-                  defaultValue={customerInfo.contact}
+                  defaultValue={customerInfo.phoneNumber || ""}
                 />
               </div>
               <div className="form-group">
@@ -157,7 +193,7 @@ const OrderPayment = () => {
                   type="email"
                   name="email"
                   //defaultValue="example@example.com"
-                  defaultValue={customerInfo.email}
+                  defaultValue={customerInfo.email || ""}
                   required
                 />
               </div>
@@ -173,7 +209,7 @@ const OrderPayment = () => {
                   type="text"
                   name="address"
                   //defaultValue="서울특별시 oo구"
-                  defaultValue={customerInfo.address}
+                  defaultValue={customerInfo.address || ""}
                   required
                 />
               </div>
@@ -218,8 +254,9 @@ const OrderPayment = () => {
                           </p>
                         </div>
                         <p>
-                          {product.quantity === 0
-                            ? `주문불가`
+                          {product.orderStatus === "주문불가" &&
+                          isNaN(product.quantity)
+                            ? "주문불가"
                             : `${product.unitPrice}`}
                         </p>
                       </div>
@@ -252,13 +289,7 @@ const OrderPayment = () => {
         </div>
         <div className="Payment-Information-container">
           <PaymentInformation topText="최종 결제금액" total="총 주문금액" />
-          <button
-            className="payment-order-button"
-            onClick={() => {
-              navigate("/order-completed");
-              window.scrollTo({ top: 0, behavior: "auto" });
-            }}
-          >
+          <button className="payment-order-button" onClick={handlePayment}>
             결제하기
           </button>
         </div>

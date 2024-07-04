@@ -1,28 +1,53 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "./RegisteredUpdateModal.css";
 import cap from "../../assets/cap.png";
 import exit from "../../assets/exit.png";
+import axios from "axios";
 
 const genders = ["Men", "Women"];
 const products = ["Apparel", "Cap", "Shoes", "Bag"];
 
 const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
-  const [price, setPrice] = useState("40,000");
-  const [gender, setGender] = useState("Women");
-  const [product, setProduct] = useState("Bag");
-  const [sizes, setSizes] = useState([
-    { size: "Small", quantity: 0 },
-    { size: "Medium", quantity: 20 },
-    { size: "Large", quantity: 130 },
-  ]);
-  const [quantity, setQuantity] = useState(0); // Bag의 경우
+  const dispatch = useDispatch();
+  const productRegisteredData = useSelector(
+    (state) => state.productRegistered.productRegisteredData
+  );
+
+  const [price, setPrice] = useState(
+    productRegisteredData.productPrice || "40,000"
+  );
+  const [gender, setGender] = useState(
+    productRegisteredData.genderCategory || "Women"
+  );
+  const [product, setProduct] = useState(
+    productRegisteredData.shopCategory || "Bag"
+  );
+  const [sizes, setSizes] = useState(
+    productRegisteredData.sizes || [
+      { size: "Small", quantity: 0 },
+      { size: "Medium", quantity: 20 },
+      { size: "Large", quantity: 130 },
+    ]
+  );
+  const [quantity, setQuantity] = useState(productRegisteredData.quantity || 0);
+
+  // const [price, setPrice] = useState("40,000");
+  // const [gender, setGender] = useState("Women");
+  // const [product, setProduct] = useState("Bag");
+  // const [sizes, setSizes] = useState([
+  //   { size: "Small", quantity: 0 },
+  //   { size: "Medium", quantity: 20 },
+  //   { size: "Large", quantity: 130 },
+  // ]);
+  // const [quantity, setQuantity] = useState(0); // Bag의 경우
+
+  // const handleQuantityChange = (value) => {
+  //   setQuantity(value);
+  // };
 
   if (!isUpdate) return null;
-
-  const handleQuantityChange = (value) => {
-    setQuantity(value);
-  };
 
   const renderSizeOptions = () => {
     if (product !== "Bag" && product !== "Cap") {
@@ -65,6 +90,36 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
     const newSizes = [...sizes];
     newSizes[index].quantity = value;
     setSizes(newSizes);
+  };
+
+  const handleUpdate = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    try {
+      const updatedData = {
+        productId: productRegisteredData.productId,
+        productPrice: price,
+        genderCategory: gender.toLowerCase(),
+        shopCategory: product.toLowerCase(),
+        sizes: sizes.filter((size) => size.stock > 0),
+      };
+      const response = await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/api/sale/update-stock`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        //dispatch(updateProductRegistered(updatedData));
+        setIsUpdate(false);
+      } else {
+        console.error("상품 업데이트 실패");
+      }
+    } catch (error) {
+      console.error("상품 업데이트 에러:", error);
+    }
   };
 
   return createPortal(
@@ -132,7 +187,12 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
             {renderSizeOptions()}
           </div>
         </div>
-        <button className="registered-modal-update-button">변경하기</button>
+        <button
+          className="registered-modal-update-button"
+          onClick={handleUpdate}
+        >
+          변경하기
+        </button>
       </div>
     </div>,
     document.getElementById("overlays-modal")
