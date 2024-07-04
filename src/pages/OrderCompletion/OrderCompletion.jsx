@@ -6,33 +6,31 @@ import confirmation from "../../assets/confirmation.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const OrderCompletion = () => {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
-  const { orderId } = useParams(); //url에서 가져오기
-  const [orderDetails, setOrderDetails] = useState(null);
+  const [orderDetails, setOrderDetails] = useState({
+    orderNumber: null,
+    orderDate: null,
+    totalPrice: null,
+  });
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+  });
+  console.log("유저", customerInfo);
+  console.log("아이템:", orderDetails);
+  const OrderId = useSelector((state) => state.OrderPayment.OrderPaymentId);
 
-  // 현재 시간
-  const currentTime = new Date().toLocaleString();
-  // 랜덤 오더 넘버 생성
-  const generateOrderNumber = () => {
-    let result = "";
-    const numbers = "0123456789";
-    for (let i = 0; i <= 15; i++) {
-      const randomNum = Math.floor(Math.random() * numbers.length);
-      result += numbers[randomNum];
-    }
-    return result;
-  };
-
-  //get요청~
+  //get요청
   useEffect(() => {
     const axiosGetOrderCompletion = async () => {
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/api/cart/order/success/${orderId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/cart/order/success/${OrderId}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -41,7 +39,14 @@ const OrderCompletion = () => {
         );
         if (response.status === 200) {
           console.log("주문 데이터 받음:", response.data);
-          setOrderDetails(response.data);
+          const { orderNumber, orderDate, totalPrice, customerInfo } =
+            response.data;
+          setOrderDetails({
+            orderNumber,
+            orderDate,
+            totalPrice,
+          });
+          setCustomerInfo(customerInfo);
         } else {
           console.log("서버에서 데이터를 가져오지 못했습니다.");
         }
@@ -50,9 +55,10 @@ const OrderCompletion = () => {
       }
     };
     axiosGetOrderCompletion();
-  }, [orderId]);
+  }, [OrderId]);
 
-  const { orderNumber, orderDate, totalPrice, customerInfo } = orderDetails;
+  //const { orderNumber, orderDate, totalPrice, customerInfo } = orderDetails;
+  const { orderNumber, orderDate, totalPrice } = orderDetails;
 
   return (
     <>
@@ -76,7 +82,8 @@ const OrderCompletion = () => {
               <span className="only-order-number">{orderNumber}</span>
             </div>
             <div className="completed-right-order-date">
-              주문일자 : {orderDate}
+              주문일자 :{" "}
+              {orderDate ? new Date(orderDate).toLocaleDateString() : ""}
             </div>
           </div>
         </div>
@@ -90,7 +97,7 @@ const OrderCompletion = () => {
                     최종 결제금액
                   </th>
                   <td className="bottom-completed-totalprice-price">
-                    {totalPrice}
+                    {totalPrice ? `${totalPrice.toLocaleString()} 원` : ""}
                   </td>
                 </tr>
                 <tr>

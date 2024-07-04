@@ -15,6 +15,7 @@ export const getCartData = () => {
       .then((response) => {
         if (response.status === 200) {
           dispatch(cartActions.setCartItemData(response.data.getCartItems));
+          console.log("데이터", response.data);
         } else {
           console.log("장바구니 조회 서버 응답의 코드가 200이 아닙니다.");
         }
@@ -30,6 +31,7 @@ const cartSlice = createSlice({
   initialState: {
     cartItemData: [],
     cartQuantity: 0,
+    cartTotalPrice: 0,
   },
   reducers: {
     setCartItemData(state, action) {
@@ -45,6 +47,9 @@ const cartSlice = createSlice({
       if (state.cartQuantity >= 1) {
         state.cartQuantity -= action.payload;
       }
+    },
+    setCartTotalPrice(state, action) {
+      state.cartTotalPrice = action.payload;
     },
   },
 });

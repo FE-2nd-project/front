@@ -31,10 +31,31 @@ const productRegisteredSlice = createSlice({
   name: "productRegistered",
   initialState: {
     productRegisteredData: [],
+    isUpdateModalOpen: {},
   },
   reducers: {
     setProductRegisteredData(state, action) {
       state.productRegisteredData = action.payload;
+    },
+    updateProductRegistered(state, action) {
+      const { productId, productPrice, genderCategory, shopCategory, sizes } =
+        action.payload;
+      const productIndex = state.productRegisteredData.findIndex(
+        (product) => product.productId === productId
+      );
+      if (productIndex !== -1) {
+        state.productRegisteredData[productIndex] = {
+          ...state.productRegisteredData[productIndex],
+          productPrice,
+          genderCategory,
+          shopCategory,
+          sizes,
+        };
+      }
+    },
+    setIsUpdateModalOpen(state, action) {
+      const { productId } = action.payload;
+      state.isUpdateModalOpen[productId] = true;
     },
   },
 });
