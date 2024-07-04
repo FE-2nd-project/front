@@ -9,7 +9,7 @@ const PaginationContainer = styled.div`
 `;
 
 const PageButton = styled.button`
-  background-color: #007bff;
+  background-color: black;
   color: white;
   border: none;
   padding: 8px 16px;
