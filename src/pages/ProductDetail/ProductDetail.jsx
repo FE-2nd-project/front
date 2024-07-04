@@ -79,7 +79,7 @@ const ProductDetail = () => {
   const handleAddToBag = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const itemData = {
-      productId: productId,
+      itemId: productId,
       size: selectedSize,
       quantity,
     };
