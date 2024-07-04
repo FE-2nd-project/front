@@ -12,7 +12,13 @@ const EmptyCart = () => {
         <img src={empty} className="empty-icon" />
       </div>
       <div className="empty-statement">장바구니에 담긴 상품이 없습니다</div>
-      <button className="empty-continue-button" onClick={() => navigate("/")}>
+      <button
+        className="empty-continue-button"
+        onClick={() => {
+          navigate("/");
+          window.scrollTo({ top: 0 });
+        }}
+      >
         쇼핑 계속하기
       </button>
     </div>
