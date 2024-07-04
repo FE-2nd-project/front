@@ -11,7 +11,6 @@ import { getCartData } from "../../store/reducer/cart-slice";
 
 const Cart = () => {
   const cartItemData = useSelector((state) => state.cart.cartItemData);
-  console.log("카트아이템데이터", cartItemData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

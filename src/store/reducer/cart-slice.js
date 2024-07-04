@@ -16,8 +16,6 @@ export const getCartData = () => {
         if (response.status === 200) {
           dispatch(cartActions.setCartItemData(response.data.getCartItems));
           console.log("데이터", response.data);
-        } else {
-          console.log("장바구니 조회 서버 응답의 코드가 200이 아닙니다.");
         }
       })
       .catch((error) => {
