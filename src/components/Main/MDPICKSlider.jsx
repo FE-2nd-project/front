@@ -41,7 +41,7 @@ const SlideContents = styled.div`
 
 const SlideImage = styled.img`
   width: 35%;
-  height: 420px;
+  height: 35rem;
   aspect-ratio: 1;
   object-fit: cover;
 `;
