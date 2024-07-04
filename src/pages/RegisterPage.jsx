@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { BsImages } from 'react-icons/bs';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
+import { BsImages } from "react-icons/bs";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import getProductRegisteredData from "../store/reducer/productRegistered-slice";
 
 const RegisterPageContainer = styled.div`
   width: 100%;
@@ -124,12 +125,12 @@ const AddSizeButton = styled.button`
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (!accessToken) {
-      alert('로그인을 먼저 해주십시오.');
-      navigate('/login');
+      alert("로그인을 먼저 해주십시오.");
+      navigate("/login");
     }
   }, [dispatch]);
 
@@ -137,7 +138,7 @@ const RegisterPage = () => {
 
   const handleUploadImg = () => {
     if (uploadImgs.length >= 3) {
-      alert('이미지는 3개까지 등록 가능합니다.');
+      alert("이미지는 3개까지 등록 가능합니다.");
     } else {
       uploadRef.current.click();
     }
@@ -162,15 +163,15 @@ const RegisterPage = () => {
   };
 
   const [uploadImgs, setUploadImgs] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
-  const [sizeStockList, setSizeStockList] = useState([{ size: '', stock: '' }]);
-  const [sizeError, setSizeError] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [itemDesc, setItemDesc] = useState('');
-  const [itemPrice, setItemPrice] = useState('');
-  const [registerDate, setRegisterDate] = useState('');
-  const [sellByDate, setSellByDate] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
+  const [sizeStockList, setSizeStockList] = useState([{ size: "", stock: "" }]);
+  const [sizeError, setSizeError] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [itemDesc, setItemDesc] = useState("");
+  const [itemPrice, setItemPrice] = useState("");
+  const [registerDate, setRegisterDate] = useState("");
+  const [sellByDate, setSellByDate] = useState("");
   const [totalStock, setTotalStock] = useState(0);
 
   const updateImgs = (event) => {
@@ -178,7 +179,7 @@ const RegisterPage = () => {
     const currentImgCnt = uploadImgs.length;
     const addImgCnt = imgs.length;
     if (currentImgCnt + addImgCnt > 3) {
-      alert('이미지는 3개까지 등록 가능합니다.');
+      alert("이미지는 3개까지 등록 가능합니다.");
       return;
     }
     console.log(imgs);
@@ -197,7 +198,7 @@ const RegisterPage = () => {
     const maxSize = 1 * 1024 * 1024;
 
     if (file.size > maxSize) {
-      alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
+      alert("파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.");
       return false;
     }
     return true;
@@ -215,7 +216,7 @@ const RegisterPage = () => {
     const formData = new FormData();
 
     uploadImgs.forEach((img, index) => {
-      formData.append('images', img); // images라는 키로 이미지 파일 추가
+      formData.append("images", img); // images라는 키로 이미지 파일 추가
     });
 
     const salePostDto = {
@@ -227,38 +228,51 @@ const RegisterPage = () => {
       categoryKind: selectedCategory,
       listedDate: registerDate,
       endDate: sellByDate,
-      itemSizes: sizeStockList.map((item) => ({ size: item.size, stock: Number(item.stock) })),
+      itemSizes: sizeStockList.map((item) => ({
+        size: item.size,
+        stock: Number(item.stock),
+      })),
     };
 
-    formData.append('salePostDto', JSON.stringify(salePostDto));
+    formData.append("salePostDto", JSON.stringify(salePostDto));
 
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/api/sale/add`, formData, {
-        headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'multipart/form-data' },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((response) => {
         if (response.status === 200) {
-          console.log('Item registered successfully!');
+          console.log("Item registered successfully!");
+          navigate("/mypage/product-registered");
+          dispatch(getProductRegisteredData());
         } else {
-          console.error('Failed to register item');
+          console.error("Failed to register item");
         }
       })
-      .catch((error) => console.error('Error:', error));
-    navigate('/mypage/product-registered');
+      .catch((error) => console.error("Error:", error));
   };
 
   const isFormValid = () => {
-    const isCategorySelected = selectedCategory !== '';
-    const isGenderSelected = selectedGender !== '';
-    const areSizesValid = selectedCategory === 'bag' || sizeStockList.every((item) => item.size !== '');
+    const isCategorySelected = selectedCategory !== "";
+    const isGenderSelected = selectedGender !== "";
+    const areSizesValid =
+      selectedCategory === "bag" ||
+      sizeStockList.every((item) => item.size !== "");
     const areStocksValid = sizeStockList.every(
-      (item) => item.stock !== '' && item.stock > 0 && Number.isInteger(Number(item.stock))
+      (item) =>
+        item.stock !== "" &&
+        item.stock > 0 &&
+        Number.isInteger(Number(item.stock))
     );
-    const isItemNameValid = itemName !== '';
-    const isItemDescValid = itemDesc !== '';
-    const isItemPriceValid = itemPrice !== '' && !isNaN(itemPrice) && Number(itemPrice) > 0;
-    const isRegisterDateValid = registerDate !== '';
-    const isSellByDateValid = sellByDate !== '';
+    const isItemNameValid = itemName !== "";
+    const isItemDescValid = itemDesc !== "";
+    const isItemPriceValid =
+      itemPrice !== "" && !isNaN(itemPrice) && Number(itemPrice) > 0;
+    const isRegisterDateValid = registerDate !== "";
+    const isSellByDateValid = sellByDate !== "";
     const isImageUploaded = uploadImgs.length > 0;
 
     return (
@@ -277,7 +291,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (sizeError) {
-      const timer = setTimeout(() => setSizeError(''), 3000);
+      const timer = setTimeout(() => setSizeError(""), 3000);
       return () => clearTimeout(timer);
     }
   }, [sizeError]);
@@ -316,7 +330,7 @@ const RegisterPage = () => {
               accept="image/*"
               ref={uploadRef}
               onChange={updateImgs}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
             <button type="button" onClick={handleUploadImg}>
               <BsImages />
@@ -347,7 +361,11 @@ const RegisterPage = () => {
 
           <InputUnit>
             <label htmlFor="genderCategory">성별</label>
-            <select name="genderCategory" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
+            <select
+              name="genderCategory"
+              value={selectedGender}
+              onChange={(e) => setSelectedGender(e.target.value)}
+            >
               <option value="">Select Gender</option>
               <option value="woman">Woman</option>
               <option value="man">Man</option>
@@ -361,7 +379,7 @@ const RegisterPage = () => {
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
-                setSizeStockList([{ size: '', stock: '' }]);
+                setSizeStockList([{ size: "", stock: "" }]);
               }}
             >
               <option value="">Select Category</option>
@@ -372,7 +390,7 @@ const RegisterPage = () => {
             </select>
           </InputUnit>
 
-          {selectedCategory && selectedCategory !== 'bag' && (
+          {selectedCategory && selectedCategory !== "bag" && (
             <>
               {sizeStockList.map((item, index) => (
                 <InputUnit key={index}>
@@ -386,24 +404,29 @@ const RegisterPage = () => {
                         prev.map((item, idx) =>
                           idx === index
                             ? prev.some((stockItem) => stockItem.size === value)
-                              ? { ...item, size: '' }
+                              ? { ...item, size: "" }
                               : { ...item, size: value }
                             : item
                         )
                       );
                       setSizeError(
-                        sizeStockList.some((stockItem) => stockItem.size === value) ? '이미 선택된 사이즈입니다.' : ''
+                        sizeStockList.some(
+                          (stockItem) => stockItem.size === value
+                        )
+                          ? "이미 선택된 사이즈입니다."
+                          : ""
                       );
                     }}
                   >
                     <option value="">Select Size</option>
-                    {selectedCategory === 'apparel' || selectedCategory === 'cap' ? (
+                    {selectedCategory === "apparel" ||
+                    selectedCategory === "cap" ? (
                       <>
                         <option value="Small">Small</option>
                         <option value="Medium">Medium</option>
                         <option value="Large">Large</option>
                       </>
-                    ) : selectedCategory === 'shoes' ? (
+                    ) : selectedCategory === "shoes" ? (
                       <>
                         <option value="220">220</option>
                         <option value="225">225</option>
@@ -429,7 +452,11 @@ const RegisterPage = () => {
                     onChange={(e) => {
                       const value = parseInt(e.target.value, 10);
                       setSizeStockList((prev) =>
-                        prev.map((item, idx) => (idx === index ? { ...item, stock: value > 0 ? value : '' } : item))
+                        prev.map((item, idx) =>
+                          idx === index
+                            ? { ...item, stock: value > 0 ? value : "" }
+                            : item
+                        )
                       );
                     }}
                     placeholder="재고"
@@ -448,19 +475,26 @@ const RegisterPage = () => {
                   )}
                 </InputUnit>
               ))}
-              {selectedCategory !== 'bag' && sizeStockList.length < (selectedCategory === 'shoes' ? 12 : 3) && (
-                <AddSizeButton
-                  type="button"
-                  onClick={() => setSizeStockList([...sizeStockList, { size: '', stock: '' }])}
-                >
-                  +
-                </AddSizeButton>
-              )}
-              {sizeError && <p style={{ color: 'red' }}>{sizeError}</p>}
+              {selectedCategory !== "bag" &&
+                sizeStockList.length <
+                  (selectedCategory === "shoes" ? 12 : 3) && (
+                  <AddSizeButton
+                    type="button"
+                    onClick={() =>
+                      setSizeStockList([
+                        ...sizeStockList,
+                        { size: "", stock: "" },
+                      ])
+                    }
+                  >
+                    +
+                  </AddSizeButton>
+                )}
+              {sizeError && <p style={{ color: "red" }}>{sizeError}</p>}
             </>
           )}
 
-          {selectedCategory === 'bag' && (
+          {selectedCategory === "bag" && (
             <>
               {sizeStockList.map((item, index) => (
                 <InputUnit key={index}>
@@ -472,7 +506,11 @@ const RegisterPage = () => {
                     onChange={(e) => {
                       const value = parseInt(e.target.value, 10);
                       setSizeStockList((prev) =>
-                        prev.map((item, idx) => (idx === index ? { ...item, stock: value > 0 ? value : '' } : item))
+                        prev.map((item, idx) =>
+                          idx === index
+                            ? { ...item, stock: value > 0 ? value : "" }
+                            : item
+                        )
                       );
                     }}
                     placeholder="재고"
@@ -506,7 +544,12 @@ const RegisterPage = () => {
 
           <InputUnit>
             <label htmlFor="sellByDate">판매 기한</label>
-            <input type="date" id="sellByDate" value={sellByDate} onChange={(e) => setSellByDate(e.target.value)} />
+            <input
+              type="date"
+              id="sellByDate"
+              value={sellByDate}
+              onChange={(e) => setSellByDate(e.target.value)}
+            />
           </InputUnit>
         </DetailInfo>
         <SubmitButton disabled={!isFormValid()}>등록하기</SubmitButton>

@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/reducer/cart-slice";
 
 const ProductDetail = () => {
-  // const { itemId } = useParams();
-  const itemId = "4"; // 테스트용 제품아이디
+  const { productId } = useParams();
+  //const productId = "4"; // 테스트용 제품아이디
   const currentEmail = localStorage.getItem("email");
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +31,7 @@ const ProductDetail = () => {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/api/item/${itemId}`
+          `${process.env.REACT_APP_SERVER_URL}/api/item/${productId}`
         );
         setProductData(response.data);
         setLoading(false);
@@ -56,7 +56,7 @@ const ProductDetail = () => {
     };
 
     fetchProductData();
-  }, [itemId]);
+  }, [productId]);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -79,10 +79,11 @@ const ProductDetail = () => {
   const handleAddToBag = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const itemData = {
-      itemId: itemId,
+      productId: productId,
       size: selectedSize,
       quantity,
     };
+    console.log("post요청할 아이템데이터들입니다", itemData);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/cart/add`,
@@ -93,10 +94,11 @@ const ProductDetail = () => {
           },
         }
       );
-      if (response.status === 200 && !isProductAdded[itemId]) {
-        dispatch(cartActions.addQuantity());
+      if (response.status === 200 && !isProductAdded[productId]) {
+        dispatch(cartActions.addQuantity(itemData.quantity));
       }
       navigate("/cart");
+      window.scrollTo({ top: 0 });
       console.log("성공");
     } catch (error) {
       console.error("post 요청 에러:", error);
