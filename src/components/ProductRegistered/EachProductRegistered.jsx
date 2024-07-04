@@ -87,7 +87,9 @@ const EachProductRegistered = ({
           {sizes.map((sizeInfo, index) => (
             <div key={index} className="table-data-option-quantity-flex">
               <div className="data-option">{sizeInfo.size}:</div>
-              <div className="data-quantity">{sizeInfo.stock}개</div>
+              <div className="data-quantity">
+                {sizeInfo.stock.toLocaleString()}개
+              </div>
             </div>
           ))}
         </th>

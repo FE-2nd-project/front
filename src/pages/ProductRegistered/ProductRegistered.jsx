@@ -57,7 +57,6 @@ const ProductRegistered = () => {
 
   if (!accessToken) return null;
 
-  console.log("등록데이터들입니다", productRegisteredData);
   return (
     <>
       <div className="product-registered-page">
