@@ -15,7 +15,7 @@ const ProductPage = () => {
   const categoryName = extractCategoryFromPath(location.pathname);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(5); // 한 페이지에 표시할 아이템 수
+  const [size, setSize] = useState(8); // 한 페이지에 표시할 아이템 수
   const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
 
   useEffect(() => {
@@ -38,12 +38,13 @@ const ProductPage = () => {
 
   return (
     <div className="productPage">
+      <div className="title">{categoryName}</div>
       <div className="productList">
         {products.map((data) => (
           <Product key={data.id} id={data.id} name={data.name} price={data.price} url={data.url} />
         ))}
       </div>
-      <Pagination page={page} setPagep={setPage} totalPages={totalPages} size={size} setSize={setSize} />
+      <Pagination page={page} setPage={setPage} totalPages={totalPages} size={size} setSize={setSize} />
     </div>
   );
 };

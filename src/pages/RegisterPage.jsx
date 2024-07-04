@@ -205,6 +205,7 @@ const RegisterPage = () => {
         }
       })
       .catch((error) => console.error('Error:', error));
+      navigate('/mypage/product-registered')
   };
 
   const isFormValid = () => {
@@ -305,8 +306,8 @@ const RegisterPage = () => {
             <label htmlFor="genderCategory">성별</label>
             <select name="genderCategory" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
               <option value="">Select Gender</option>
-              <option value="woman">woman</option>
-              <option value="man">man</option>
+              <option value="woman">Woman</option>
+              <option value="man">Man</option>
             </select>
           </InputUnit>
 
@@ -321,10 +322,10 @@ const RegisterPage = () => {
               }}
             >
               <option value="">Select Category</option>
-              <option value="apparel">apparel</option>
-              <option value="cap">cap</option>
-              <option value="shoes">shoes</option>
-              <option value="bag">bag</option>
+              <option value="apparel">Apparel</option>
+              <option value="cap">Cap</option>
+              <option value="shoes">Shoes</option>
+              <option value="bag">Bag</option>
             </select>
           </InputUnit>
 
