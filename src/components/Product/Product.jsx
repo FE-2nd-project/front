@@ -1,40 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Product.css';
 import styled from 'styled-components';
 
 const ProductUnit = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  background: rgba(10, 10, 10, 0.03);
+  padding: 15px;
 `;
 
-const ProductImg = styled.img``;
+const ProductImg = styled.img`
+  width: 100%;
+  aspect-ratio: 0.8;
+`;
 
 const ProductName = styled.div`
   color: black;
-`;
-const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  height: 80px;
 `;
 
-const ProducPrice = styled.div`
+const ProductPrice = styled.div`
+  text-align: end;
   font-weight: 700;
 `;
 
+const ImageWithFallback = ({ src, alt, fallbackSrc }) => {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return <ProductImg src={imgSrc} alt={alt} onError={handleError} />;
+};
+
 export function Product({ id, name, price, url }) {
   return (
-    <ProductUnit>
-      {/* <Link to=`/product-detail/${product_id}`> */}
-      <Link to="/product-detail" className="productLink">
-        <ProductImg src={url} alt="이미지를 불러오지 못했습니다" />
-        <ProductName>{name}</ProductName>
-      </Link>
-      <ProductInfo>
-        <ProducPrice>{price}</ProducPrice>
-      </ProductInfo>
-    </ProductUnit>
+    
+      <ProductUnit>
+        <Link to = {`/product-detail/${id}`} className="productLink">
+          <ImageWithFallback src={url} alt="" fallbackSrc="/img_load_failed.png" />
+          <ProductName>{name}</ProductName>
+        </Link>
+        <ProductPrice>{price.toLocaleString()}</ProductPrice>
+      </ProductUnit>
+    
   );
 }

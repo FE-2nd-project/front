@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <ProductPage/>,
       },
       {
-        path: "/register",
+        path: "/mypage/register",
         element: <RegisterPage />,
       },
       {

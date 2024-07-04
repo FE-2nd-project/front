@@ -34,17 +34,21 @@ const DetailInfo = styled.div`
 const InputUnit = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
   label {
     font-size: 20px;
-    width: 250px;
+    width: 150px; /* 필요에 따라 너비 조정 */
+    text-align: left;
+    white-space: nowrap; /* 줄 바꿈 방지 */
   }
-  input {
-    font-size: 20px;
-  }
+  input,
   select {
+    flex: 1; /* 남은 공간 모두 차지 */
     font-size: 20px;
+    padding: 5px;
   }
 `;
+
 
 const Thumbnail = styled.div`
   position: relative;
@@ -205,6 +209,7 @@ const RegisterPage = () => {
         }
       })
       .catch((error) => console.error('Error:', error));
+      navigate('/mypage/product-registered')
   };
 
   const isFormValid = () => {
@@ -305,8 +310,8 @@ const RegisterPage = () => {
             <label htmlFor="genderCategory">성별</label>
             <select name="genderCategory" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
               <option value="">Select Gender</option>
-              <option value="woman">woman</option>
-              <option value="man">man</option>
+              <option value="woman">Woman</option>
+              <option value="man">Man</option>
             </select>
           </InputUnit>
 
@@ -321,10 +326,10 @@ const RegisterPage = () => {
               }}
             >
               <option value="">Select Category</option>
-              <option value="apparel">apparel</option>
-              <option value="cap">cap</option>
-              <option value="shoes">shoes</option>
-              <option value="bag">bag</option>
+              <option value="apparel">Apparel</option>
+              <option value="cap">Cap</option>
+              <option value="shoes">Shoes</option>
+              <option value="bag">Bag</option>
             </select>
           </InputUnit>
 
