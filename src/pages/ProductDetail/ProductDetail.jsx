@@ -140,7 +140,7 @@ const ProductDetail = () => {
                 </div>
                 <div className="product-price-container">
                   <div className="product-price-text">
-                    {productData.item_price.toLocaleString()}원
+                    {productData.item_price.toLocaleString()} 원
                   </div>
                 </div>
 
@@ -230,7 +230,7 @@ const ProductDetail = () => {
                 <div className="total-price-container">
                   <div className="total-price-label">총 결제금액</div>
                   <div className="total-price-text">
-                    {(productData.item_price * quantity).toLocaleString()}원
+                    {(productData.item_price * quantity).toLocaleString()} 원
                   </div>
                 </div>
 

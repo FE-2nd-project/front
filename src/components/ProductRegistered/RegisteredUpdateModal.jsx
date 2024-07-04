@@ -93,10 +93,10 @@ const RegisteredUpdateModal = ({
   };
 
   const handleSizeQuantityChange = (index, value) => {
-    const newSizes = [...productSizes]; // productSizes 배열을 복사하여 새로운 배열 생성
+    const newSizes = [...productSizes];
     newSizes[index] = {
-      ...newSizes[index], // 기존 객체의 속성들을 복사
-      stock: Number(value), // 새로운 값을 설정
+      ...newSizes[index],
+      stock: Number(value),
     };
     setProductSizes(newSizes);
   };
@@ -105,21 +105,6 @@ const RegisteredUpdateModal = ({
     const accessToken = localStorage.getItem("accessToken");
     try {
       let updatedData;
-
-      // const updatedData = {
-      //   productId: productId,
-      //   productPrice: price,
-      //   genderCategory: gender.toLowerCase(),
-      //   shopCategory: product.toLowerCase(),
-      //   sizes: productSizes,
-      // };
-
-      // const updatedData = {
-      //   itemId: productId,
-      //   optionSize: productSizes[0]?.size,
-      //   newStock: productSizes[0]?.stock  0,
-      //   newPrice: productSizes[0]?.price  0
-      // };
 
       if (product.toLowerCase() === "bag") {
         updatedData = {
