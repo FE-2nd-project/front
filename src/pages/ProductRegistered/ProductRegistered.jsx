@@ -61,10 +61,9 @@ const ProductRegistered = () => {
 
   if (!accessToken) return null;
 
+  console.log("등록데이터들입니다", productRegisteredData);
   return (
     <>
-      <RegisteredUpdateModal isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
-
       <div className="product-registered-page">
         <div className="sidebar-container">
           <Sidebar />
@@ -90,6 +89,7 @@ const ProductRegistered = () => {
                   currentPageProducts.map((eachProduct) => {
                     return (
                       <EachProductRegistered
+                        isUpdate={isUpdate}
                         setIsUpdate={setIsUpdate}
                         key={eachProduct.id}
                         productId={eachProduct.id}

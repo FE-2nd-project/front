@@ -31,6 +31,7 @@ const productRegisteredSlice = createSlice({
   name: "productRegistered",
   initialState: {
     productRegisteredData: [],
+    isUpdateModalOpen: {},
   },
   reducers: {
     setProductRegisteredData(state, action) {
@@ -51,6 +52,10 @@ const productRegisteredSlice = createSlice({
           sizes,
         };
       }
+    },
+    setIsUpdateModalOpen(state, action) {
+      const { productId } = action.payload;
+      state.isUpdateModalOpen[productId] = true;
     },
   },
 });
