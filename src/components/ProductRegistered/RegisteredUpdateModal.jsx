@@ -5,7 +5,10 @@ import "./RegisteredUpdateModal.css";
 import cap from "../../assets/cap.png";
 import exit from "../../assets/exit.png";
 import axios from "axios";
-import { productRegisteredActions } from "../../store/reducer/productRegistered-slice";
+import {
+  getProductRegisteredData,
+  productRegisteredActions,
+} from "../../store/reducer/productRegistered-slice";
 
 const genders = ["Men", "Women"];
 const products = ["Apparel", "Cap", "Shoes", "Bag"];
@@ -43,6 +46,8 @@ const RegisteredUpdateModal = ({
     productSizes
   );
 
+  console.log("이건 성별입니다~", gender);
+
   useEffect(() => {
     if (isUpdateModalOpen[productId]) {
       setImage(productImage);
@@ -67,10 +72,12 @@ const RegisteredUpdateModal = ({
   if (!image && !name && !price && !gender && !product) return null;
 
   const optionSelect = () => {
-    if (product === "bag") {
-      {
-        productSizes.map((size, index) => {
-          return (
+    return (
+      <div className="registered-modal-info-size">
+        옵션 및 수량:
+        {productSizes.map((size, index) => (
+          <div key={index} className="registered-modal-info-size-flex">
+            <div className="registered-modal-info-size-option">{size.size}</div>
             <div className="registered-modal-info-size-quantity">
               <input
                 type="number"
@@ -81,33 +88,10 @@ const RegisteredUpdateModal = ({
                 }
               />
             </div>
-          );
-        });
-      }
-    } else {
-      return (
-        <div className="registered-modal-info-size">
-          옵션 및 수량:
-          {productSizes.map((size, index) => (
-            <div key={index} className="registered-modal-info-size-flex">
-              <div className="registered-modal-info-size-option">
-                {size.size}
-              </div>
-              <div className="registered-modal-info-size-quantity">
-                <input
-                  type="number"
-                  min="0"
-                  value={size.stock}
-                  onChange={(e) =>
-                    handleSizeQuantityChange(index, e.target.value)
-                  }
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    }
+          </div>
+        ))}
+      </div>
+    );
   };
 
   const handleSizeQuantityChange = (index, value) => {
@@ -149,6 +133,7 @@ const RegisteredUpdateModal = ({
       if (response.status === 200) {
         dispatch(productRegisteredActions.updateProductRegistered(updatedData));
         setIsUpdate(false);
+        dispatch(getProductRegisteredData());
         console.log("상품업데이트 성공");
       } else {
         console.error("상품 업데이트 실패");
@@ -159,7 +144,7 @@ const RegisteredUpdateModal = ({
   };
 
   return createPortal(
-    <div className="registered-modal-overlay">
+    <div className="registered-modal-overlay" key={productId}>
       <div className="registered-modal-content">
         <img
           src={exit}
@@ -197,8 +182,8 @@ const RegisteredUpdateModal = ({
                   //defaultValue={gender ? gender : "성별"}
                 >
                   <option value="성별">성별</option>
-                  <option value="men">Men</option>
-                  <option value="women">Women</option>
+                  <option value="man">Man</option>
+                  <option value="woman">Woman</option>
                 </select>
               </div>
               <div className="registered-modal-info-category">
