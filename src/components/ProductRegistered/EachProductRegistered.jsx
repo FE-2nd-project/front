@@ -1,7 +1,5 @@
 import React from "react";
 
-import cap from "../../assets/cap.png";
-
 const EachProductRegistered = ({
   setIsUpdate,
   productId,
