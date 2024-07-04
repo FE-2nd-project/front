@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Product.css';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Product.css";
+import styled from "styled-components";
 
 const ProductUnit = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ const ProductImg = styled.img`
 
 const ProductName = styled.div`
   color: black;
-  height: 80px;
+  height: 40px;
 `;
 
 const ProductPrice = styled.div`
@@ -39,14 +39,16 @@ const ImageWithFallback = ({ src, alt, fallbackSrc }) => {
 
 export function Product({ id, name, price, url }) {
   return (
-    
-      <ProductUnit>
-        <Link to = {`/product-detail/${id}`} className="productLink">
-          <ImageWithFallback src={url} alt="" fallbackSrc="/img_load_failed.png" />
-          <ProductName>{name}</ProductName>
-        </Link>
-        <ProductPrice>{price.toLocaleString()}</ProductPrice>
-      </ProductUnit>
-    
+    <ProductUnit>
+      <Link to={`/product-detail/${id}`} className="productLink">
+        <ImageWithFallback
+          src={url}
+          alt=""
+          fallbackSrc="/img_load_failed.png"
+        />
+        <ProductName>{name}</ProductName>
+      </Link>
+      <ProductPrice>{price.toLocaleString()}</ProductPrice>
+    </ProductUnit>
   );
 }
