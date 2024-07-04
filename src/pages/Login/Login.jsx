@@ -76,6 +76,7 @@ const Login = () => {
 
           dispatch(cartActions.setCartQuantity(cartQuantity));
           navigate("/");
+          window.scrollTo({ top: 0 });
         }
       })
       .catch((error) => {
@@ -134,7 +135,13 @@ const Login = () => {
           <div className="signup-text">
             회원 가입하고 1만 마일리지를 받으세요
           </div>
-          <button className="signup-button" onClick={() => navigate("/signup")}>
+          <button
+            className="signup-button"
+            onClick={() => {
+              navigate("/signup");
+              window.scrollTo({ top: 0 });
+            }}
+          >
             회원가입
           </button>
         </div>

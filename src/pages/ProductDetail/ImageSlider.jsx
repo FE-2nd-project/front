@@ -34,6 +34,18 @@ const ImageSlider = ({ images }) => {
 
   // const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
 
+  if (images.length === 1) {
+    return (
+      <div className="single-image-container">
+        <img
+          src={images[0]}
+          alt="Single"
+          style={{ width: "46rem", height: "500px", objectFit: "cover" }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="image-slider-container">
       <Slider {...settings} ref={sliderRef}>
@@ -42,7 +54,7 @@ const ImageSlider = ({ images }) => {
             <img
               src={img}
               alt={`Slide ${index}`}
-              style={{ width: "100%", height: "400px", objectFit: "cover" }}
+              style={{ width: "100%", height: "500px", objectFit: "cover" }}
             />
           </div>
         ))}

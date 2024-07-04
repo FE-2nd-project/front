@@ -112,6 +112,7 @@ const Signup = () => {
         if (response.status === 201) {
           console.log("서버에 회원가입 전송 성공:", response.data);
           navigate("/login");
+          window.scrollTo({ top: 0 });
         }
       })
       .catch((error) => {

@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const ProductUnit = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -14,17 +15,21 @@ const ProductUnit = styled.div`
 
 const ProductImg = styled.img`
   width: 100%;
+  height: 80%;
   aspect-ratio: 0.8;
 `;
 
 const ProductName = styled.div`
   color: black;
   height: 40px;
+  text-transform: capitalize;
+  margin-bottom: 0;
+  font-weight: 600;
 `;
 
 const ProductPrice = styled.div`
   text-align: end;
-  font-weight: 700;
+  font-weight: 500;
 `;
 
 const ImageWithFallback = ({ src, alt, fallbackSrc }) => {
@@ -48,7 +53,7 @@ export function Product({ id, name, price, url }) {
         />
         <ProductName>{name}</ProductName>
       </Link>
-      <ProductPrice>{price.toLocaleString()}</ProductPrice>
+      <ProductPrice>{price.toLocaleString()}원</ProductPrice>
     </ProductUnit>
   );
 }
