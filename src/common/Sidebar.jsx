@@ -69,7 +69,7 @@ const Sidebar = () => {
       <MenuSection>
         <MenuHeader>나의 활동정보</MenuHeader>
         <MenuItem {...getMenuItemProps("/mypage/wishlist")}>
-          위시리스트
+          장바구니 조회
         </MenuItem>
         <MenuItem {...getMenuItemProps("/mypage/register")}>
           판매 상품 등록
