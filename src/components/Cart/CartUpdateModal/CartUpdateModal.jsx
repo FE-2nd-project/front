@@ -88,7 +88,7 @@ const CartUpdateModal = ({
         <div className="update-left-container">
           <img
             className="update-product-image"
-            src={cap}
+            src={productPicture}
             alt="productPicture"
           />
         </div>

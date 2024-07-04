@@ -147,18 +147,18 @@ const RegisterPage = () => {
   const handlePriceChange = (e) => {
     let value = e.target.value;
     // Remove any non-numeric characters (except decimal point)
-    value = value.replace(/[^0-9.]/g, '');
+    value = value.replace(/[^0-9.]/g, "");
 
     // Convert the string to a number
     const numberValue = parseFloat(value);
 
     if (!isNaN(numberValue)) {
       // Format the number to the locale string
-      const formattedValue = numberValue.toLocaleString('en-US');
+      const formattedValue = numberValue.toLocaleString("en-US");
       setItemPrice(formattedValue);
     } else {
       // If the value is not a valid number, reset the state
-      setItemPrice('');
+      setItemPrice("");
     }
   };
 
@@ -222,7 +222,7 @@ const RegisterPage = () => {
     const salePostDto = {
       name: itemName,
       description: itemDesc,
-      price: Number(itemPrice.replace(/,/g, '')),
+      price: Number(itemPrice.replace(/,/g, "")),
       totalStock: totalStock,
       categoryGender: selectedGender,
       categoryKind: selectedCategory,
@@ -270,7 +270,7 @@ const RegisterPage = () => {
     const isItemNameValid = itemName !== "";
     const isItemDescValid = itemDesc !== "";
     const isItemPriceValid =
-      itemPrice !== "" && !isNaN(itemPrice) && Number(itemPrice) > 0;
+      itemPrice !== "" && Number(itemPrice.replace(/,/g, "")) > 0;
     const isRegisterDateValid = registerDate !== "";
     const isSellByDateValid = sellByDate !== "";
     const isImageUploaded = uploadImgs.length > 0;
@@ -310,7 +310,11 @@ const RegisterPage = () => {
                   <img src={URL.createObjectURL(img)} alt="" />
                   <button
                     type="button"
-                    style={{ background: 'black', color: 'white', borderRadius: '3px' }}
+                    style={{
+                      background: "black",
+                      color: "white",
+                      borderRadius: "3px",
+                    }}
                     onClick={() => removeImg(index)}
                   >
                     삭제
@@ -465,7 +469,11 @@ const RegisterPage = () => {
                   {sizeStockList.length > 1 ? (
                     <button
                       type="button"
-                      style={{ background: 'black', color: 'white', borderRadius: '3px' }}
+                      style={{
+                        background: "black",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
                       onClick={() => removeSizeStock(index)}
                     >
                       삭제

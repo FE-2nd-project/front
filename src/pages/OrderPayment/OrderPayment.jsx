@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import qs from "qs";
 import { OrderPaymentActions } from "../../store/reducer/OrderPayment-slice";
+import { cartActions } from "../../store/reducer/cart-slice";
 
 const OrderPayment = () => {
   const dispatch = useDispatch();
@@ -116,6 +117,7 @@ const OrderPayment = () => {
         const { message, orderId } = response.data;
         console.log("리스폰스데이터", response.data);
         dispatch(OrderPaymentActions.setOrderPaymentId(orderId));
+        dispatch(cartActions.setCartQuantity(0));
         console.log("오더아이디", orderId);
         navigate("/order-completed");
         window.scrollTo({ top: 0, behavior: "auto" });
@@ -254,7 +256,9 @@ const OrderPayment = () => {
                         <p>
                           {product.stockStatus === "outOfStock"
                             ? "재고부족"
-                            : `${product.unitPrice}`}
+                            : `${(
+                                product.unitPrice * product.quantity
+                              ).toLocaleString()} 원`}
                         </p>
                       </div>
                     </div>

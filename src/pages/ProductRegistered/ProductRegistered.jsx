@@ -10,6 +10,7 @@ import RegisteredUpdateModal from "../../components/ProductRegistered/Registered
 import EachProductRegistered from "../../components/ProductRegistered/EachProductRegistered";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductRegisteredData } from "../../store/reducer/productRegistered-slice";
+import EmptyRegistered from "../../components/ProductRegistered/EmptyRegistered/EmptyRegistered";
 
 const Breadcrumbs = styled.div`
   font-size: 0.9rem;
@@ -26,11 +27,6 @@ const ProductRegistered = () => {
 
   const productRegisteredData = useSelector(
     (state) => state.productRegistered.productRegisteredData
-  );
-
-  console.log(
-    "등록된 판매 물품 조회 페이지에서의 product registered data",
-    productRegisteredData
   );
 
   // productRegisteredData에서 현재 페이지의 인덱스 물품 보여주기
@@ -61,7 +57,6 @@ const ProductRegistered = () => {
 
   if (!accessToken) return null;
 
-  console.log("등록데이터들입니다", productRegisteredData);
   return (
     <>
       <div className="product-registered-page">
@@ -73,57 +68,61 @@ const ProductRegistered = () => {
             <Link to="/">HOME</Link> &gt; <Link to="/mypage">마이페이지</Link>{" "}
             &gt; 등록된 판매 상품 조회
           </Breadcrumbs>
-          <div className="product-registered">
-            <div className="registered-each-container">
-              <table className="registered-table">
-                <tr className="registered-table-title">
-                  <th className="table-title-number">번호</th>
-                  <th className="table-title-name">상품명</th>
-                  <th className="table-title-price">판매가</th>
-                  <th className="table-title-category">카테고리</th>
-                  <th className="table-title-option">옵션 및 수량</th>
-                  <th className="table-title-registered-date">상품 등록일</th>
-                  <th className="table-title-end-date">상품 마감일</th>
-                </tr>
-                {productRegisteredData &&
-                  currentPageProducts.map((eachProduct) => {
+          {productRegisteredData.length === 0 ? (
+            <EmptyRegistered />
+          ) : (
+            <div className="product-registered">
+              <div className="registered-each-container">
+                <table className="registered-table">
+                  <tr className="registered-table-title">
+                    <th className="table-title-number">번호</th>
+                    <th className="table-title-name">상품명</th>
+                    <th className="table-title-price">판매가</th>
+                    <th className="table-title-category">카테고리</th>
+                    <th className="table-title-option">옵션 및 수량</th>
+                    <th className="table-title-registered-date">상품 등록일</th>
+                    <th className="table-title-end-date">상품 마감일</th>
+                  </tr>
+                  {productRegisteredData &&
+                    currentPageProducts.map((eachProduct) => {
+                      return (
+                        <EachProductRegistered
+                          isUpdate={isUpdate}
+                          setIsUpdate={setIsUpdate}
+                          key={eachProduct.id}
+                          productId={eachProduct.id}
+                          productImage={eachProduct.firstImageUrl}
+                          productName={eachProduct.name}
+                          productPrice={eachProduct.price}
+                          genderCategory={eachProduct.categoryGender}
+                          shopCategory={eachProduct.categoryKind}
+                          sizes={eachProduct.itemSizes}
+                          registerDate={eachProduct.listedDate}
+                          sellByDate={eachProduct.endDate}
+                        />
+                      );
+                    })}
+                </table>
+                <div className="pagination">
+                  {Array.from({ length: totalPages }).map((_, index) => {
                     return (
-                      <EachProductRegistered
-                        isUpdate={isUpdate}
-                        setIsUpdate={setIsUpdate}
-                        key={eachProduct.id}
-                        productId={eachProduct.id}
-                        productImage={eachProduct.firstImageUrl}
-                        productName={eachProduct.name}
-                        productPrice={eachProduct.price}
-                        genderCategory={eachProduct.categoryGender}
-                        shopCategory={eachProduct.categoryKind}
-                        sizes={eachProduct.itemSizes}
-                        registerDate={eachProduct.listedDate}
-                        sellByDate={eachProduct.endDate}
-                      />
+                      <button
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={
+                          currentPage === index + 1
+                            ? "pagination-button-active"
+                            : "pagination-button"
+                        }
+                      >
+                        {index + 1}
+                      </button>
                     );
                   })}
-              </table>
-              <div className="pagination">
-                {Array.from({ length: totalPages }).map((_, index) => {
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handlePageChange(index + 1)}
-                      className={
-                        currentPage === index + 1
-                          ? "pagination-button-active"
-                          : "pagination-button"
-                      }
-                    >
-                      {index + 1}
-                    </button>
-                  );
-                })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

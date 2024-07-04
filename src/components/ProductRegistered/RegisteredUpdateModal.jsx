@@ -46,8 +46,6 @@ const RegisteredUpdateModal = ({
     productSizes
   );
 
-  console.log("이건 성별입니다~", gender);
-
   useEffect(() => {
     if (isUpdateModalOpen[productId]) {
       setImage(productImage);
@@ -108,16 +106,35 @@ const RegisteredUpdateModal = ({
     try {
       let updatedData;
 
+      // const updatedData = {
+      //   productId: productId,
+      //   productPrice: price,
+      //   genderCategory: gender.toLowerCase(),
+      //   shopCategory: product.toLowerCase(),
+      //   sizes: productSizes,
+      // };
+
+      // const updatedData = {
+      //   itemId: productId,
+      //   optionSize: productSizes[0]?.size,
+      //   newStock: productSizes[0]?.stock  0,
+      //   newPrice: productSizes[0]?.price  0
+      // };
+
       if (product.toLowerCase() === "bag") {
         updatedData = {
           itemId: productId,
           newStock: productSizes[0]?.stock,
+          newPrice: price,
+          categoryGender: gender,
         };
       } else {
         updatedData = {
           itemId: productId,
           optionSize: productSizes[0]?.size,
           newStock: productSizes[0]?.stock || 0,
+          newPrice: price,
+          categoryGender: gender,
         };
       }
       console.log("업데이트 할 데이터", updatedData);
@@ -179,7 +196,6 @@ const RegisteredUpdateModal = ({
                 <select
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
-                  //defaultValue={gender ? gender : "성별"}
                 >
                   <option value="성별">성별</option>
                   <option value="man">Man</option>
