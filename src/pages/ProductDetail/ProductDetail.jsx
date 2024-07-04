@@ -74,12 +74,23 @@ const ProductDetail = () => {
     const newSize = e.target.value;
     setSelectedSize(newSize);
     setQuantity(1);
+    const selectedOption = productData.size_options_with_stock.find((option) =>
+      option.startsWith(newSize)
+    );
+    if (selectedOption) {
+      const stock = parseInt(selectedOption.split(": ")[1], 10);
+      setMaxQuantity(stock);
+    }
   };
 
   const handleAddToBag = async () => {
     const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      navigate("/login");
+      return;
+    }
     const itemData = {
-      productId: productId,
+      itemId: productId,
       size: selectedSize,
       quantity,
     };

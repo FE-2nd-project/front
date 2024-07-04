@@ -29,18 +29,27 @@ const ItemForm = styled.form`
 const DetailInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
 `;
 
 const InputUnit = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  label {
+  label:nth-child(1) {
     font-size: 20px;
-    width: 150px; /* 필요에 따라 너비 조정 */
+    width: 150px;
     text-align: left;
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    white-space: nowrap;
+  }
+
+  label:nth-child(3) {
+    margin-left: -75px;
+    margin-right: 15px;
+    font-size: 20px;
+    width: 150px;
+    text-align: right;
+    white-space: nowrap;
   }
   input,
   select {
@@ -78,8 +87,6 @@ const Thumbnail = styled.div`
     top: 5px;
     right: 5px;
     font-size: 16px;
-    background-color: red;
-    color: white;
     border: none;
     cursor: pointer;
     padding: 5px;
@@ -91,6 +98,12 @@ const SubmitButton = styled.button`
   padding: 5px 10px;
   cursor: pointer;
   margin-top: 10px;
+  width: 15%;
+  background: black;
+  color: white;
+  align-self: center;
+  border-radius: 5px;
+  margin-left: 50px;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -100,8 +113,13 @@ const SubmitButton = styled.button`
 const AddSizeButton = styled.button`
   font-size: 20px;
   padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  background: black;
+  color: white;
+  width: 10%;
+  margin-left: 50px;
+  align-self: center;
 `;
 
 const RegisterPage = () => {
@@ -123,6 +141,24 @@ const RegisterPage = () => {
       alert("이미지는 3개까지 등록 가능합니다.");
     } else {
       uploadRef.current.click();
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    let value = e.target.value;
+    // Remove any non-numeric characters (except decimal point)
+    value = value.replace(/[^0-9.]/g, "");
+
+    // Convert the string to a number
+    const numberValue = parseFloat(value);
+
+    if (!isNaN(numberValue)) {
+      // Format the number to the locale string
+      const formattedValue = numberValue.toLocaleString("en-US");
+      setItemPrice(formattedValue);
+    } else {
+      // If the value is not a valid number, reset the state
+      setItemPrice("");
     }
   };
 
@@ -186,7 +222,7 @@ const RegisterPage = () => {
     const salePostDto = {
       name: itemName,
       description: itemDesc,
-      price: Number(itemPrice),
+      price: Number(itemPrice.replace(/,/g, "")),
       totalStock: totalStock,
       categoryGender: selectedGender,
       categoryKind: selectedCategory,
@@ -234,7 +270,7 @@ const RegisterPage = () => {
     const isItemNameValid = itemName !== "";
     const isItemDescValid = itemDesc !== "";
     const isItemPriceValid =
-      itemPrice !== "" && !isNaN(itemPrice) && Number(itemPrice) > 0;
+      itemPrice !== "" && Number(itemPrice.replace(/,/g, "")) > 0;
     const isRegisterDateValid = registerDate !== "";
     const isSellByDateValid = sellByDate !== "";
     const isImageUploaded = uploadImgs.length > 0;
@@ -272,7 +308,15 @@ const RegisterPage = () => {
               {uploadImgs.map((img, index) => (
                 <li key={index}>
                   <img src={URL.createObjectURL(img)} alt="" />
-                  <button type="button" onClick={() => removeImg(index)}>
+                  <button
+                    type="button"
+                    style={{
+                      background: "black",
+                      color: "white",
+                      borderRadius: "3px",
+                    }}
+                    onClick={() => removeImg(index)}
+                  >
                     삭제
                   </button>
                 </li>
@@ -425,6 +469,11 @@ const RegisterPage = () => {
                   {sizeStockList.length > 1 ? (
                     <button
                       type="button"
+                      style={{
+                        background: "black",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
                       onClick={() => removeSizeStock(index)}
                     >
                       삭제
@@ -485,9 +534,9 @@ const RegisterPage = () => {
             <input
               type="text"
               id="itemPrice"
-              placeholder="상품 가격"
+              placeholder="상품 가격 (원)"
               value={itemPrice}
-              onChange={(e) => setItemPrice(e.target.value)}
+              onChange={handlePriceChange}
             />
           </InputUnit>
 
@@ -511,7 +560,6 @@ const RegisterPage = () => {
             />
           </InputUnit>
         </DetailInfo>
-        {/* <SubmitButton >등록하기</SubmitButton> */}
         <SubmitButton disabled={!isFormValid()}>등록하기</SubmitButton>
       </ItemForm>
     </RegisterPageContainer>
