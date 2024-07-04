@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
-import { Product } from './Product';
+import { Product } from '../Product/Product';
+import { useNavigate } from 'react-router-dom';
 
 const SlideContainer = styled.div`
   width: 100%;
@@ -72,7 +73,17 @@ const RightButton = styled(SlArrowRight)`
   z-index: 1;
 `;
 
+const ViewAllButton = styled.button`
+  width: 7%;
+  align-self: center;
+  border: 1.5px solid rgb(232, 232, 232);
+  border-radius: 10px;
+  background: white;
+  padding: 10px 0;
+`;
+
 export function MDPICKSlider() {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slides = [
@@ -95,9 +106,9 @@ export function MDPICKSlider() {
         },
         {
           id: 3,
-          name: '하트 로고 반팔 데님셔츠 뉴욕양키스',
-          price: 139000,
-          url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24F3ATSV034450BKS/thnail/003E33A99D7442FF843084080CB6F0D3.png',
+          name: '하트 스몰로고 오버핏 반팔 티셔츠 뉴욕양키스',
+          price: 59000,
+          url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=498,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24S3ATSH014350BKS/thnail/DC34EBD698724A819656B2C7D4C4CCE7.png',
         },
       ],
     },
@@ -209,6 +220,7 @@ export function MDPICKSlider() {
                 <Product id={data.id} name={data.name} price={data.price} url={data.url} />
               ))}
           </SlideContents>
+          <ViewAllButton onClick={() => navigate(`/product/${content.title}`)}> 전체보기 </ViewAllButton>
         </Slide>
       ))}
     </SlideContainer>

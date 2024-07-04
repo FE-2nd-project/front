@@ -1,4 +1,13 @@
 .productPage {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 60px;
+  gap: 20px;
+}
+
+.title{
+  font-size: 32px;
+  font-weight: 500;
 }
 
 .productList{
@@ -6,9 +15,8 @@
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
   max-width: 100%;
-  padding: 0px 45px;
   column-gap: 10px;
-  row-gap: 45px;
+  row-gap: 15px;
 }
 
 .productPage img {

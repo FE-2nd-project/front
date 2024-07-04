@@ -71,6 +71,9 @@ const Sidebar = () => {
         <MenuItem {...getMenuItemProps("/mypage/wishlist")}>
           위시리스트
         </MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/register")}>
+          판매 상품 등록
+        </MenuItem>
         <MenuItem {...getMenuItemProps("/mypage/product-registered")}>
           등록된 판매 상품 조회
         </MenuItem>
