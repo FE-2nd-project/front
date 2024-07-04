@@ -65,10 +65,10 @@ export function Pagination({ page, setPage, totalPages, size, setSize }) {
         Next
       </PageButton>
       <SizeSelector value={size} onChange={handleSizeChange}>
-        <option value={8}>8</option>
-        <option value={16}>16</option>
-        <option value={24}>24</option>
-        <option value={32}>32</option>
+        <option value={10}>10</option>
+        <option value={20}>20</option>
+        <option value={30}>30</option>
+        <option value={40}>40</option>
       </SizeSelector>
       <PageInfo>개 씩 보기</PageInfo>
     </PaginationContainer>

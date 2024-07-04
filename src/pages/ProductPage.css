@@ -8,11 +8,12 @@
 .title{
   font-size: 32px;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .productList{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   width: 100%;
   max-width: 100%;
   column-gap: 10px;
