@@ -34,17 +34,21 @@ const DetailInfo = styled.div`
 const InputUnit = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
   label {
     font-size: 20px;
-    width: 250px;
+    width: 150px; /* 필요에 따라 너비 조정 */
+    text-align: left;
+    white-space: nowrap; /* 줄 바꿈 방지 */
   }
-  input {
-    font-size: 20px;
-  }
+  input,
   select {
+    flex: 1; /* 남은 공간 모두 차지 */
     font-size: 20px;
+    padding: 5px;
   }
 `;
+
 
 const Thumbnail = styled.div`
   position: relative;

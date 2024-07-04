@@ -23,7 +23,7 @@ const SliderItem = styled.div`
   text-align: center;
 `;
 const LeftButton = styled.button`
-  background-color: #007bff;
+  background-color: black;
   border: none;
   color: white;
   padding: 10px;
@@ -37,7 +37,7 @@ const LeftButton = styled.button`
   z-index: 1;
 `;
 const RightButton = styled.button`
-  background-color: #007bff;
+  background-color: black;
   border: none;
   color: white;
   padding: 10px;
