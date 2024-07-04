@@ -113,7 +113,7 @@ const Wishlist = () => {
         <MainContent>
           <Breadcrumbs>
             <Link to="/">HOME</Link> &gt; <Link to="/mypage">마이페이지</Link>{" "}
-            &gt; 위시리스트
+            &gt; 장바구니 조회
           </Breadcrumbs>
           <TitleContainer>
             <Title>총 {items.length}건의 내역</Title>
