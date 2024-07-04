@@ -270,7 +270,7 @@ const RegisterPage = () => {
     const isItemNameValid = itemName !== "";
     const isItemDescValid = itemDesc !== "";
     const isItemPriceValid =
-      itemPrice !== "" && !isNaN(itemPrice) && Number(itemPrice) > 0;
+      itemPrice !== ""  && Number(itemPrice.replace(/,/g, '')) > 0;
     const isRegisterDateValid = registerDate !== "";
     const isSellByDateValid = sellByDate !== "";
     const isImageUploaded = uploadImgs.length > 0;
