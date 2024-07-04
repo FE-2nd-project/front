@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Cookies from "js-cookie";
+// import Cookie from "js-cookie"
 
 import "./Login.css";
 import show from "../../assets/show-password.png";
@@ -20,8 +20,6 @@ const Login = () => {
 
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-
-  const cartQuantity = useSelector((state) => state.cart.cartQuantity);
 
   const inputChangeHandler = (e, setInput) => {
     const changedInput = e.target.value;
@@ -65,15 +63,15 @@ const Login = () => {
       .then((response) => {
         const { token, cartQuantity } = response.data;
         const accessToken = token.accessToken;
-        const refreshToken = token.refreshToken;
 
         if (response.status === 200) {
           localStorage.setItem("accessToken", accessToken);
-          Cookies.set("refreshToken", refreshToken, {
-            expires: 7,
-            path: "/",
-          });
 
+          // 쿠키
+          // Cookies.set("refreshToken", refreshToken, {
+          //   expires: 7,
+          //   path: "/",
+          // });
           // axios.defaults.withCredentials = true; //모든 요청에 쿠키를 담아 보내기
 
           dispatch(cartActions.setCartQuantity(cartQuantity));

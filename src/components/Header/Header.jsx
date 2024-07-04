@@ -154,7 +154,7 @@ const Header = () => {
         </div>
         <div className="nav-bottom">
           <NavLink
-            to="/product/all"
+            to="/product/ALL"
             className={({ isActive }) =>
               isActive ? "active nav-all" : "nav-all"
             }

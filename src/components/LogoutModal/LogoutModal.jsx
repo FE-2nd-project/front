@@ -15,37 +15,37 @@ const LogoutModal = ({ isLogoutClicked, setIsLogoutClicked }) => {
   const logoutConfirmHandler = (e) => {
     e.preventDefault();
 
-    const accessToken = localStorage.getItem("accessToken");
+    localStorage.removeItem("accessToken");
+    navigate("/");
+    setIsLogoutClicked(false);
 
-    // localStorage.removeItem("accessToken");
-    // navigate("/");
-    // setIsLogoutClicked(false);
+    // const accessToken = localStorage.getItem("accessToken");
 
     // 실제 로그아웃 axios 로직
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
 
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          localStorage.removeItem("accessToken");
-          Cookies.remove("refreshToken");
+    // axios
+    //   .post(
+    //     `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       localStorage.removeItem("accessToken");
+    //       Cookies.remove("refreshToken");
 
-          setIsLogoutClicked(false);
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error, "로그아웃 요청 실패");
-      });
+    //       setIsLogoutClicked(false);
+    //       navigate("/");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error, "로그아웃 요청 실패");
+    //   });
   };
 
   if (!isLogoutClicked) return null;

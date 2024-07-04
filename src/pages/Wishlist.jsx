@@ -1,9 +1,9 @@
-// Wishlist.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
 import WishlistItem from "../components/MyPage/WishlistItem";
+import axios from "axios";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -73,48 +73,28 @@ const WishlistMessage = styled.div`
 `;
 
 const Wishlist = () => {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      price: "36,000",
-      sizes: ["M"],
-      quantity: 2,
-    },
-    {
-      id: 2,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      price: "36,000",
-      sizes: ["L"],
-      quantity: 1,
-    },
-    {
-      id: 3,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      price: "36,000",
-      sizes: ["S", "M"],
-      quantity: 3,
-    },
-    {
-      id: 4,
-      image: "https://via.placeholder.com/200",
-      title: "루키 언스트럭처 블캡 LAC다저스",
-      price: "36,000",
-      sizes: ["L", "XL"],
-      quantity: 1,
-    },
-    {
-      id: 5,
-      image: "https://via.placeholder.com/200",
-      title: "N-COVER 언스트럭처 캡",
-      price: "36,000",
-      sizes: ["S"],
-      quantity: 2,
-    },
-  ]);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/mypage/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setItems(response.data.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the wishlist data!", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const handleRemoveAll = () => {
     setItems([]);
@@ -134,14 +114,18 @@ const Wishlist = () => {
             <RemoveAll onClick={handleRemoveAll}>전체삭제</RemoveAll>
           </TitleContainer>
           <WishlistContainer>
-            {items.length === 0 ? (
+            {loading ? (
+              <WishlistMessage>로딩 중...</WishlistMessage>
+            ) : items.length === 0 ? (
               <WishlistMessage>
                 보관한 위시리스트가 없습니다
                 <br />
                 추천 상품을 둘러보세요
               </WishlistMessage>
             ) : (
-              items.map((item) => <WishlistItem key={item.id} item={item} />)
+              items.map((item, index) => (
+                <WishlistItem key={index} item={item} />
+              ))
             )}
           </WishlistContainer>
         </MainContent>

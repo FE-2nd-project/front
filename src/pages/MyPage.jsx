@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../common/Sidebar";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "../store/reducer/userSlice";
+import proflie_Image from "../assets/proflie_Image.png";
 
 const PageContainer = styled.div`
   width: 90%;
@@ -135,37 +137,16 @@ const Breadcrumb = styled.div`
 `;
 
 function MyPage() {
-  const [user, setUser] = useState({
-    name: "",
-    phone_num: "",
-    email: "",
-    address: "",
-    profile_picture_url: "",
-    shopping_pay: 0,
-    about_me: "",
-  });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const token = localStorage.getItem("accessToken");
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const token =
-  //         "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb21pbnN1QGV4YW1wbGUzLmNvbSIsInRva2VuVHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6NiwiaWF0IjoxNzE5OTI4OTE0LCJleHAiOjE3MTk5Mjk1MTR9.vTBNXhYm_ORNbwiAcixxxSzA1Lx6P44SJu6yo2YGT6YzPwurCdsLJqCAYpjM48xNL3fsnCY3rwHYScKegqb6kA";
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_URL}/api/mypage/user`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setUser(response.data.data.mypageUserInfos[0]);
-  //     } catch (error) {
-  //       console.error("There was an error fetching the user data!", error);
-  //     }
-  //   };
-
-  //   fetchUserData();
-  // }, []);
+  // 토큰이 있으면 사용자 데이터를 가져오는 useEffect 훅
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchUserData(token));
+    }
+  }, [dispatch, token]);
 
   return (
     <PageContainer>
@@ -178,7 +159,10 @@ function MyPage() {
           <UserPreview>
             <UserInfo>
               <UserProfile>
-                <ProfileImage src={user.profile_picture_url} alt="Profile" />
+                <ProfileImage
+                  src={user.profile_picture_url || proflie_Image}
+                  alt="Profile"
+                />
                 <UserName>
                   <div>{user.name} 님</div>
                   <span>회원등급/혜택 보기 &gt;</span>

@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsImages } from 'react-icons/bs';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-const RegisterPageContainer = styled.form`
+const RegisterPageContainer = styled.div`
   width: 100%;
-  padding: 15px 100px;
+  padding: 0 100px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -99,10 +101,25 @@ const AddSizeButton = styled.button`
 `;
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const accessToken = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    if (!accessToken) {
+      alert('로그인을 먼저 해주십시오.');
+      navigate('/login');
+    }
+  }, [dispatch]);
+
   const uploadRef = useRef();
 
   const handleUploadImg = () => {
-    uploadRef.current.click();
+    if (uploadImgs.length >= 3) {
+      alert('이미지는 3개까지 등록 가능합니다.');
+    } else {
+      uploadRef.current.click();
+    }
   };
 
   const [uploadImgs, setUploadImgs] = useState([]);
@@ -115,9 +132,16 @@ const RegisterPage = () => {
   const [itemPrice, setItemPrice] = useState('');
   const [registerDate, setRegisterDate] = useState('');
   const [sellByDate, setSellByDate] = useState('');
+  const [totalStock, setTotalStock] = useState(0);
 
   const updateImgs = (event) => {
     const imgs = Array.from(event.target.files);
+    const currentImgCnt = uploadImgs.length;
+    const addImgCnt = imgs.length;
+    if (currentImgCnt + addImgCnt > 3) {
+      alert('이미지는 3개까지 등록 가능합니다.');
+      return;
+    }
     console.log(imgs);
     setUploadImgs((prev) => [...prev, ...imgs]);
   };
@@ -130,37 +154,57 @@ const RegisterPage = () => {
     setSizeStockList((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const registerItem = async (event) => {
-    event.preventDefault();
+  const validateFileSize = (file) => {
+    const maxSize = 1 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
+      return false;
+    }
+    return true;
+  };
+
+  const registerItem = (e) => {
+    e.preventDefault();
+
+    uploadImgs.forEach((img) => {
+      if (!validateFileSize(img)) {
+        return;
+      }
+    });
 
     const formData = new FormData();
+
     uploadImgs.forEach((img, index) => {
-      formData.append(`image-${index}`, img);
-    });
-    formData.append('name', itemName);
-    formData.append('description', itemDesc);
-    formData.append('gender', selectedGender);
-    formData.append('category', selectedCategory);
-    formData.append('price', itemPrice);
-    formData.append('registerDate', registerDate);
-    formData.append('sellByDate', sellByDate);
-
-    sizeStockList.forEach((item, index) => {
-      formData.append(`sizes[${index}][size]`, item.size);
-      formData.append(`sizes[${index}][stock]`, item.stock);
+      formData.append('images', img); // images라는 키로 이미지 파일 추가
     });
 
-    try {
-      const response = await axios.post('/api/product/add', formData);
+    const salePostDto = {
+      name: itemName,
+      description: itemDesc,
+      price: Number(itemPrice),
+      totalStock: totalStock,
+      categoryGender: selectedGender,
+      categoryKind: selectedCategory,
+      listedDate: registerDate,
+      endDate: sellByDate,
+      itemSizes: sizeStockList.map((item) => ({ size: item.size, stock: Number(item.stock) })),
+    };
 
-      if (response.ok) {
-        console.log('Item registered successfully!');
-      } else {
-        console.error('Failed to register item');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    formData.append('salePostDto', JSON.stringify(salePostDto));
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/sale/add`, formData, {
+        headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Item registered successfully!');
+        } else {
+          console.error('Failed to register item');
+        }
+      })
+      .catch((error) => console.error('Error:', error));
   };
 
   const isFormValid = () => {
@@ -417,6 +461,7 @@ const RegisterPage = () => {
             <input type="date" id="sellByDate" value={sellByDate} onChange={(e) => setSellByDate(e.target.value)} />
           </InputUnit>
         </DetailInfo>
+        {/* <SubmitButton >등록하기</SubmitButton> */}
         <SubmitButton disabled={!isFormValid()}>등록하기</SubmitButton>
       </ItemForm>
     </RegisterPageContainer>

@@ -85,6 +85,14 @@ const Signup = () => {
       return;
     }
 
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
+
+    if (profilePicture && !validateFileSize(profilePicture)) {
+      return;
+    }
+
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);

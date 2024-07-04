@@ -29,7 +29,7 @@ const Withdrawal = () => {
     e.preventDefault();
 
     //임시의 비밀번호 확인 성공 로직
-    setIsPasswordValidated(true);
+    // setIsPasswordValidated(true);
 
     // 실제 회원탈퇴 비밀번호 확인 axios 요청 로직
     // const accessToken = localStorage.getItem("accessToken");
@@ -67,7 +67,7 @@ const Withdrawal = () => {
           <Link to="/">HOME</Link> &gt; <Link to="/mypage">마이페이지</Link>{" "}
           &gt; 회원탈퇴
         </Breadcrumbs>
-        {!isPasswordValidated && (
+        {/* {!isPasswordValidated && (
           <div className="withdrawal">
             <div className="password-check-statement">
               회원님의 개인정보를 안전하게 보호하기 위해 비밀번호를 다시 한번
@@ -96,8 +96,8 @@ const Withdrawal = () => {
               확인
             </button>
           </div>
-        )}
-        {isPasswordValidated && <WithdrawalCheck />}
+        )} */}
+        <WithdrawalCheck />
       </div>
     </div>
   );

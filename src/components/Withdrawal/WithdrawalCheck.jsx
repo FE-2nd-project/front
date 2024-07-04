@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+// import Cookies from "js-cookie";
+
 import "./WithdrawalCheck.css";
 import explanationMark from "../../assets/explanation-mark.png";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +9,7 @@ import axios from "axios";
 
 const WithdrawalCheck = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -22,33 +25,29 @@ const WithdrawalCheck = () => {
       return;
     }
 
-    //임시의 회원 탈퇴 요청 성공 시, 로직
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("email");
-    navigate("/");
-
     // 실제 회원 탈퇴 요청의 axios 로직
-    // const accessToken = localStorage.getItem("accessToken");
-    // axios
-    //   .patch(
-    // `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       localStorage.removeItem("accessToken");
-    //       localStorage.removeItem("email");
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error, "회원 탈퇴 요청 실패");
-    //   });
+    axios
+      .patch(
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/delete_user`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.removeItem("accessToken");
+          // Cookies.remove("refreshToken");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error, "회원 탈퇴 요청 실패");
+      });
+
+    if (!accessToken) return null;
   };
   return (
     <div className="withdrawal-check-container">
@@ -77,6 +76,14 @@ const WithdrawalCheck = () => {
             계정으로 재가입하셔도 복구되지 않습니다!
           </div>
         </div>
+        <div className="third-check-statement">
+          <img
+            className="explanation-mark"
+            src={explanationMark}
+            alt="explanation-mark"
+          />
+          <div>회원 탈퇴 버튼을 누르시는 즉시, 로그아웃 됩니다.</div>
+        </div>
       </div>
       <div className="withdraw-checkbox-container">
         <input
@@ -93,7 +100,7 @@ const WithdrawalCheck = () => {
       <div className="withdraw-buttons">
         <button
           className="withdraw-cancel-button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/mypage")}
         >
           취소
         </button>
