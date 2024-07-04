@@ -112,12 +112,13 @@ const Signup = () => {
         if (response.status === 201) {
           console.log("서버에 회원가입 전송 성공:", response.data);
           navigate("/login");
-        } else if (response.data.message === "이미 존재하는 회원입니다.") {
-          alert(response.data.message);
         }
       })
       .catch((error) => {
         console.error("서버에 회원가입 전송 실패:", error);
+        if (error.response.status === 400) {
+          alert("이미 존재하는 회원입니다.");
+        }
       });
   };
 

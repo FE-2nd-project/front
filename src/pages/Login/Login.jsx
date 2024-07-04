@@ -76,12 +76,15 @@ const Login = () => {
 
           dispatch(cartActions.setCartQuantity(cartQuantity));
           navigate("/");
-        } else {
-          alert("이메일이나 패스워드가 일치하지 않습니다.");
         }
       })
       .catch((error) => {
         console.error(error, "서버에 로그인 요청 실패");
+        if (error.response.status === 401) {
+          alert("이미 탈퇴한 회원입니다.");
+        } else {
+          alert("이메일이나 패스워드가 일치하지 않습니다.");
+        }
       });
   };
 
