@@ -41,12 +41,12 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "/product-detail",
+        path: "/product-detail/:productId",
         element: <ProductDetail />,
       },
       {
         path: "/product/:category",
-        element: <ProductPage/>,
+        element: <ProductPage />,
       },
       {
         path: "/mypage/register",

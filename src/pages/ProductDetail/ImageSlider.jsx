@@ -39,7 +39,11 @@ const ImageSlider = ({ images }) => {
       <Slider {...settings} ref={sliderRef}>
         {images.map((img, index) => (
           <div key={index} className="slide">
-            <img src={img} alt={`Slide ${index}`} />
+            <img
+              src={img}
+              alt={`Slide ${index}`}
+              style={{ width: "100%", height: "400px", objectFit: "cover" }}
+            />
           </div>
         ))}
       </Slider>
