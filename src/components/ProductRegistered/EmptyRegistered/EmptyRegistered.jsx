@@ -14,7 +14,10 @@ const EmptyRegistered = () => {
       <div className="empty-statement">등록한 판매 상품이 없습니다.</div>
       <button
         className="empty-continue-button"
-        onClick={() => navigate("/mypage/register")}
+        onClick={() => {
+          navigate("/mypage/register");
+          window.scrollTo({ top: 0 });
+        }}
       >
         상품 판매 등록
       </button>
