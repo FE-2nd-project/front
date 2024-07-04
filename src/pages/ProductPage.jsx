@@ -15,7 +15,7 @@ const ProductPage = () => {
   const categoryName = extractCategoryFromPath(location.pathname);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(8); // 한 페이지에 표시할 아이템 수
+  const [size, setSize] = useState(10); // 한 페이지에 표시할 아이템 수
   const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
 
   useEffect(() => {
