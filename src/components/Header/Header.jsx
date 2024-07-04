@@ -162,20 +162,20 @@ const Header = () => {
             ALL
           </NavLink>
           <NavLink
-            to="/product/women"
+            to="/product/woman"
             className={({ isActive }) =>
               isActive ? "active nav-women" : "nav-women"
             }
           >
-            WOMEN
+            WOMAN
           </NavLink>
           <NavLink
-            to="/product/men"
+            to="/product/man"
             className={({ isActive }) =>
               isActive ? "active nav-men" : "nav-men"
             }
           >
-            MEN
+            MAN
           </NavLink>
           <NavLink
             to="/product/apparel"
