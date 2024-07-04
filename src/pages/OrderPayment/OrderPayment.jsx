@@ -43,9 +43,6 @@ const OrderPayment = () => {
             params: {
               cartItemId: cartItemIds,
             },
-            // paramsSerializer: (params) => {
-            //   return qs.stringify(params, { arrayFormat: "repeat" });
-            // },
             paramsSerializer: (params) => {
               const serializedParams = qs.stringify(params, {
                 arrayFormat: "repeat",
@@ -88,6 +85,7 @@ const OrderPayment = () => {
     size: cartProduct.itemSize,
     quantity: cartProduct.itemQuantity,
     unitPrice: cartProduct.itemPrice,
+    stockStatus: cartProduct.stockStatus || "available",
   }));
 
   //Post요청
@@ -143,19 +141,23 @@ const OrderPayment = () => {
 
   const updateProductsStock = (itemSizeId, quantity) => {
     const updatedProducts = cartProducts.map((product) => {
-      if (product.itemSizeId === itemSizeId) {
-        const updatedQuantity = product.quantity - quantity;
-        const newQuantity = updatedQuantity >= 0 ? updatedQuantity : 0;
+      if (
+        product.itemSizeId === itemSizeId &&
+        product.itemQuantity > quantity
+      ) {
+        // const updatedQuantity = product.itemQuantity - quantity;
+        const newQuantity = 0;
+        const stockStatus = newQuantity > 0 ? "available" : "outOfStock";
 
         return {
           ...product,
-          quantity: updatedQuantity,
-          orderStatus: newQuantity > 0 ? product.orderStatus : "주문불가",
+          itemQuantity: newQuantity,
+          stockStatus,
         };
       }
       return product;
     });
-    console.log("에러속에서", updatedProducts);
+    console.log("재고없을때 업데이트되어야하는물품", updatedProducts);
     setCartProducts(updatedProducts);
   };
 
@@ -173,7 +175,6 @@ const OrderPayment = () => {
                 <input
                   type="text"
                   name="name"
-                  //defaultValue="홍길동"
                   defaultValue={customerInfo.username || ""}
                   required
                 />
@@ -183,7 +184,6 @@ const OrderPayment = () => {
                 <input
                   type="tel"
                   name="phone"
-                  //defaultValue="010-1234-5678"
                   defaultValue={customerInfo.phoneNumber || ""}
                 />
               </div>
@@ -192,7 +192,6 @@ const OrderPayment = () => {
                 <input
                   type="email"
                   name="email"
-                  //defaultValue="example@example.com"
                   defaultValue={customerInfo.email || ""}
                   required
                 />
@@ -208,7 +207,6 @@ const OrderPayment = () => {
                 <input
                   type="text"
                   name="address"
-                  //defaultValue="서울특별시 oo구"
                   defaultValue={customerInfo.address || ""}
                   required
                 />
@@ -254,9 +252,8 @@ const OrderPayment = () => {
                           </p>
                         </div>
                         <p>
-                          {product.orderStatus === "주문불가" &&
-                          isNaN(product.quantity)
-                            ? "주문불가"
+                          {product.stockStatus === "outOfStock"
+                            ? "재고부족"
                             : `${product.unitPrice}`}
                         </p>
                       </div>

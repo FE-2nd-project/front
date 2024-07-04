@@ -5,6 +5,7 @@ import "./RegisteredUpdateModal.css";
 import cap from "../../assets/cap.png";
 import exit from "../../assets/exit.png";
 import axios from "axios";
+import { productRegisteredActions } from "../../store/reducer/productRegistered-slice";
 
 const genders = ["Men", "Women"];
 const products = ["Apparel", "Cap", "Shoes", "Bag"];
@@ -15,9 +16,7 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
     (state) => state.productRegistered.productRegisteredData
   );
 
-  const [price, setPrice] = useState(
-    productRegisteredData.productPrice || "40,000"
-  );
+  const [price, setPrice] = useState(productRegisteredData.productPrice || 0);
   const [gender, setGender] = useState(
     productRegisteredData.genderCategory || "Women"
   );
@@ -32,20 +31,6 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
     ]
   );
   const [quantity, setQuantity] = useState(productRegisteredData.quantity || 0);
-
-  // const [price, setPrice] = useState("40,000");
-  // const [gender, setGender] = useState("Women");
-  // const [product, setProduct] = useState("Bag");
-  // const [sizes, setSizes] = useState([
-  //   { size: "Small", quantity: 0 },
-  //   { size: "Medium", quantity: 20 },
-  //   { size: "Large", quantity: 130 },
-  // ]);
-  // const [quantity, setQuantity] = useState(0); // Bag의 경우
-
-  // const handleQuantityChange = (value) => {
-  //   setQuantity(value);
-  // };
 
   if (!isUpdate) return null;
 
@@ -100,7 +85,10 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
         productPrice: price,
         genderCategory: gender.toLowerCase(),
         shopCategory: product.toLowerCase(),
-        sizes: sizes.filter((size) => size.stock > 0),
+        sizes: sizes.filter((size) => size.quantity > 0),
+        // sizes: product !== "Bag" && product !== "Cap"
+        // ? sizes.filter((size) => size.quantity > 0)
+        // : [{ size: "OneSize", quantity: parseInt(quantity) }],
       };
       const response = await axios.put(
         `${process.env.REACT_APP_SERVER_URL}/api/sale/update-stock`,
@@ -112,8 +100,9 @@ const RegisteredUpdateModal = ({ isUpdate, setIsUpdate }) => {
         }
       );
       if (response.status === 200) {
-        //dispatch(updateProductRegistered(updatedData));
+        dispatch(productRegisteredActions.updateProductRegistered(updatedData));
         setIsUpdate(false);
+        console.log("상품업데이트 성공");
       } else {
         console.error("상품 업데이트 실패");
       }
