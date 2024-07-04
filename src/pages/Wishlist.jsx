@@ -75,6 +75,7 @@ const WishlistMessage = styled.div`
 const Wishlist = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -86,10 +87,15 @@ const Wishlist = () => {
         },
       })
       .then((response) => {
-        setItems(response.data.data);
+        if (response.data.data) {
+          setItems(response.data.data);
+        } else {
+          setError("No cart items found");
+        }
       })
       .catch((error) => {
         console.error("There was an error fetching the wishlist data!", error);
+        setError("There was an error fetching the wishlist data!");
       })
       .finally(() => {
         setLoading(false);
@@ -116,6 +122,8 @@ const Wishlist = () => {
           <WishlistContainer>
             {loading ? (
               <WishlistMessage>로딩 중...</WishlistMessage>
+            ) : error ? (
+              <WishlistMessage>{error}</WishlistMessage>
             ) : items.length === 0 ? (
               <WishlistMessage>
                 보관한 위시리스트가 없습니다

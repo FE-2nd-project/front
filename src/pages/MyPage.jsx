@@ -136,6 +136,16 @@ const Breadcrumb = styled.div`
   margin-bottom: 1rem;
 `;
 
+const formatPhoneNumber = (phoneNumber) => {
+  if (!phoneNumber) return "";
+  const phoneRegex = /(\d{3})(\d{4})(\d{4})/;
+  const match = phoneNumber.match(phoneRegex);
+  if (match) {
+    return `${match[1]}-${match[2]}-${match[3]}`;
+  }
+  return phoneNumber;
+};
+
 function MyPage() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -194,7 +204,7 @@ function MyPage() {
             </UserInfoRow>
             <UserInfoRow>
               <UserInfoLabel>연락처</UserInfoLabel>
-              <UserInfoValue>{user.phone_num}</UserInfoValue>
+              <UserInfoValue>{formatPhoneNumber(user.phone_num)}</UserInfoValue>
             </UserInfoRow>
             <UserInfoRow>
               <UserInfoLabel>이메일</UserInfoLabel>
@@ -203,10 +213,6 @@ function MyPage() {
             <UserInfoRow>
               <UserInfoLabel>주소</UserInfoLabel>
               <UserInfoValue>{user.address}</UserInfoValue>
-            </UserInfoRow>
-            <UserInfoRow>
-              <UserInfoLabel>소개글</UserInfoLabel>
-              <UserInfoValue>{user.about_me}</UserInfoValue>
             </UserInfoRow>
           </UserInfoContainer>
         </MainContent>
