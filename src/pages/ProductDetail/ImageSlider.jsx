@@ -6,8 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 import prevIcon from "./chevron-left.svg";
 import NextIcon from "./chevron-right.svg";
 
-const ImageSlider = () => {
+const ImageSlider = ({ images }) => {
   const sliderRef = React.useRef(null);
+  if (!Array.isArray(images)) {
+    // Handle the case where images is not an array (e.g., convert or display an error)
+    console.error("`images` prop is not an array:", images);
+    return null; // or handle error state
+  }
 
   const settings = {
     dots: true,
@@ -27,14 +32,30 @@ const ImageSlider = () => {
     sliderRef.current.slickPrev();
   };
 
-  const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
+  // const images = ["/hat.jpg", "/hat.jpg", "/hat.jpg"];
+
+  if (images.length === 1) {
+    return (
+      <div className="single-image-container">
+        <img
+          src={images[0]}
+          alt="Single"
+          style={{ width: "46rem", height: "500px", objectFit: "cover" }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="image-slider-container">
       <Slider {...settings} ref={sliderRef}>
         {images.map((img, index) => (
           <div key={index} className="slide">
-            <img src={img} alt={`Slide ${index}`} />
+            <img
+              src={img}
+              alt={`Slide ${index}`}
+              style={{ width: "100%", height: "500px", objectFit: "cover" }}
+            />
           </div>
         ))}
       </Slider>

@@ -4,6 +4,7 @@
   padding: 0.3% 2% 1% 3%;
   background-color: white;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .mlb-icon {
@@ -24,9 +25,32 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 10%;
+  width: 12%;
   height: 40%;
   margin-right: 10%;
+  gap: 2rem;
+}
+
+.right-bag-icon-container {
+  width: 30px;
+  height: 30px;
+  /* border: 1px solid; */
+  position: relative;
+}
+
+.cart-quantity-container {
+  position: absolute;
+  background-color: black;
+  color: white;
+  width: 18px;
+  height: 18px;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  top: 0%;
+  left: 55%;
 }
 
 .right-search-icon,
@@ -43,8 +67,8 @@
   position: absolute;
   top: 8%;
   right: 0;
-  left: 83%;
-  width: 6%;
+  left: 85%;
+  width: 8%;
   height: 9%;
   background-color: white;
   border: 1px solid #ccc;
@@ -67,7 +91,7 @@
 }
 
 .loggedin-popup {
-  left: 87%;
+  left: 90%;
 }
 
 .my-page,
@@ -81,19 +105,48 @@
   align-items: center;
   width: 100vw;
   height: 40%;
-  gap: 2%;
+  gap: 1.3%;
   font-size: 1.1rem;
   font-weight: 500;
 }
 
-.bottom-women,
-.bottom-men,
-.bottom-cap,
-.bottom-shoes,
-.bottom-bag,
-.bottom-promotion,
-.bottom-trend {
+.nav-all,
+.nav-women,
+.nav-men,
+.nav-apparel,
+.nav-cap,
+.nav-shoes,
+.nav-bag {
+  text-decoration: none;
+  color: black;
   cursor: pointer;
+}
+
+.nav-all.active,
+.nav-women.active,
+.nav-men.active,
+.nav-apparel.active,
+.nav-cap.active,
+.nav-shoes.active,
+.nav-bag.active {
+  text-decoration: underline;
+}
+
+.nav-all:hover,
+.nav-women:hover,
+.nav-men:hover,
+.nav-apparel:hover,
+.nav-cap:hover,
+.nav-shoes:hover,
+.nav-bag:hover {
+  text-decoration: underline;
+  color: rgb(87, 85, 85);
+}
+
+.bottom-barrier {
+  width: 1px;
+  height: 30%;
+  background-color: rgb(219, 218, 218);
 }
 
 .bottom-promotion,

@@ -65,6 +65,10 @@
   margin-top: 20px;
 }
 
+.product-shipping-detail-info {
+  font-size: 18px;
+}
+
 .product-shipping-title {
   font-weight: bold;
   width: 50px;
@@ -97,7 +101,20 @@
   text-align: left;
 }
 
-.option-select {
+.product-options-container {
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.product-option-color,
+.product-option-size {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.option-select-color,
+.option-select-size {
   margin-top: 5px;
   padding: 8px;
   font-size: 14px;
@@ -109,20 +126,32 @@
   max-width: 200px;
 }
 
-.product-options {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
+.option-select-size {
+  margin-left: 10px;
 }
 
 .quantity-container {
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
   background-color: rgba(240, 240, 240, 0.733);
   padding: 20px 30px;
   border-radius: 5px;
   justify-content: space-between;
+}
+
+.quantity-label-separator {
+  margin: 0 7px;
+  color: #ccc;
+}
+
+.quantity-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.out-of-stock-text {
+  color: rgb(3, 120, 215);
 }
 
 .quantity-button-container {
@@ -136,10 +165,6 @@
   justify-content: center;
   border-radius: 5px;
   border: 1px solid #e3e3e3;
-}
-.quantity-label {
-  font-weight: bold;
-  margin-right: 10px;
 }
 
 .quantity-button {
@@ -178,7 +203,7 @@
 .add-to-bag-container {
   display: flex;
   align-items: center;
-  margin-top: 20px; /* 위쪽 여백 */
+  margin-top: 20px;
 }
 
 .add-to-bag-text {

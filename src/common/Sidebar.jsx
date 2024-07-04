@@ -1,13 +1,13 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarContainer = styled.div`
   flex: 1;
-  padding: 2rem;
+  padding: 0;
   position: sticky;
   top: 0;
-  height: 100vh;
-  overflow-y: hidden; /* 스크롤 제거 */
+  overflow-y: hidden;
 `;
 
 const SidebarTitle = styled.div`
@@ -33,6 +33,8 @@ const MenuItem = styled.div`
   padding: 0.5rem 0;
   font-size: 0.8rem;
   cursor: pointer;
+  color: ${({ active }) => (active ? "#007bff" : "inherit")};
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
   &:hover {
     text-decoration: underline;
     color: #007bff;
@@ -40,37 +42,54 @@ const MenuItem = styled.div`
 `;
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMenuItemClick = (path) => {
+    window.scrollTo({ top: 0 });
+    navigate(path);
+  };
+
+  const getMenuItemProps = (path) => ({
+    active: location.pathname === path,
+    onClick: () => handleMenuItemClick(path),
+  });
+
   return (
     <SidebarContainer>
       <SidebarTitle>마이페이지</SidebarTitle>
       <MenuSection>
         <MenuHeader>나의 쇼핑정보</MenuHeader>
         <MenuItem>주문/배송 조회</MenuItem>
-        <MenuItem>취소/교환/반품 내역</MenuItem>
-        <MenuItem>매장구매 내역</MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/purchases")}>
+          물품구매 내역
+        </MenuItem>
         <MenuItem>증빙서류 조회</MenuItem>
       </MenuSection>
       <MenuSection>
         <MenuHeader>나의 활동정보</MenuHeader>
-        <MenuItem>위시리스트</MenuItem>
-        <MenuItem>최근 본 상품</MenuItem>
-        <MenuItem>상품 리뷰</MenuItem>
-        <MenuItem>1:1 문의 내역</MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/wishlist")}>
+          장바구니 조회
+        </MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/register")}>
+          판매 상품 등록
+        </MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/product-registered")}>
+          등록된 판매 상품 조회
+        </MenuItem>
         <MenuItem>재입고 알림 내역</MenuItem>
       </MenuSection>
       <MenuSection>
         <MenuHeader>나의 혜택정보</MenuHeader>
         <MenuItem>마일리지</MenuItem>
         <MenuItem>포인트</MenuItem>
-        <MenuItem>쿠폰함</MenuItem>
-        <MenuItem>회원 등급/혜택 안내</MenuItem>
       </MenuSection>
       <MenuSection>
         <MenuHeader>나의 계정설정</MenuHeader>
-        <MenuItem>배송지 관리</MenuItem>
-        <MenuItem>내정보 관리</MenuItem>
         <MenuItem>간편로그인 계정관리</MenuItem>
-        <MenuItem>회원 탈퇴</MenuItem>
+        <MenuItem {...getMenuItemProps("/mypage/withdrawal")}>
+          회원 탈퇴
+        </MenuItem>
       </MenuSection>
     </SidebarContainer>
   );

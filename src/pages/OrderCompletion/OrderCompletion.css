@@ -1,0 +1,139 @@
+.order-completion-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 4%;
+  margin-bottom: 10%;
+  position: relative;
+}
+
+/* top */
+.top-completed-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10rem;
+  padding: 3%;
+}
+
+.completed-icon {
+  width: 20%;
+  height: 20%;
+  margin-left: 20rem;
+}
+
+.top-completed-right {
+  width: 80%;
+  margin-left: -10rem;
+}
+
+.completed-right-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(93, 94, 93);
+  margin-bottom: 1%;
+}
+
+.completed-right-subtitle {
+  margin-bottom: 2%;
+}
+
+.order-inquiry {
+  color: rgb(52, 155, 214);
+  font-weight: 600;
+}
+
+.completed-right-order-number {
+  margin-bottom: 1%;
+}
+
+.only-order-number {
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: rgb(93, 94, 93);
+}
+
+/* bottom */
+.bottom-completed {
+  width: 100%;
+  padding: 20px 0px 10px;
+}
+
+.bottom-completed-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.bottom-completed-box-container {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+}
+.bottom-completed-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.bottom-completed-table th,
+.bottom-completed-table td {
+  padding: 15px 0px 15px 15px;
+  text-align: left;
+}
+
+.bottom-completed-table th {
+  width: 10rem;
+}
+.bottom-completed-totalprice-text,
+.bottom-completed-PaymentMethod-text {
+  font-weight: bold;
+  background-color: #f1f1f1;
+  border-right: 1px solid #ddd;
+}
+
+.bottom-completed-totalprice-text {
+  border-bottom: 1px solid #ddd;
+}
+
+.bottom-completed-totalprice-price {
+  text-align: right;
+  font-size: 1.2em;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+.PaymentMethod-group {
+  width: 100%;
+  border-collapse: collapse;
+}
+.PaymentMethod-group th,
+.PaymentMethod-group td {
+  padding: 5px;
+  text-align: left;
+}
+.PaymentMethod-group th {
+  padding-right: 0;
+  width: 80px;
+  font-weight: normal;
+  color: #666;
+}
+.PaymentMethod-group td {
+  font-weight: bold;
+  color: #333;
+  padding-left: 0px;
+}
+
+.continue-button {
+  width: 15%;
+  height: 3rem;
+  background-color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid rgb(93, 94, 93);
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 3%;
+  margin-bottom: 5%;
+  cursor: pointer;
+}
