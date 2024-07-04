@@ -11,12 +11,12 @@ const EmptyRegistered = () => {
       <div className="empty-icon-container">
         <img src={empty} className="empty-icon" />
       </div>
-      <div className="empty-statement">판매 등록한 상품이 없습니다.</div>
+      <div className="empty-statement">등록한 판매 상품이 없습니다.</div>
       <button
         className="empty-continue-button"
-        onClick={() => navigate("/mypage")}
+        onClick={() => navigate("/mypage/register")}
       >
-        My Page
+        상품 판매 등록
       </button>
     </div>
   );
