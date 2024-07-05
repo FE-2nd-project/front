@@ -94,13 +94,13 @@ export function MDPICKSlider() {
       title: "Apparel",
       products: [
         {
-          id: 1,
+          id: 33,
           name: "바시티 넘버 그래픽 오버핏 반팔 티셔츠 뉴욕양키스",
           price: 59000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24F3ATSV034450BKS/thnail/003E33A99D7442FF843084080CB6F0D3.png",
         },
         {
-          id: 2,
+          id: 50,
           name: "베이직 카라배색 컴퍼터블핏 티셔츠 뉴욕양키스",
           price: 89000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24S3APQB024350IVS/thnail/7B3DB3D57B1142F385CFAD2FC67F1246.png",
@@ -125,7 +125,7 @@ export function MDPICKSlider() {
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ACPVL64N50CGS/thnail/E76A0878D6B64BA3B9A5A0D49E8386D6.png",
         },
         {
-          id: 5,
+          id: 43,
           name: "뉴핏 스트럭쳐 볼캡 샌프란시스코 자이언츠",
           price: 36000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M22N3ACP0802N14BKS/thnail/E0F2E66C59FA4A63B8502C5B9FD801EC.png",
@@ -144,19 +144,19 @@ export function MDPICKSlider() {
       title: "Shoes",
       products: [
         {
-          id: 7,
+          id: 47,
           name: "커브 러너 뉴욕양키스",
           price: 139000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ARNSPL4N50WHS/thnail/40E7D9C4379A4D4BB1B958A44C4EF1C4.png",
         },
         {
-          id: 8,
+          id: 56,
           name: "커브 러너 LA다저스",
           price: 139000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ARNSPL4N07BKS/thnail/07ED87BB11414CC68F6D6B149C784FE1.png",
         },
         {
-          id: 9,
+          id: 58,
           name: "에이스러너 뉴욕양키스",
           price: 99000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ARNACE4N50IVS/thnail/F461C432B3C74109BAA54E66F2EA5ADC.png",
@@ -169,7 +169,7 @@ export function MDPICKSlider() {
       title: "Bag",
       products: [
         {
-          id: 10,
+          id: 54,
           name: "나일론 카고백 뉴욕양키스",
           price: 129000,
           url: "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ABQM044N50BKS/thnail/5305443380CB487B9839BC22A111AEA6.png",
