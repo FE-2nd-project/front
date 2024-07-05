@@ -26,7 +26,7 @@ const bestItems = [
     url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=510,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24F3ATSV034450CRS/thnail/5F564FF089D54E309D174536E34BA753.png',
   },
   {
-    id: 16,
+    id: 53,
     name: '청키라이너 미드 클래식 모노그램 뉴욕양키스',
     price: 179000,
     url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3ASXCMM4N50PKS/thnail/CA4AFE8FE4F64B0E8BFA61D9AF51BC58.png',
@@ -38,7 +38,7 @@ const bestItems = [
     url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M24N3AORS024N07CRM/thnail/79ABF25EB6F144B0AA5605B258FAE232.png',
   },
   {
-    id: 18,
+    id: 38,
     name: 'N-COVER 언스트럭쳐 볼캡 뉴욕양키스',
     price: 36000,
     url: 'https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=1668,format=auto,fit=contain,onerror=redirect/images/goods/ec/M21N3ACP6601N50BKS/thnail/9326F48C2ABF4D47ACC5BC82CFF82B03.png',
