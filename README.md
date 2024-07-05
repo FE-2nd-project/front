@@ -26,16 +26,16 @@ AWS EC2를 이용해 배포가 된 백엔드 팀의 주소를 이용하여, HTTP
 카테고리 ALL을 눌렀을 때 페이지
 ![5](https://github.com/FE-2nd-project/front/assets/103073389/45420525-56dd-4c0b-a881-db447bc9ff7f)
 
-물품 상세 페이지
+물품 상세 페이지 (다른 아이디로 테스트하여, 물품 사진은 다를 수 있습니다)
 ![ㅋㅋ](https://github.com/FE-2nd-project/front/assets/103073389/5da5706a-82c6-4e49-9813-816757dad684)
 
-물품을 장바구니에 담은 후 마이 프로필내 장바구니 조회 
+물품을 장바구니에 담은 후 마이 프로필내 장바구니 조회 (다른 아이디로 테스트하여, 물품 사진은 다를 수 있습니다)
 ![7](https://github.com/FE-2nd-project/front/assets/103073389/83dd1ce1-fdf3-463c-b303-0cefa999263e)
 
 장바구니 조회 페이지 (다른 아이디로 테스트하여, 물품 사진은 다를 수 있습니다)
 ![8](https://github.com/FE-2nd-project/front/assets/103073389/0c145d4e-b5ca-42c7-a3e5-ca5cd75f1a66)
 
-장바구니 조회 페이지에서 물품 수정하기
+장바구니 조회 페이지에서 물품 수정하기 (다른 아이디로 테스트하여, 물품 사진은 다를 수 있습니다)
 ![6](https://github.com/FE-2nd-project/front/assets/103073389/d81e1e83-9a2c-4f0d-893b-94a78544572f)
 
 주문 결제 페이지
