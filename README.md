@@ -1,8 +1,13 @@
 MLB 쇼핑몰을 레퍼런스로 두고 만든 E-Commerce 프론트엔드 프로젝트입니다! 
+
 React, React-redux, Redux-Toolkit, React-router-dom, Axios 등을 사용하여 만들었습니다.
+
 각각 페이지에서 기능이 필요할 때마다 Axios를 사용해 서버로 요청을 보내고, HTTP 응답을 이용하여 실패 시, 예외 처리와 성공하였을 때는 적절한 페이지 리디렉션을 구현하였습니다.
+
 AWS EC2를 이용해 배포가 된 백엔드 팀의 주소를 이용하여, HTTP 요청을 하였습니다.
+
 프로젝트의 배포는 Vercel를 이용하여 배포하였습니다.
+
 배포 주소: https://second-front.vercel.app/
 
 회원 가입 페이지
