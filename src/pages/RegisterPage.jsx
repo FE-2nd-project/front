@@ -146,18 +146,14 @@ const RegisterPage = () => {
 
   const handlePriceChange = (e) => {
     let value = e.target.value;
-    // Remove any non-numeric characters (except decimal point)
     value = value.replace(/[^0-9.]/g, "");
 
-    // Convert the string to a number
     const numberValue = parseFloat(value);
 
     if (!isNaN(numberValue)) {
-      // Format the number to the locale string
       const formattedValue = numberValue.toLocaleString("en-US");
       setItemPrice(formattedValue);
     } else {
-      // If the value is not a valid number, reset the state
       setItemPrice("");
     }
   };
