@@ -9,10 +9,11 @@ import plus from "../../assets/plus.svg";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/reducer/cart-slice";
+import { useQueryClient } from "react-query";
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  //const productId = "4"; // 테스트용 제품아이디
+  const queryClient = useQueryClient();
   const currentEmail = localStorage.getItem("email");
   const [loading, setLoading] = useState(true);
 
@@ -111,6 +112,8 @@ const ProductDetail = () => {
       navigate("/cart");
       window.scrollTo({ top: 0 });
       console.log("성공");
+      //데이터 업데이트에 성공 후, 쿼리 무효화로 다음 요청 시 서버에 요청하게 됨
+      queryClient.invalidateQueries("getCartData");
     } catch (error) {
       console.error("post 요청 에러:", error);
     }
