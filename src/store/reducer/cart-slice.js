@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { useQuery, userQueryClient } from "react-query";
 import axios from "axios";
 
 export const getCartData = () => {
@@ -21,6 +22,14 @@ export const getCartData = () => {
       .catch((error) => {
         console.error(error, "장바구니 조회 요청 실패");
       });
+
+    // const { data, error, isLoading } = useQuery("getCartData", async () => {
+    //   const response = await axios.get(
+    //     `${process.env.REACT_APP_SERVER_URL}/api/cart`,
+    //     { headers: { Authorization: `Bearer ${accessToken}` } }
+    //   );
+    //   return response.data;
+    // });
   };
 };
 
