@@ -8,7 +8,7 @@ AWS EC2를 이용해 배포가 된 백엔드 팀의 주소를 이용하여, HTTP
 
 프로젝트의 배포는 Vercel를 이용하여 배포하였습니다.
 
-배포 주소: https://second-front.vercel.app/
+배포 주소: http://second-front.vercel.app/
 
 회원 가입 페이지
 ![1](https://github.com/FE-2nd-project/front/assets/103073389/a12c4be7-6b8c-4b6b-88f1-3d2be1725b50)
